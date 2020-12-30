@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <array name="preloaded_fonts" translatable="false">
+        <item>@font/aclonica</item>
+        <item>@font/amatica_sc_bold</item>
+        <item>@font/andika</item>
+        <item>@font/anton</item>
+        <item>@font/atomic_age</item>
+        <item>@font/autour_one</item>
+        <item>@font/carrois_gothic_sc</item>
+        <item>@font/caveat_brush</item>
+        <item>@font/frijole</item>
+        <item>@font/fruktur</item>
+        <item>@font/hanalei</item>
+        <item>@font/knewave</item>
+        <item>@font/rammetto_one</item>
+    </array>
+</resources>
