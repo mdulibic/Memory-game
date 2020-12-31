@@ -16,7 +16,7 @@ import kotlinx.android.synthetic.main.activity_menu.profileimg
 
 
 class MenuActivity : AppCompatActivity() {
-
+//komentarrr
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
