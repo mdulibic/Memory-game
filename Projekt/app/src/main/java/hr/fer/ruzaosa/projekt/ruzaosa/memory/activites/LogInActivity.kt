@@ -74,7 +74,7 @@ class LogInActivity : AppCompatActivity() {
                     response: Response<ResponseBody>
                 ) {
                     if (response.code() == 200) {
-                        // komentar
+                        // komentar 3
                         Toast.makeText(this@LogInActivity, "Login success!", Toast.LENGTH_SHORT)
                             .show()
                         startActivity(Intent(this@LogInActivity,MenuActivity::class.java))
