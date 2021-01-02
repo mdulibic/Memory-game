@@ -22,6 +22,7 @@ import retrofit2.Retrofit
 class LogInActivity : AppCompatActivity() {
     //ovo je login
     //ovo je drugi komentar
+    //proba
     lateinit var username: EditText
     lateinit var password: EditText
     lateinit var btnLogin: Button
