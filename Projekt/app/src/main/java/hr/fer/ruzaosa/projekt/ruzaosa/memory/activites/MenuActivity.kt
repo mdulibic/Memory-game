@@ -1,6 +1,8 @@
 package hr.fer.ruzaosa.lecture4.ruzaosa.k.activites
 
+import android.content.Intent
 import  android.os.Bundle
+import android.os.Handler
 import android.view.View
 import android.view.animation.AnimationUtils
 import android.widget.EditText
@@ -8,6 +10,7 @@ import android.widget.ImageView
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.GameActivity
 import kotlinx.android.synthetic.main.activity_menu.*
 import kotlinx.android.synthetic.main.activity_menu.leaderboardimg
 import kotlinx.android.synthetic.main.activity_menu.playimg
@@ -38,7 +41,13 @@ class MenuActivity : AppCompatActivity() {
         playimg.setBackgroundResource(R.drawable.roundbutton)
 
         menutxt.startAnimation(float)
-        playimg.setOnClickListener { playimg.startAnimation(pulse) }
+        playimg.setOnClickListener {
+            playimg.startAnimation(pulse)
+            Handler().postDelayed({
+                val myIntent = Intent(this@MenuActivity, GameActivity::class.java)
+                this@MenuActivity.startActivity(myIntent)
+            }, 400)
+        }
         leaderboardimg.setOnClickListener { leaderboardimg.startAnimation(pulse) }
         profileimg.setOnClickListener { profileimg.startAnimation(pulse) }
 
