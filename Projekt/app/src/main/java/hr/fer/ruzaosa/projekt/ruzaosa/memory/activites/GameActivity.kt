@@ -10,6 +10,7 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.Toast
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
 import kotlinx.android.synthetic.main.*
 import kotlinx.android.synthetic.main.activity_game.*
 import java.lang.Math.*
@@ -20,10 +21,7 @@ class GameActivity : AppCompatActivity() {
     private lateinit var buttons: List<ImageButton>
     private lateinit var cards: List<Card>
     private var indexOfSingleSelectedCard: Int = -1
-    private var myScore: Int = 0
-    private var otherScore: Int = 0
-    private var turns: Int = 0
-    //private var myTurn: Boolean = ((1..10).random() % 2 == 0) true : false
+    private var foundPairs: Int = 0
 
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +33,6 @@ class GameActivity : AppCompatActivity() {
         } catch (e: NullPointerException) { }
 
         myplayer.setBackgroundResource(R.drawable.roundbutton)
-        otherplayer.setBackgroundResource(R.drawable.roundbutton)
         quitGameBtn.setOnClickListener{ finish() }
 
         val images = mutableListOf(R.drawable.bijela, R.drawable.crvena, R.drawable.zuta, R.drawable.narancasta,
@@ -123,6 +120,12 @@ class GameActivity : AppCompatActivity() {
         if (cards[position1].id == cards[position2].id) {
             cards[position1].isMatched = true
             cards[position2].isMatched = true
+            foundPairs=foundPairs+2;
+            if(foundPairs==30){
+                Handler().postDelayed({
+                startActivity(Intent(this@GameActivity, MenuActivity::class.java))
+                }, 400)
+            }
             return true
         }
         return false
