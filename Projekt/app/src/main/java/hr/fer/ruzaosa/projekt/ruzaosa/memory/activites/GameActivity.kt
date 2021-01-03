@@ -125,6 +125,8 @@ class GameActivity : AppCompatActivity() {
                 Handler().postDelayed({
                 startActivity(Intent(this@GameActivity, MenuActivity::class.java))
                 }, 400)
+                Toast.makeText(this@GameActivity, "You have found all the pairs, well done!", Toast.LENGTH_SHORT)
+                    .show()
             }
             return true
         }
