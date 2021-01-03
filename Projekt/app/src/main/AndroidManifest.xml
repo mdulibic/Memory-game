@@ -26,7 +26,8 @@
     </activity>
         <activity android:name="hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.RegistrationActivity">
         </activity>
-        <activity android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.GameActivity"></activity>
+        <activity android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.GameActivity">
+        </activity>
     </application>
 
 </manifest>
