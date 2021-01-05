@@ -29,6 +29,8 @@ public class User {
     private String username;
     @NotBlank(message = "Password name cannot be emtpy")
     private String password;
+    @Column(name = "token")
+    private String token;
 
     public void setId(Long id) {
         this.id = id;
@@ -54,6 +56,10 @@ public class User {
         this.password = password;
     }
 
+    public void setToken(String token) {
+        this.token = token;
+    }
+
     public Long getId() {
         return id;
     }
@@ -77,4 +83,9 @@ public class User {
     public String getPassword() {
         return password;
     }
+    public String getToken() {
+        return token;
+    }
+
+
 }

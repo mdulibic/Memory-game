@@ -6,6 +6,8 @@ import android.os.Bundle
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.firebase.messaging.FirebaseMessaging
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
@@ -33,17 +35,23 @@ class RegistrationActivity : AppCompatActivity() {
             val username = username1.text.toString()
             val email = email1.text.toString()
             val password = password1.text.toString()
+            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                if (!task.isSuccessful) {
+                    return@OnCompleteListener
+                }
+                val token = task.result.toString()
+                signup(firstName,lastName,username,email,password,token)
+            })
 
-            signup(firstName,lastName,username,email,password)
 
         }
     }
 
     private fun signup(firstName: String, lastName: String, username: String,
-                      email: String, password: String){
+                      email: String, password: String,token :String){
 
         val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
-        val registerInfo = User(firstName,lastName,username,email,password)
+        val registerInfo = User(firstName,lastName,username,email,password,token)
 
         retIn.registerUser(registerInfo).enqueue(object :
             Callback<ResponseBody> {
