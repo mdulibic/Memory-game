@@ -30,12 +30,18 @@
         <activity android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.GameActivity">
         </activity>
         <service
-            android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.MyFirebaseMessagingService"
-            android:exported="false">
+            android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.MyFirebaseMessagingService">
             <intent-filter>
-                <action android:name="com.google.firebase.MESSAGING_EVENT" />
+                <action android:name="com.google.firebase.MESSAGING_EVENT"/>
             </intent-filter>
         </service>
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_icon"
+            android:resource="@drawable/logo" />
+        <meta-data
+            android:name="com.google.firebase.messaging.default_notification_color"
+            android:resource="@color/design_default_color_background" />
+
     </application>
 
 

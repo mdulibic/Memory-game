@@ -120,8 +120,8 @@ class GameActivity : AppCompatActivity() {
         if (cards[position1].id == cards[position2].id) {
             cards[position1].isMatched = true
             cards[position2].isMatched = true
-            foundPairs=foundPairs+2;
-            if(foundPairs==30){
+            foundPairs=foundPairs+1;
+            if(foundPairs==15){
                 Handler().postDelayed({
                 startActivity(Intent(this@GameActivity, MenuActivity::class.java))
                 }, 400)

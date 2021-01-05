@@ -1,17 +1,16 @@
 package hr.fer.ruzaosa.projekt.ruzaosa.memory
 
 import android.util.Log
+import com.google.firebase.iid.FirebaseInstanceId
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
+
 
 class MyFirebaseMessagingService: FirebaseMessagingService() {
 
-    /**
-     * Called when message is received.
-     *
-     * @param remoteMessage Object representing the message received from Firebase Cloud Messaging.
-     */
-    override fun onMessageReceived(remoteMessage: RemoteMessage) {
+    override fun onMessageReceived(remoteMessage: RemoteMessage) {//kad primimo poruku ovdje je handleamo
         // Check if message contains a data payload.
         if (remoteMessage.data.isNotEmpty()) {
             Log.d(TAG, "Message data payload: ${remoteMessage.data}")
@@ -19,27 +18,15 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         }
     }
 
-    /**
-     * Called if the FCM registration token is updated. This may occur if the security of
-     * the previous token had been compromised. Note that this is called when the
-     * FCM registration token is initially generated so this is where you would retrieve the token.
-     */
+
     override fun onNewToken(token: String) {
         Log.d(TAG, "Refreshed token: $token")
-
-        // If you want to send messages to this application instance or
-        // manage this apps subscriptions on the server side, send the
-        // FCM registration token to your app server.
-        sendRegistrationToServer(token)
+        updateToken(token)
     }
 
-    /**
-     * Persist new token to backend service
-     * @param token The new token.
-     */
-    private fun sendRegistrationToServer(token: String?) {
-        // TODO: Implement this method to send token to your app server.
-        Log.d(TAG, "sendRegistrationTokenToServer($token)")
+    private fun updateToken(token: String) {
+        val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
+        retIn.updateUserToken(token)
     }
 
 

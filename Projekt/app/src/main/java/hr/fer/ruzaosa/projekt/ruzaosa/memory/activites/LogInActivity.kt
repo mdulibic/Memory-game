@@ -3,20 +3,26 @@ package hr.fer.ruzaosa.lecture4.ruzaosa.k.activites
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
+import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.OnSuccessListener
+import com.google.firebase.iid.FirebaseInstanceId
+import com.google.firebase.iid.InstanceIdResult
+import com.google.firebase.messaging.FirebaseMessaging
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.LogInBody
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.MyFirebaseMessagingService
 import okhttp3.ResponseBody
+import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
-import retrofit2.Call
-import retrofit2.Retrofit
 
 
 class LogInActivity : AppCompatActivity() {
@@ -40,9 +46,9 @@ class LogInActivity : AppCompatActivity() {
         btnLogin.setOnClickListener {
             if (TextUtils.isEmpty(username.text.toString()) || TextUtils.isEmpty(password.text.toString())) {
                 Toast.makeText(
-                    this@LogInActivity,
-                    "Username / Password Required",
-                    Toast.LENGTH_LONG
+                        this@LogInActivity,
+                        "Username / Password Required",
+                        Toast.LENGTH_LONG
                 ).show()
             } else {
                 val username = username.text.toString()
@@ -64,25 +70,24 @@ class LogInActivity : AppCompatActivity() {
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                     Toast.makeText(
-                        this@LogInActivity,
-                        t.message,
-                        Toast.LENGTH_SHORT
+                            this@LogInActivity,
+                            t.message,
+                            Toast.LENGTH_SHORT
                     ).show()
                 }
 
                 override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
+                        call: Call<ResponseBody>,
+                        response: Response<ResponseBody>
                 ) {
                     if (response.code() == 200) {
-                        // komentar 2
                         Toast.makeText(this@LogInActivity, "Login success!", Toast.LENGTH_SHORT)
-                            .show()
-                        startActivity(Intent(this@LogInActivity,MenuActivity::class.java))
+                                .show()
+                        startActivity(Intent(this@LogInActivity, MenuActivity::class.java))
 
                     } else {
                         Toast.makeText(this@LogInActivity, "Login failed!", Toast.LENGTH_SHORT)
-                            .show()
+                                .show()
                     }
                 }
             })
