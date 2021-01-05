@@ -30,6 +30,7 @@ class RegistrationActivity : AppCompatActivity() {
         val btnRegister = findViewById<Button>(R.id.registerButton)
 
         btnRegister.setOnClickListener {
+            btnRegister.isClickable = false
             val firstName = firstName1.text.toString()
             val lastName = lastName1.text.toString()
             val username = username1.text.toString()

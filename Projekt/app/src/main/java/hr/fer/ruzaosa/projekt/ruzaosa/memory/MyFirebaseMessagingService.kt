@@ -26,7 +26,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     private fun updateToken(token: String) {
         val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
-        retIn.updateUserToken(token)
+        //retIn.updateUserToken(token)
     }
 
 

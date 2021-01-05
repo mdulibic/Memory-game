@@ -44,19 +44,23 @@ class LogInActivity : AppCompatActivity() {
 
 
         btnLogin.setOnClickListener {
+            btnLogin.isClickable = false
             if (TextUtils.isEmpty(username.text.toString()) || TextUtils.isEmpty(password.text.toString())) {
+                btnLogin.isClickable = true
                 Toast.makeText(
                         this@LogInActivity,
                         "Username / Password Required",
                         Toast.LENGTH_LONG
                 ).show()
             } else {
+
                 val username = username.text.toString()
                 val password = password.text.toString()
                 login(username, password)
             }
         }
         register.setOnClickListener {
+            register.isClickable = false
             val intent = Intent(this, RegistrationActivity::class.java)
             startActivity(intent)
             finish()
