@@ -1,6 +1,7 @@
 package hr.fer.ruzaosa.projekt.ruzaosa.memory.activites
 
 import android.content.Intent
+import android.graphics.Color
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
@@ -34,6 +35,12 @@ class GameActivity : AppCompatActivity() {
 
         myplayer.setBackgroundResource(R.drawable.roundbutton)
         quitGameBtn.setOnClickListener{ finish() }
+        timer.start()
+        progressBar.apply {
+            progressBarColor = Color.WHITE
+            progressMax = 100f
+            progressBarWidth = 6f
+        }
 
         val images = mutableListOf(R.drawable.bijela, R.drawable.crvena, R.drawable.zuta, R.drawable.narancasta,
                 R.drawable.crna, R.drawable.siva, R.drawable.roza, R.drawable.smeda,
@@ -120,12 +127,18 @@ class GameActivity : AppCompatActivity() {
         if (cards[position1].id == cards[position2].id) {
             cards[position1].isMatched = true
             cards[position2].isMatched = true
+
+            progressBar.apply {
+                setProgressWithAnimation(progress + 6.66666f, 400)
+            }
+
             foundPairs=foundPairs+1;
             if(foundPairs==15){
+                timer.stop()
                 Handler().postDelayed({
                 startActivity(Intent(this@GameActivity, MenuActivity::class.java))
                 }, 400)
-                Toast.makeText(this@GameActivity, "You have found all the pairs, well done!", Toast.LENGTH_SHORT)
+                Toast.makeText(this@GameActivity, "You have completed the puzzle in " + timer.text +"s", Toast.LENGTH_SHORT)
                     .show()
             }
             return true

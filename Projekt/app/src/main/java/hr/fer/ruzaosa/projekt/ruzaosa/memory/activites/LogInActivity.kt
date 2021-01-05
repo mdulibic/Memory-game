@@ -63,8 +63,6 @@ class LogInActivity : AppCompatActivity() {
             register.isClickable = false
             val intent = Intent(this, RegistrationActivity::class.java)
             startActivity(intent)
-            finish()
-
         }
     }
         private fun login(username: String, password: String) {
