@@ -12,6 +12,7 @@ import android.widget.ImageButton
 import android.widget.Toast
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import kotlinx.android.synthetic.main.*
 import kotlinx.android.synthetic.main.activity_game.*
 import java.lang.Math.*
@@ -102,14 +103,29 @@ class GameActivity : AppCompatActivity() {
             // otvorena je jedna karta i mi smo sad drugu
             val flipAndFadeOut: Animation? = AnimationUtils.loadAnimation(this, R.anim.flip_fade_out)
             var previous: Int = indexOfSingleSelectedCard // indeks prethodno otvorene
+
+            for (i in 0..29) { buttons[i].isClickable = false }
+
             if (!checkForMatch(indexOfSingleSelectedCard, position)) {
                 Handler().postDelayed({
                     buttons[previous].startAnimation(flipAndFadeOut)
                     buttons[position].startAnimation(flipAndFadeOut)
                     buttons[previous].setImageResource(R.drawable.nalicje)
                     buttons[position].setImageResource(R.drawable.nalicje)
+                    cards[previous].isOpened = false
+                    cards[position].isOpened = false
+                    for (i in 0..29) { buttons[i].isClickable = true}
+
                 }, 1000)
             }
+            else {
+                Handler().postDelayed({
+                    for (i in 0..29) {
+                        buttons[i].isClickable = true
+                    }
+                }, 1000)
+            }
+
             indexOfSingleSelectedCard = -1
         }
         card.isOpened = !card.isOpened
@@ -138,7 +154,7 @@ class GameActivity : AppCompatActivity() {
                 Handler().postDelayed({
                 startActivity(Intent(this@GameActivity, MenuActivity::class.java))
                 }, 400)
-                Toast.makeText(this@GameActivity, "You have completed the puzzle in " + timer.text +"s", Toast.LENGTH_SHORT)
+                Toast.makeText(this@GameActivity, "You have completed the puzzle in " + timer.text +"s", Toast.LENGTH_LONG)
                     .show()
             }
             return true
