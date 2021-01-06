@@ -1,3 +1,4 @@
 <resources>
     <string name="app_name">Memory</string>
+    <string name="username">username</string>
 </resources>

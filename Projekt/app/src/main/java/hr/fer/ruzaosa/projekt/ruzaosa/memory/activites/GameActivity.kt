@@ -24,17 +24,19 @@ class GameActivity : AppCompatActivity() {
     private lateinit var cards: List<Card>
     private var indexOfSingleSelectedCard: Int = -1
     private var foundPairs: Int = 0
-
+    private lateinit var username: String
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
+        //povuci username iz firebase
 
         try {
             this.supportActionBar!!.hide()
         } catch (e: NullPointerException) { }
 
         myplayer.setBackgroundResource(R.drawable.roundbutton)
+        myPlayerUsername.setText(username)
         quitGameBtn.setOnClickListener{ finish() }
         timer.start()
         progressBar.apply {
