@@ -13,7 +13,8 @@
         android:layout_height="139dp"
         app:srcCompat="@drawable/kvadratici_dolje"
         tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="606dp" />
+        tools:layout_editor_absoluteY="606dp"
+        tools:ignore="MissingConstraints" />
 
     <ImageView
         android:id="@+id/imageView8"
