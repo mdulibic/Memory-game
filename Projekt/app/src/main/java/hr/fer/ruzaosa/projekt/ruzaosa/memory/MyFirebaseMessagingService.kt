@@ -29,7 +29,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
         val username = prefs.getString("username", "No name defined").toString() //"No name defined" is the default value
         val update= User("","", username,"","",token)
-        retIn.updateUserToken(update)
+        retIn.updateToken(update)
     }
 
 
