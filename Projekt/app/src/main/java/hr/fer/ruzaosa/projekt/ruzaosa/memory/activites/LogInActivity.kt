@@ -1,6 +1,8 @@
 package hr.fer.ruzaosa.lecture4.ruzaosa.k.activites
 
+import android.content.Context
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
@@ -25,6 +27,9 @@ class LogInActivity : AppCompatActivity() {
     lateinit var btnLogin: Button
     lateinit var register: TextView
 
+    // dupli preferences
+    // var prefs = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
+    // var editor: SharedPreferences.Editor = prefs.edit()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -45,6 +50,10 @@ class LogInActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG
                 ).show()
             } else {
+                // pokusala poslat prefs
+//                editor.putString("Username", username.text.toString())
+//                editor.putString("ActivityStatus", "active")
+//                editor.commit()
 
                 val username = username.text.toString()
                 val password = password.text.toString()

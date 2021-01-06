@@ -8,7 +8,7 @@
     tools:context="hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.ActivePlayersActivity">
 
     <ListView
-        android:id="@+id/activePlayersList"
+        android:id="@+id/activePlayersListView"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@id/exitActivePlayers" />
@@ -17,7 +17,7 @@
         android:id="@+id/textView2"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:layout_above="@id/activePlayersList"
+        android:layout_above="@id/activePlayersListView"
         android:layout_alignParentTop="true"
         android:layout_centerHorizontal="true"
         android:fontFamily="@font/rammetto_one"
