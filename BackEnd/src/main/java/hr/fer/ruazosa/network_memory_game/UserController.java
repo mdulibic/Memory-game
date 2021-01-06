@@ -69,4 +69,11 @@ public class UserController {
         }
 
     }
+    @PostMapping("/updateToken")
+    public ResponseEntity<Object> updateUser(@RequestBody User user) {
+        if(userService.updateUserToken(user)){
+            return new ResponseEntity<Object>(user, HttpStatus.OK);
+        }return new ResponseEntity<Object>(user, HttpStatus.NOT_ACCEPTABLE);
+
+    }
 }

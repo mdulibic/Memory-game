@@ -31,4 +31,14 @@ public class UserService implements IUserService {
         }
         return userRepository.findByUserNameAndPassword(user.getUsername(), user.getPassword()).get(0);
     }
+
+    @Override
+    public boolean updateUserToken(User user) {
+        if(userRepository.findByUserName(user.getUsername()).get(0)==null){
+            return false;
+        }
+        User myUser=userRepository.findByUserName(user.getUsername()).get(0);
+        myUser.setToken(user.getToken());
+        return true;
+    }
 }

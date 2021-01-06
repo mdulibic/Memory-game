@@ -1,6 +1,5 @@
 package hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit
 
-import android.telecom.Call
 import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.Headers
@@ -16,6 +15,13 @@ interface UsersService {
     fun registerUser(
         @Body info: User
     ): retrofit2.Call<ResponseBody>
+    @Headers("Content-Type:application/json")
+    @POST("updateToken")
+    fun updateToken(
+            @Body info: User
+    ): retrofit2.Call<ResponseBody>
+
+
 
 
 }

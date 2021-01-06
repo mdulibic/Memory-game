@@ -3,22 +3,15 @@ package hr.fer.ruzaosa.lecture4.ruzaosa.k.activites
 import android.content.Intent
 import android.os.Bundle
 import android.text.TextUtils
-import android.util.Log
 import android.widget.Button
 import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.android.gms.tasks.OnCompleteListener
-import com.google.android.gms.tasks.OnSuccessListener
-import com.google.firebase.iid.FirebaseInstanceId
-import com.google.firebase.iid.InstanceIdResult
-import com.google.firebase.messaging.FirebaseMessaging
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.LogInBody
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
-import hr.fer.ruzaosa.projekt.ruzaosa.memory.MyFirebaseMessagingService
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -26,8 +19,7 @@ import retrofit2.Response
 
 
 class LogInActivity : AppCompatActivity() {
-    //ovo je login
-    //ovo je drugi komentar
+    val PREFS = "MyPrefsFile"
     lateinit var username: EditText
     lateinit var password: EditText
     lateinit var btnLogin: Button
@@ -85,6 +77,9 @@ class LogInActivity : AppCompatActivity() {
                     if (response.code() == 200) {
                         Toast.makeText(this@LogInActivity, "Login success!", Toast.LENGTH_SHORT)
                                 .show()
+                        val editor = getSharedPreferences(PREFS, MODE_PRIVATE).edit()
+                        editor.putString("username", username)
+                        editor.apply()
                         startActivity(Intent(this@LogInActivity, MenuActivity::class.java))
 
                     } else {
