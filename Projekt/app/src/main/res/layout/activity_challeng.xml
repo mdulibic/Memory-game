@@ -11,11 +11,25 @@
         android:id="@+id/imageView6"
         android:layout_width="150dp"
         android:layout_height="150dp"
-        android:layout_marginEnd="261dp"
         app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
+        app:srcCompat="@drawable/kvadratici_dolje"
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-6dp" />
+
+    <ImageView
+        android:id="@+id/imageView8"
+        android:layout_width="134dp"
+        android:layout_height="189dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginBottom="560dp"
+        android:rotationX="180"
+        android:rotationY="180"
+        app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
-        app:srcCompat="@drawable/kvadratici_dolje" />
+        app:srcCompat="@drawable/bzvz2" />
 
     <ImageView
         android:id="@+id/imageView9"
@@ -54,7 +68,6 @@
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_marginStart="104dp"
-        android:layout_marginTop="29dp"
         android:layout_marginEnd="104dp"
         android:fontFamily="@font/rammetto_one"
         android:text="challenged you!"
@@ -63,7 +76,7 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintHorizontal_bias="0.0"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/textView" />
+        tools:layout_editor_absoluteY="408dp" />
 
     <Button
         android:id="@+id/buttonAccept"
