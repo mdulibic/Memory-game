@@ -41,9 +41,11 @@ class LogInActivity : AppCompatActivity() {
 
 
         btnLogin.setOnClickListener {
-            btnLogin.isClickable = false
+            btnLogin.isEnabled = false
+            btnLogin.text = "LOGGING IN"
             if (TextUtils.isEmpty(username.text.toString()) || TextUtils.isEmpty(password.text.toString())) {
-                btnLogin.isClickable = true
+                btnLogin.isEnabled = true
+                btnLogin.text = "LOGIN"
                 Toast.makeText(
                         this@LogInActivity,
                         "Username / Password Required",
@@ -72,9 +74,11 @@ class LogInActivity : AppCompatActivity() {
             retIn.login(logInInfo).enqueue(object : Callback<ResponseBody> {
 
                 override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                    btnLogin.isEnabled = true
+                    btnLogin.text = "LOGIN"
                     Toast.makeText(
                             this@LogInActivity,
-                            t.message,
+                            "Unknown error!",
                             Toast.LENGTH_SHORT
                     ).show()
                 }
@@ -92,8 +96,13 @@ class LogInActivity : AppCompatActivity() {
                         startActivity(Intent(this@LogInActivity, MenuActivity::class.java))
 
                     } else {
-                        Toast.makeText(this@LogInActivity, "Login failed!", Toast.LENGTH_SHORT)
-                                .show()
+                        btnLogin.isEnabled = true
+                        btnLogin.text = "LOGIN"
+                        Toast.makeText(
+                                this@LogInActivity,
+                                "Username / Password invalid",
+                                Toast.LENGTH_SHORT
+                        ).show()
                     }
                 }
             })

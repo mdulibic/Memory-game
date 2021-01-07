@@ -3,6 +3,7 @@ package hr.fer.ruzaosa.lecture4.ruzaosa.k.activites
 import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
@@ -18,6 +19,7 @@ import retrofit2.Callback
 import retrofit2.Response
 
 class RegistrationActivity : AppCompatActivity() {
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
@@ -30,33 +32,47 @@ class RegistrationActivity : AppCompatActivity() {
         val btnRegister = findViewById<Button>(R.id.registerButton)
 
         btnRegister.setOnClickListener {
-            btnRegister.isClickable = false
-            val firstName = firstName1.text.toString()
-            val lastName = lastName1.text.toString()
-            val username = username1.text.toString()
-            val email = email1.text.toString()
-            val password = password1.text.toString()
-            FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
-                if (!task.isSuccessful) {
-                    return@OnCompleteListener
-                }
-                val token = task.result.toString()
-                signup(firstName,lastName,username,email,password,token)
-            })
-
-
+            btnRegister.isEnabled = false
+            btnRegister.text = "REGISTERING"
+            if (TextUtils.isEmpty(username1.text.toString()) || TextUtils.isEmpty(firstName1.text.toString()) ||
+                    TextUtils.isEmpty(lastName1.text.toString()) || TextUtils.isEmpty(email1.text.toString()) ||
+                    TextUtils.isEmpty(password1.text.toString())) {
+                btnRegister.isEnabled = true
+                btnRegister.text = "REGISTER"
+                Toast.makeText(
+                        this@RegistrationActivity,
+                        "One or more empty fields!",
+                        Toast.LENGTH_LONG
+                ).show()
+            } else {
+                val firstName = firstName1.text.toString()
+                val lastName = lastName1.text.toString()
+                val username = username1.text.toString()
+                val email = email1.text.toString()
+                val password = password1.text.toString()
+                FirebaseMessaging.getInstance().token.addOnCompleteListener(OnCompleteListener { task ->
+                    if (!task.isSuccessful) {
+                        return@OnCompleteListener
+                    }
+                    val token = task.result.toString()
+                    signup(firstName, lastName, username, email, password, token)
+                })
+            }
         }
     }
 
     private fun signup(firstName: String, lastName: String, username: String,
                       email: String, password: String,token :String){
 
+        val btnRegister = findViewById<Button>(R.id.registerButton)
         val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
         val registerInfo = User(firstName,lastName,username,email,password,token)
 
         retIn.registerUser(registerInfo).enqueue(object :
             Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                btnRegister.isEnabled = true
+                btnRegister.text = "REGISTER"
                 Toast.makeText(
                     this@RegistrationActivity,
                     t.message,
@@ -70,6 +86,8 @@ class RegistrationActivity : AppCompatActivity() {
                     startActivity(Intent(this@RegistrationActivity,LogInActivity::class.java))
                 }
                 else{
+                    btnRegister.isEnabled = true
+                    btnRegister.text = "REGISTER"
                     Toast.makeText(this@RegistrationActivity, "Registration failed!", Toast.LENGTH_SHORT)
                         .show()
                 }

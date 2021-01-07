@@ -11,25 +11,25 @@
         android:id="@+id/imageView6"
         android:layout_width="150dp"
         android:layout_height="150dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="1.0"
         app:srcCompat="@drawable/kvadratici_dolje"
-<<<<<<< HEAD
-        tools:layout_editor_absoluteX="0dp"
-        tools:layout_editor_absoluteY="606dp"
-        tools:ignore="MissingConstraints" />
+        tools:ignore="MissingConstraints"
+        tools:layout_editor_absoluteX="-6dp" />
 
     <ImageView
         android:id="@+id/imageView8"
         android:layout_width="134dp"
         android:layout_height="189dp"
+        android:layout_marginStart="292dp"
+        android:layout_marginBottom="560dp"
         android:rotationX="180"
         android:rotationY="180"
-        app:srcCompat="@drawable/bzvz2"
-        tools:layout_editor_absoluteX="282dp"
-        tools:layout_editor_absoluteY="-29dp" />
-=======
-        tools:layout_editor_absoluteX="-2dp"
-        tools:layout_editor_absoluteY="583dp" />
->>>>>>> a2daa2937c1d5bafb7f03aa20cb227f612ba2db8
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:srcCompat="@drawable/bzvz2" />
 
     <ImageView
         android:id="@+id/imageView9"
