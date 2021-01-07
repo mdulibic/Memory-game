@@ -7,12 +7,18 @@
     android:background="@color/background"
     tools:context="hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.ActivePlayersActivity">
 
+
     <ListView
         android:id="@+id/activePlayersList"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:layout_above="@id/exitActivePlayers" />
-
+        android:layout_width="0dp"
+        android:layout_height="594dp"
+        android:layout_above="@id/exitActivePlayers"
+        app:layout_constraintBottom_toTopOf="@+id/exitActivePlayers"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="1.0"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.809" />
 
     <Button
         android:id="@+id/exitActivePlayers"
@@ -28,6 +34,23 @@
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         app:layout_constraintStart_toStartOf="parent" />
+
+    <Button
+        android:id="@+id/simulBtn"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:layout_alignParentBottom="true"
+        android:layout_centerHorizontal="true"
+        android:backgroundTint="@color/blue"
+        android:fontFamily="@font/rammetto_one"
+        android:text="Simul challenge"
+        android:textColor="@color/white"
+        android:textSize="20dp"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.007" />
 
 
 </androidx.constraintlayout.widget.ConstraintLayout>
