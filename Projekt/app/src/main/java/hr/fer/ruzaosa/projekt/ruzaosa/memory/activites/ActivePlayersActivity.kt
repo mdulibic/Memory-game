@@ -13,6 +13,7 @@ public class ActivePlayersActivity : AppCompatActivity() {
 
 //    var prefs: SharedPreferences = applicationContext.getSharedPreferences("UserPrefs",
 //                                    Context.MODE_PRIVATE)
+    // pokušavam pushati komentar
 
     lateinit var activePlayersList: MutableList<String>
 
