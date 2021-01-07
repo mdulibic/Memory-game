@@ -17,7 +17,6 @@ import kotlinx.android.synthetic.main.*
 import kotlinx.android.synthetic.main.activity_game.*
 import java.lang.Math.*
 
-private const val TAG = "MainActivity"
 class GameActivity : AppCompatActivity() {
 
     private lateinit var buttons: List<ImageButton>
@@ -36,7 +35,8 @@ class GameActivity : AppCompatActivity() {
         } catch (e: NullPointerException) { }
 
         myplayer.setBackgroundResource(R.drawable.roundbutton)
-        myPlayerUsername.setText(username)
+            // kristo istuc cu te zbog ovoga >:(A
+        //myPlayerUsername.setText(username)
         quitGameBtn.setOnClickListener{ finish() }
         timer.start()
         progressBar.apply {
