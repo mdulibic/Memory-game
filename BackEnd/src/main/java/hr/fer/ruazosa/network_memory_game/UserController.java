@@ -77,5 +77,12 @@ public class UserController {
         }return new ResponseEntity<Object>(user, HttpStatus.NOT_ACCEPTABLE);
 
     }
-
+    //dodano
+    @PostMapping ("/chooseWinner")
+    public  ResponseEntity<Object> chooseWinner (@RequestBody Game game) {
+        if (chooseWinner(game) != null) {
+            return new ResponseEntity<Object>(game, HttpStatus.OK);
+        }
+        return new ResponseEntity<Object>(game, HttpStatus.NOT_ACCEPTABLE);
+    }
 }

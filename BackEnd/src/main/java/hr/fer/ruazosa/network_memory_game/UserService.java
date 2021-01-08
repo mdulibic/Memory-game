@@ -41,4 +41,26 @@ public class UserService implements IUserService {
         myUser.setToken(user.getToken());
         return true;
     }
+
+    @Override
+    public User chooseWinner(Game game) {
+        //koliko ja kužim playerTime je ukupno vrijeme te se ono neće setirati ako je igtrač izašao iz igre
+        //sad nez šta ako obojica izađu, onda se niti jedno vrijeme neće settirati
+        //i ko je onda pobijedio?
+        //zato je ovako napravaljeno kao da izbaci jednog pobijednika tj ako su obojica izašla ili obojica imaju
+        //isto vrijeme pobijdnk je player1
+        if (game.getPlaytime1() != null && game.getPlayer2() != null) {
+            if (game.getPlaytime1().compareTo(game.getPlaytime2()) > 0) {
+                return game.getPlayer2();
+            }
+            else {
+                return  game.getPlayer1();
+            }
+        }
+        if (game.getPlayer1() == null) {
+            return game.getPlayer2();
+        } else {
+            return  game.getPlayer1();
+        }
+    }
 }
