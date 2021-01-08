@@ -7,10 +7,7 @@ import  android.os.Bundle
 import android.os.Handler
 import android.view.View
 import android.view.animation.AnimationUtils
-import android.widget.EditText
-import android.widget.ImageView
-import android.widget.TextView
-import android.widget.Toast
+import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.ActivePlayersActivity
@@ -26,6 +23,7 @@ class MenuActivity : AppCompatActivity() {
 
 //var prefs: SharedPreferences = applicationContext.getSharedPreferences("UserPrefs",
 //        Context.MODE_PRIVATE)
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
 
@@ -41,7 +39,7 @@ class MenuActivity : AppCompatActivity() {
         val leaderboardimg = findViewById<ImageView>(R.id.leaderboardimg)
         val playimg = findViewById<ImageView>(R.id.playimg)
         val menutxt=findViewById<TextView>(R.id.menutxt)
-
+        val activityswitch=findViewById<Switch>(R.id.active_switch)
         profileimg.setBackgroundResource(R.drawable.roundbutton)
         leaderboardimg.setBackgroundResource(R.drawable.roundbutton)
         playimg.setBackgroundResource(R.drawable.roundbutton)
@@ -58,5 +56,12 @@ class MenuActivity : AppCompatActivity() {
         leaderboardimg.setOnClickListener { leaderboardimg.startAnimation(pulse) }
         profileimg.setOnClickListener { profileimg.startAnimation(pulse) }
 
+        activityswitch.setOnCheckedChangeListener { buttonView, isChecked ->
+            if(isChecked){
+                activityswitch.text="ACTIVE"
+            }else{
+                activityswitch.text="INACTIVE"
+            }
+        }
     }
 }
