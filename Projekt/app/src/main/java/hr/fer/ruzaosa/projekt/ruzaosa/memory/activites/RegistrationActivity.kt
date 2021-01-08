@@ -7,12 +7,19 @@ import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.annotation.NonNull
 import com.google.android.gms.tasks.OnCompleteListener
+import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseUser
+import com.google.firebase.database.DatabaseReference
+import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.internal.api.FirebaseNoSignedInUserException
 import com.google.firebase.messaging.FirebaseMessaging
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
+import io.reactivex.internal.util.HalfSerializer.onComplete
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
@@ -62,36 +69,47 @@ class RegistrationActivity : AppCompatActivity() {
     }
 
     private fun signup(firstName: String, lastName: String, username: String,
-                      email: String, password: String,token :String){
+                       email: String, password: String, token: String) {
 
         val btnRegister = findViewById<Button>(R.id.registerButton)
         val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
-        val registerInfo = User(firstName,lastName,username,email,password,token)
+        val registerInfo = User(firstName, lastName, username, email, password, token)
 
         retIn.registerUser(registerInfo).enqueue(object :
-            Callback<ResponseBody> {
+                Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 btnRegister.isEnabled = true
                 btnRegister.text = "REGISTER"
                 Toast.makeText(
-                    this@RegistrationActivity,
-                    t.message,
-                    Toast.LENGTH_SHORT
+                        this@RegistrationActivity,
+                        t.message,
+                        Toast.LENGTH_SHORT
                 ).show()
             }
+
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.code() == 200) {
                     Toast.makeText(this@RegistrationActivity, "Registration success!", Toast.LENGTH_SHORT)
-                        .show()
-                    startActivity(Intent(this@RegistrationActivity,LogInActivity::class.java))
-                }
-                else{
+                            .show()
+                    addUserToFirebase()
+                    startActivity(Intent(this@RegistrationActivity, LogInActivity::class.java))
+                } else {
                     btnRegister.isEnabled = true
                     btnRegister.text = "REGISTER"
                     Toast.makeText(this@RegistrationActivity, "Registration failed!", Toast.LENGTH_SHORT)
-                        .show()
+                            .show()
                 }
             }
         })
+    }
+
+    private fun addUserToFirebase() {
+        var mDatabase: DatabaseReference
+        var newUser: DatabaseReference
+        var mCurrentUser: FirebaseUser
+        mDatabase= FirebaseDatabase.getInstance().getReference().child("users")
+
+
+
     }
 }

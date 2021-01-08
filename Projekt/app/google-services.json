@@ -1,33 +1,33 @@
 {
   "project_info": {
-    "project_number": "430836001547",
-    "project_id": "memory-cba04",
-    "storage_bucket": "memory-cba04.appspot.com"
+    "project_number": "716495789420",
+    "project_id": "memorygame-16b21",
+    "storage_bucket": "memorygame-16b21.appspot.com"
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:430836001547:android:88a7dbb964914f57fe900e",
+        "mobilesdk_app_id": "1:716495789420:android:f2b584d28ecc2a6b85e749",
         "android_client_info": {
-          "package_name": "hr.fer.ruzaosa.projekt.memorygame"
+          "package_name": "hr.fer.ruzaosa.projekt.ruzaosa.memory"
         }
       },
       "oauth_client": [
         {
-          "client_id": "430836001547-gej6spi40vpj210a72i5ceu63lsvojf8.apps.googleusercontent.com",
+          "client_id": "716495789420-pdginkm9nao3e7nbus308394b5q2nect.apps.googleusercontent.com",
           "client_type": 3
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyBezt40JZfccw54BxDQIB89_sGdBK6IXxg"
+          "current_key": "AIzaSyAXGHvVSSWu54EF5ExD0CMg99fFzBeCdks"
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "430836001547-gej6spi40vpj210a72i5ceu63lsvojf8.apps.googleusercontent.com",
+              "client_id": "716495789420-pdginkm9nao3e7nbus308394b5q2nect.apps.googleusercontent.com",
               "client_type": 3
             }
           ]
