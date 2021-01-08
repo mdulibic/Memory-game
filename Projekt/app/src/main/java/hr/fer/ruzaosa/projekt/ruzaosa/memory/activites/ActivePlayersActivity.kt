@@ -10,10 +10,6 @@ import kotlinx.android.synthetic.main.activity_active_players.*
 
 public class ActivePlayersActivity : AppCompatActivity() {
 
-//    var prefs: SharedPreferences = applicationContext.getSharedPreferences("UserPrefs",
-//                                    Context.MODE_PRIVATE)
-    // pokušavam pushati komentar
-
     lateinit var activePlayers: MutableList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -21,8 +17,14 @@ public class ActivePlayersActivity : AppCompatActivity() {
         setContentView(R.layout.activity_active_players)
 
           activePlayers = ArrayList<String>()
+/*
+        val usersList: Array<out String>? = intent.extras?.getStringArray("users")
+        activePlayers.addAll(usersList!!)
+L */
+
 //        var username = prefs.getString("Username", "")
 //        activePlayersList.add(username!!)
+
         activePlayers.add("username1")
         activePlayers.add("username2")
         activePlayers.add("username3")
