@@ -22,6 +22,7 @@ public class ActivePlayersActivity : AppCompatActivity() {
         activePlayers.addAll(usersList!!)
 L */
 
+
 //        var username = prefs.getString("Username", "")
 //        activePlayersList.add(username!!)
 
