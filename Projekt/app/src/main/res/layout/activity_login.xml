@@ -78,22 +78,6 @@
         app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
         app:layout_constraintVertical_bias="0.147" />
 
-    <Button
-        android:id="@+id/buttonSkip"
-        android:layout_width="93dp"
-        android:layout_height="61dp"
-        android:background="@color/violet"
-        android:fontFamily="@font/rammetto_one"
-        android:text="SKIP"
-        android:textColor="@color/white"
-        android:textSize="18sp"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.925"
-        app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toBottomOf="@+id/passwordEditText"
-        app:layout_constraintVertical_bias="0.93" />
-
     <TextView
         android:id="@+id/registerTextView"
         android:layout_width="wrap_content"

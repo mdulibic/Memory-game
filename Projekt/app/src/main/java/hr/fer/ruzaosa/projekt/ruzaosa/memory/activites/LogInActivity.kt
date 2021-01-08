@@ -85,11 +85,6 @@ L */
             startActivity(intent)
         }
 
-        buttonSkip.setOnClickListener {
-            val intent = Intent(this, MenuActivity::class.java)
-            startActivity(intent)
-        }
-
     }
         private fun login(username: String, password: String) {
             val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
