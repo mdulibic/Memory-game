@@ -10,24 +10,29 @@ import android.widget.Toast
 import androidx.annotation.NonNull
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.android.gms.tasks.Task
+import com.google.firebase.auth.FirebaseAuth
 import com.google.firebase.auth.FirebaseUser
 import com.google.firebase.database.DatabaseReference
 import com.google.firebase.database.FirebaseDatabase
+import com.google.firebase.database.ktx.database
 import com.google.firebase.internal.api.FirebaseNoSignedInUserException
+import com.google.firebase.ktx.Firebase
 import com.google.firebase.messaging.FirebaseMessaging
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
 import io.reactivex.internal.util.HalfSerializer.onComplete
+import kotlinx.android.synthetic.main.activity_registration.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
 class RegistrationActivity : AppCompatActivity() {
-
+    private lateinit var auth: FirebaseAuth
     override fun onCreate(savedInstanceState: Bundle?) {
+        auth = FirebaseAuth.getInstance()
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
 
@@ -91,7 +96,7 @@ class RegistrationActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     Toast.makeText(this@RegistrationActivity, "Registration success!", Toast.LENGTH_SHORT)
                             .show()
-                    addUserToFirebase()
+                    addUserToFirebase(username,token,email,password)
                     startActivity(Intent(this@RegistrationActivity, LogInActivity::class.java))
                 } else {
                     btnRegister.isEnabled = true
@@ -103,11 +108,32 @@ class RegistrationActivity : AppCompatActivity() {
         })
     }
 
-    private fun addUserToFirebase() {
-        var mDatabase: DatabaseReference
-        var newUser: DatabaseReference
-        var mCurrentUser: FirebaseUser
-        mDatabase= FirebaseDatabase.getInstance().getReference().child("users")
+    private fun addUserToFirebase(username:String,token:String,email:String,password:String) {
+        var mDatabase:DatabaseReference
+        var newUser:DatabaseReference
+        var mCurrentUser:FirebaseUser
+        mDatabase=FirebaseDatabase.getInstance().getReference().child("users")
+        auth.createUserWithEmailAndPassword(email, password)
+            .addOnCompleteListener(this) { task ->
+                if (task.isSuccessful) {
+
+                    mCurrentUser = task.getResult()?.user!!
+                    newUser=mDatabase.child(mCurrentUser.uid)
+                    newUser.child("token").setValue(token)
+
+                } else {
+
+
+                    Toast.makeText(baseContext, "Authentication failed.",
+                        Toast.LENGTH_SHORT).show()
+
+                }
+
+            }
+
+
+
+
 
 
 
