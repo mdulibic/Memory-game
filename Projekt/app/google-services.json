@@ -1,10 +1,40 @@
 {
   "project_info": {
     "project_number": "716495789420",
+    "firebase_url": "https://memorygame-16b21-default-rtdb.firebaseio.com",
     "project_id": "memorygame-16b21",
     "storage_bucket": "memorygame-16b21.appspot.com"
   },
   "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:716495789420:android:4a9b923ce267648585e749",
+        "android_client_info": {
+          "package_name": "hr.fer.ruzaosa.projekt.memorygame"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "716495789420-pdginkm9nao3e7nbus308394b5q2nect.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyAXGHvVSSWu54EF5ExD0CMg99fFzBeCdks"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "716495789420-pdginkm9nao3e7nbus308394b5q2nect.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    },
     {
       "client_info": {
         "mobilesdk_app_id": "1:716495789420:android:f2b584d28ecc2a6b85e749",
