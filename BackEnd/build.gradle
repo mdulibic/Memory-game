@@ -1,5 +1,5 @@
 plugins {
-	id 'org.springframework.boot' version '2.5.0-SNAPSHOT'
+	id 'org.springframework.boot' version '2.4.1-SNAPSHOT'
 	id 'io.spring.dependency-management' version '1.0.10.RELEASE'
 	id 'java'
     id 'org.jetbrains.kotlin.jvm' version '1.4.30-M1'
@@ -32,7 +32,6 @@ dependencies {
 	testImplementation 'org.springframework.boot:spring-boot-starter-test'
 	implementation 'org.springframework.boot:spring-boot-starter-validation'
 	implementation "org.jetbrains.kotlin:kotlin-stdlib-jdk8"
-
 }
 
 test {
