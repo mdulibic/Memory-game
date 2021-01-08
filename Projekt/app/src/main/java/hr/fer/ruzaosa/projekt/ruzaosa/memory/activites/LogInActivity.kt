@@ -33,9 +33,6 @@ class LogInActivity : AppCompatActivity() {
     lateinit var register: TextView
     var usersSet: MutableSet<String> = TreeSet()
     var usersList: ArrayList<String> = arrayListOf()
-    // dupli preferences
-    // var prefs = getSharedPreferences("UserPrefs", Context.MODE_PRIVATE)
-    // var editor: SharedPreferences.Editor = prefs.edit()
 
     var database = FirebaseDatabase.getInstance()
     var myRef = database.getReference("message")
@@ -48,19 +45,6 @@ class LogInActivity : AppCompatActivity() {
         btnLogin = findViewById(R.id.buttonLogin)
         register = findViewById(R.id.registerTextView)
 
-/*
-        myRef.root.child("users").addValueEventListener(object : ValueEventListener {
-            override fun onDataChange(dataSnapshot: DataSnapshot) {
-                updateUsers(dataSnapshot)
-                usersList.addAll(usersSet)
-            }
-
-            override fun onCancelled(error: DatabaseError) {
-                // Failed to read value
-                Toast.makeText(this@LogInActivity, "Failed to read", Toast.LENGTH_SHORT).show()
-            }
-        })
-L */
 
         btnLogin.setOnClickListener {
             btnLogin.isEnabled = false
@@ -110,16 +94,13 @@ L */
                         Toast.makeText(this@LogInActivity, "Login success!", Toast.LENGTH_SHORT)
                                 .show()
 
-/*
-                        myRef.root.child("users").setValue(username)
-L */
+
+
                         val editor = getSharedPreferences(PREFS, MODE_PRIVATE).edit()
                         editor.putString("username", username)
                         editor.apply()
                         var intent = Intent(this@LogInActivity, MenuActivity::class.java)
-/*
-                        intent.putExtra("users", usersList)
-L */
+
                         startActivity(intent)
 
                     } else {
@@ -135,19 +116,5 @@ L */
             })
         }
 
-/*
-    private fun updateUsers(dataSnapshot: DataSnapshot) {
-        var key: String? = ""
-        val i: Iterator<*> = dataSnapshot.children.iterator()
 
-        while (i.hasNext()) {
-            key = (i.next() as DataSnapshot).key
-            if (!key.equals(username.text.toString(), ignoreCase = true)) {
-                if (key != null) {
-                    usersSet.add(key)
-                }
-            }
-        }
-    }
-L */
 }

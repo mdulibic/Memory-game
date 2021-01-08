@@ -6,7 +6,7 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface UsersService {
-    @Headers("Content-Type:application/json")
+    @Headers("Content-Type:application/json")//UVIK OVAJ HEADER ZA NOVI POST
     @POST("loginUser")
     fun login(@Body info: LogInBody): retrofit2.Call<ResponseBody>
 
