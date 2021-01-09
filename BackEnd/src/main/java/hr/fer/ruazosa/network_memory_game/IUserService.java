@@ -5,5 +5,5 @@ public interface IUserService {
     boolean checkUsernameUnique(User user);
     User loginUser(User user);
     boolean updateUserToken(User user);
-    User chooseWinner (Game game); //dodano
+    Long chooseWinner (Game game); //dodano
 }

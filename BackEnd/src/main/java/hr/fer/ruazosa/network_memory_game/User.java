@@ -31,6 +31,8 @@ public class User {
     private String password;
     @Column(name = "token")
     private String token;
+    @Column(name = "wins")
+    private int wins;
 
     public void setId(Long id) {
         this.id = id;
@@ -60,6 +62,10 @@ public class User {
         this.token = token;
     }
 
+    public void setWins(int wins) {
+        this.wins = wins;
+    }
+
     public Long getId() {
         return id;
     }
@@ -83,8 +89,13 @@ public class User {
     public String getPassword() {
         return password;
     }
+
     public String getToken() {
         return token;
+    }
+
+    public int getWins() {
+        return wins;
     }
 
 

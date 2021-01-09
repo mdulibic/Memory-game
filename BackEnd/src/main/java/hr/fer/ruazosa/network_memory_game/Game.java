@@ -17,21 +17,23 @@ public class Game {
     @Column(name = "game_id")
     private Long id;
     @Column(name="player1_id")
-    private User player1;
+    private Long player1;
     @Column(name="player2_id")
-    private User player2;
+    private Long player2;
+    @Column(name="playtime_1")
     private LocalDateTime playtime1;
+    @Column(name="playtime_2")
     private LocalDateTime playtime2;
 
     public Long getId() {
         return id;
     }
 
-    public User getPlayer1() {
+    public Long getPlayer1() {
         return player1;
     }
 
-    public User getPlayer2() {
+    public Long getPlayer2() {
         return player2;
     }
 
@@ -41,18 +43,6 @@ public class Game {
 
     public LocalDateTime getPlaytime2() {
         return playtime2;
-    }
-
-    public void setId(Long id) {
-        this.id = id;
-    }
-
-    public void setPlayer1(User player1) {
-        this.player1 = player1;
-    }
-
-    public void setPlayer2(User player2) {
-        this.player2 = player2;
     }
 
     public void setPlaytime1(LocalDateTime playtime1) {

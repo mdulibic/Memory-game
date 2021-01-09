@@ -43,7 +43,7 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public User chooseWinner(Game game) {
+    public Long chooseWinner(Game game) {
         //koliko ja kužim playerTime je ukupno vrijeme te se ono neće setirati ako je igtrač izašao iz igre
         //sad nez šta ako obojica izađu, onda se niti jedno vrijeme neće settirati
         //i ko je onda pobijedio?

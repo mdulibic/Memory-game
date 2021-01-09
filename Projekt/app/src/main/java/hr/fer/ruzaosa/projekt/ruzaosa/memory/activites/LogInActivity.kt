@@ -8,10 +8,6 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.database.DataSnapshot
-import com.google.firebase.database.DatabaseError
-import com.google.firebase.database.FirebaseDatabase
-import com.google.firebase.database.ValueEventListener
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.LogInBody
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
@@ -34,8 +30,6 @@ class LogInActivity : AppCompatActivity() {
     var usersSet: MutableSet<String> = TreeSet()
     var usersList: ArrayList<String> = arrayListOf()
 
-    var database = FirebaseDatabase.getInstance()
-    var myRef = database.getReference("message")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
