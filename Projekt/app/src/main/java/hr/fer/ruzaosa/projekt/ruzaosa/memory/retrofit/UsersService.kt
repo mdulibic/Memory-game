@@ -21,7 +21,7 @@ interface UsersService {
             @Body info: User
     ): retrofit2.Call<ResponseBody>
 
-    // dodala
+    // dodala ovaj dio
  // @Headers("Content-Type:application/json")
  // @POST("chooseWinner")
  // fun chooseWinner(@Body info: Game): retrofit2.Call<ResponseBody> // kako uključiti Game u FrontEnd?
