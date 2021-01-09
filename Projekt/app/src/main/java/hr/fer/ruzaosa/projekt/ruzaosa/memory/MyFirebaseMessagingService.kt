@@ -18,6 +18,8 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         }
     }
 
+    // chosen Message Template: card
+
 
     override fun onNewToken(token: String) {
         Log.d(TAG, "Refreshed token: $token")
