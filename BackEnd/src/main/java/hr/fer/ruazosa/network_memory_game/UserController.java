@@ -80,8 +80,9 @@ public class UserController {
     //dodano
     @PostMapping ("/chooseWinner")
     public  ResponseEntity<Object> chooseWinner (@RequestBody Game game) {
-        if (userService.chooseWinner(game) != null) {
-            return new ResponseEntity<Object>(game, HttpStatus.OK);
+        String loser_token=userService.chooseWinner(game);
+        if (loser_token != null) {
+            return new ResponseEntity<Object>(loser_token, HttpStatus.OK);
         } return new ResponseEntity<Object>(game, HttpStatus.NOT_ACCEPTABLE);
     }
 }
