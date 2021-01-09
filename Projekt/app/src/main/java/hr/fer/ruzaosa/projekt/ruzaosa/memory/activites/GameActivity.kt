@@ -158,6 +158,8 @@ class GameActivity : AppCompatActivity() {
                 }, 400)
                 Toast.makeText(this@GameActivity, "You have completed the puzzle in " + timer.text +"s", Toast.LENGTH_LONG)
                     .show()
+                // dodajem:
+
             }
             return true
         }

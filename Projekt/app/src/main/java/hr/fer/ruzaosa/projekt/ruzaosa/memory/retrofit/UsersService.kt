@@ -1,5 +1,6 @@
 package hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit
 
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameBody
 import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.Headers
@@ -22,9 +23,9 @@ interface UsersService {
     ): retrofit2.Call<ResponseBody>
 
     // dodala ovaj dio
- // @Headers("Content-Type:application/json")
- // @POST("chooseWinner")
- // fun chooseWinner(@Body info: Game): retrofit2.Call<ResponseBody> // kako uključiti Game u FrontEnd?
+    @Headers("Content-Type:application/json")
+    @POST("chooseWinner")
+    fun chooseWinner(@Body info: GameBody): retrofit2.Call<ResponseBody>
 
 
 
