@@ -52,18 +52,30 @@ public class UserService implements IUserService {
         if (game.getPlaytime1() != null && game.getPlaytime2() != null) {
             if (game.getPlaytime1().compareTo(game.getPlaytime2()) > 0) {
                 User loser=userRepository.findById(game.getPlayer1()).get(0);
+                User winner=userRepository.findById(game.getPlayer2()).get(0);
+                int currentWins=winner.getWins();
+                winner.setWins(currentWins+1);
                 return loser.getToken();
             }
             else {
                 User loser=userRepository.findById(game.getPlayer2()).get(0);
+                User winner=userRepository.findById(game.getPlayer1()).get(0);
+                int currentWins=winner.getWins();
+                winner.setWins(currentWins+1);
                 return loser.getToken();
             }
         }
         if (game.getPlayer1() == null) {
             User loser=userRepository.findById(game.getPlayer1()).get(0);
+            User winner=userRepository.findById(game.getPlayer2()).get(0);
+            int currentWins=winner.getWins();
+            winner.setWins(currentWins+1);
             return loser.getToken();
         } else {
-            User loser=userRepository.findById(game.getPlayer1()).get(0);
+            User loser=userRepository.findById(game.getPlayer2()).get(0);
+            User winner=userRepository.findById(game.getPlayer1()).get(0);
+            int currentWins=winner.getWins();
+            winner.setWins(currentWins+1);
             return loser.getToken();
         }
     }
