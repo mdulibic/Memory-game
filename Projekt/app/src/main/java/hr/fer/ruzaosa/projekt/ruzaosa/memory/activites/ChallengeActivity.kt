@@ -16,17 +16,8 @@ class ChallengeActivity : AppCompatActivity() {
         setContentView(R.layout.activity_challenge)
 
         val challengedUser = intent.extras?.getString("challengedUser")
-        val role = intent.extras?.getString("role")
 
-        when (role) {
-            "host" -> {
-                usernameText.setText(challengedUser)
-                buttonReject.visibility = View.INVISIBLE
-                buttonAccept.visibility = View.INVISIBLE
-                textView.setText("awaiting response...")
-            }
-            "guest" -> {
-                usernameText.setText("Random user")
+                usernameText.setText("")
                 textView.setText("challenged you!")
                 progressBar2.visibility = View.INVISIBLE
                 buttonAccept.setOnClickListener {

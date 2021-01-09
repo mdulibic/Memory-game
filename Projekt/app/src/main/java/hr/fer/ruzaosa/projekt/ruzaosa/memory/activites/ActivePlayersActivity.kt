@@ -4,12 +4,22 @@ import android.content.Intent
 import android.os.Bundle
 import android.widget.AdapterView
 import android.widget.ArrayAdapter
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.LogInActivity
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
 import kotlinx.android.synthetic.main.activity_active_players.*
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
+
 
 public class ActivePlayersActivity : AppCompatActivity() {
-
+    val PREFS = "MyPrefsFile"
     lateinit var activePlayers: MutableList<String>
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -47,18 +57,48 @@ L */
 
         activePlayersList.onItemClickListener =
                 AdapterView.OnItemClickListener { adapterView, view, i, l ->
-                    val value: String = adapterView.getItemAtPosition(i) as String
-                    val intent = Intent(this, ChallengeActivity::class.java)
-                    intent.putExtra("challengedUser", value)
-                    intent.putExtra("role", "host")
+                    val challengedUser: String = adapterView.getItemAtPosition(i) as String
+                    val intent = Intent(this, WaitRoomActivity::class.java)
+                    intent.putExtra("challengedUser", challengedUser)//username izazvanog
+                    val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
+                    val challenger = prefs.getString("name", "No name defined")
+                    intent.putExtra("challengerName",challenger)//username izazivaca
+                    sendNotifToChallenged(challengedUser)
                     startActivity(intent)
                 }
-        simulBtn.setOnClickListener {
-            val intent = Intent(this, ChallengeActivity::class.java)
-            intent.putExtra("challengedUser", "me")
-            intent.putExtra("role", "guest")
-            startActivity(intent)
-        }
+
         exitActivePlayers.setOnClickListener { finish() }
+    }
+
+    private fun sendNotifToChallenged(challengedUser: String) {
+        val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
+        var challenged= User("","",challengedUser,"","","")
+        retIn.registerUser(registerInfo).enqueue(object :
+                Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                btnRegister.isEnabled = true
+                btnRegister.text = "REGISTER"
+                Toast.makeText(
+                        this@RegistrationActivity,
+                        t.message,
+                        Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
+                if (response.code() == 200) {
+                    Toast.makeText(this@RegistrationActivity, "Registration success!", Toast.LENGTH_SHORT)
+                            .show()
+
+                    startActivity(Intent(this@RegistrationActivity, LogInActivity::class.java))
+                } else {
+                    btnRegister.isEnabled = true
+                    btnRegister.text = "REGISTER"
+                    Toast.makeText(this@RegistrationActivity, "Registration failed!", Toast.LENGTH_SHORT)
+                            .show()
+                }
+            }
+        })
+    }
     }
 }
