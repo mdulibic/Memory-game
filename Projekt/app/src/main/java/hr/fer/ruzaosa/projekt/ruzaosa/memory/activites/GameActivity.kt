@@ -12,9 +12,17 @@ import android.widget.ImageButton
 import android.widget.Toast
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.LogInBody
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameBody
 import kotlinx.android.synthetic.main.*
 import kotlinx.android.synthetic.main.activity_game.*
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import java.lang.Math.*
 
 class GameActivity : AppCompatActivity() {
@@ -24,6 +32,12 @@ class GameActivity : AppCompatActivity() {
     private var indexOfSingleSelectedCard: Int = -1
     private var foundPairs: Int = 0
     private lateinit var username: String
+
+    // dodano da bi radila fja chooseWinner. treba ih inicijalizirati ispravno!
+    val user1 = User("firstName", "lastName", "username", "email", "password", "token")
+    val user2 = User("firstName2", "lastName2", "username2", "email2", "password2", "token2")
+    val gameId = 1L
+
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -159,10 +173,48 @@ class GameActivity : AppCompatActivity() {
                 Toast.makeText(this@GameActivity, "You have completed the puzzle in " + timer.text +"s", Toast.LENGTH_LONG)
                     .show()
                 // dodajem:
+                chooseWinner(user1, user2, gameId)
 
             }
             return true
         }
         return false
+    }
+
+    private fun chooseWinner(user1: User, user2: User, gameId: Long) {
+
+        val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
+        val gameInfo = GameBody(user1, user2, gameId) // kako pristupiti igračima kad ih nismo tu uopće definirali?
+        retIn.chooseWinner(gameInfo).enqueue(object : Callback<ResponseBody> {
+
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(
+                    this@GameActivity,
+                    t.message, // možemo kasnije promijeniti u "unknown error occurred", ovo je da mi vidimo zbog čega je pogreška
+                    Toast.LENGTH_SHORT
+                ).show()
+            }
+
+            override fun onResponse(
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
+            ) {
+                if (response.code() == 200) {
+                    Toast.makeText(this@GameActivity, "Congratulations! You have won!", Toast.LENGTH_SHORT)
+                        .show()
+                    // gubitniku se treba poslati PUSH notifikacija!
+                    // tu će doći poziv PUSH notifikacije preko tokena luzera
+
+
+                } else {
+                    Toast.makeText(
+                        this@GameActivity,
+                        "An uknown error occured",
+                        Toast.LENGTH_SHORT
+                    ).show()
+                }
+            }
+        })
+
     }
 }
