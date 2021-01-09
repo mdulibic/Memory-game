@@ -7,7 +7,9 @@ import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.ManyToOne;
 import javax.persistence.Table;
+import javax.validation.constraints.NotNull;
 
 @Entity
 @Table(name="games")
@@ -16,41 +18,61 @@ public class Game {
     @GeneratedValue(strategy = GenerationType.AUTO)
     @Column(name = "game_id")
     private Long id;
-    @Column(name="player1_id")
-    private Long player1;
-    @Column(name="player2_id")
-    private Long player2;
-    @Column(name="playtime_1")
-    private LocalDateTime playtime1;
-    @Column(name="playtime_2")
-    private LocalDateTime playtime2;
+
+    @NotNull
+    @ManyToOne
+    private User challenger;
+
+    @NotNull
+    @ManyToOne
+    private User challenged;
+
+    @Column(name="challenger_time",  columnDefinition = "TIMESTAMP")
+    private LocalDateTime challengerTime;
+
+    @Column(name="challenged_time", columnDefinition = "TIMESTAMP")
+    private LocalDateTime challengedTime;
+
+    public User getChallenger() {
+        return challenger;
+    }
+
+    public void setChallenger(User challenger) {
+        this.challenger = challenger;
+    }
+
+    public User getChallenged() {
+        return challenged;
+    }
+
+    public void setChallenged(User challenged) {
+        this.challenged = challenged;
+    }
+
+    public LocalDateTime getChallengerTime() {
+        return challengerTime;
+    }
+
+    public void setChallengerTime(LocalDateTime challengerTime) {
+        this.challengerTime = challengerTime;
+    }
+
+    public LocalDateTime getChallegedTime() {
+        return challengedTime;
+    }
+
+    public void setChallegedTime(LocalDateTime challengedTime) {
+        this.challengedTime = challengedTime;
+    }
 
     public Long getId() {
         return id;
     }
 
-    public Long getPlayer1() {
-        return player1;
+    public void setId(Long id) {
+        this.id = id;
     }
 
-    public Long getPlayer2() {
-        return player2;
-    }
 
-    public LocalDateTime getPlaytime1() {
-        return playtime1;
-    }
-
-    public LocalDateTime getPlaytime2() {
-        return playtime2;
-    }
-
-    public void setPlaytime1(LocalDateTime playtime1) {
-        this.playtime1 = playtime1;
-    }
-
-    public void setPlaytime2(LocalDateTime playtime2) {
-        this.playtime2 = playtime2;
-    }
 }
 
