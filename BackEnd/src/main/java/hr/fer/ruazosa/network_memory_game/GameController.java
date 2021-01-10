@@ -50,8 +50,8 @@ public class GameController {
             return new ResponseEntity<Object>(body, HttpStatus.NOT_ACCEPTABLE);
         }
         else {
-            boolean didChallengerWon = gameService.challengerFinished(gameId);
-            return new ResponseEntity<Object>(new Boolean(didChallengerWon), HttpStatus.OK);
+            boolean didChallengerWin = gameService.challengerFinished(gameId);
+            return new ResponseEntity<Object>(new Boolean(didChallengerWin), HttpStatus.OK);
         }
     }
 
@@ -64,8 +64,8 @@ public class GameController {
             return new ResponseEntity<Object>(body, HttpStatus.NOT_ACCEPTABLE);
         }
         else {
-            boolean didChallengedWon = gameService.challengedFinished(gameId);
-            return new ResponseEntity<Object>(new Boolean(didChallengedWon), HttpStatus.OK);
+            boolean didChallengedWin = gameService.challengedFinished(gameId);
+            return new ResponseEntity<Object>(new Boolean(didChallengedWin), HttpStatus.OK);
         }
     }
 }

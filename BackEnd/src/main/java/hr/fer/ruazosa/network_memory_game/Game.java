@@ -57,11 +57,11 @@ public class Game {
         this.challengerTime = challengerTime;
     }
 
-    public LocalDateTime getChallegedTime() {
+    public LocalDateTime getChallengedTime() {
         return challengedTime;
     }
 
-    public void setChallegedTime(LocalDateTime challengedTime) {
+    public void setChallengedTime(LocalDateTime challengedTime) {
         this.challengedTime = challengedTime;
     }
 

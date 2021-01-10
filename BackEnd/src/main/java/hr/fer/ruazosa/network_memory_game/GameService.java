@@ -22,7 +22,7 @@ public class GameService implements  IGameService {
         Optional<Game> gameOptional = gameRepository.findById(new Long(gameId));
         if (gameOptional.isPresent()) {
             Game game = gameOptional.get();
-            if (game.getChallegedTime() == null) {
+            if (game.getChallengedTime() == null) {
                 gameRepository.updateChallengerTime(gameId, LocalDateTime.now());
                 return true;
             }
