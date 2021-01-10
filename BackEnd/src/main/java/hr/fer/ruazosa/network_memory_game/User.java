@@ -25,7 +25,7 @@ public class User {
     @Email(message = "Email not in correct format")
     @Column(name = "e_mail")
     private String email;
-    @NotBlank(message = "username cannot be emtpy")
+    @NotBlank(message = "Username cannot be emtpy")
     private String username;
     @NotBlank(message = "Password cannot be emtpy")
     private String password;
