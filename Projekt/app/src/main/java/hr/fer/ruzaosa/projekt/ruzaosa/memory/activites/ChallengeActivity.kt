@@ -5,11 +5,17 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Button
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.LogInActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
 import kotlinx.android.synthetic.main.activity_challenge.*
 
 class ChallengeActivity : AppCompatActivity() {
+
+    val buttonAccept = findViewById<Button>(R.id.buttonAccept)
+    val buttonReject = findViewById<Button>(R.id.buttonReject)
+
     @SuppressLint("ResourceAsColor")
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -21,15 +27,14 @@ class ChallengeActivity : AppCompatActivity() {
                 textView.setText("challenged you!")
                 progressBar2.visibility = View.INVISIBLE
                 buttonAccept.setOnClickListener {
-                    val myIntent = Intent(this@ChallengeActivity, GameActivity::class.java)
-                    this@ChallengeActivity.startActivity(myIntent)
+                    startActivity(Intent(this@ChallengeActivity, GameActivity::class.java))
+
                 }
                 buttonReject.setOnClickListener {
-                    finish()
+                    startActivity(Intent(this@ChallengeActivity, MenuActivity::class.java))
                 }
             }
         }
 
 
-    }
-}
+
