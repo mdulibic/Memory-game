@@ -8,6 +8,9 @@ import android.widget.EditText
 import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
+import com.google.auth.oauth2.GoogleCredentials
+import com.google.firebase.FirebaseApp
+import com.google.firebase.FirebaseOptions
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.LogInBody
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
@@ -17,11 +20,12 @@ import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.io.FileInputStream
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class LogInActivity : AppCompatActivity() {
+
     val PREFS = "MyPrefsFile"
     lateinit var username: EditText
     lateinit var password: EditText
@@ -34,6 +38,7 @@ class LogInActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_login)
+
         username = findViewById<EditText>(R.id.usernameEditText)
         password = findViewById<EditText>(R.id.passwordEditText)
         btnLogin = findViewById(R.id.buttonLogin)
@@ -47,9 +52,9 @@ class LogInActivity : AppCompatActivity() {
                 btnLogin.isEnabled = true
                 btnLogin.text = "LOGIN"
                 Toast.makeText(
-                        this@LogInActivity,
-                        "Username / Password Required",
-                        Toast.LENGTH_LONG
+                    this@LogInActivity,
+                    "Username / Password Required",
+                    Toast.LENGTH_LONG
                 ).show()
             } else {
 
@@ -74,20 +79,19 @@ class LogInActivity : AppCompatActivity() {
                     btnLogin.isEnabled = true
                     btnLogin.text = "LOGIN"
                     Toast.makeText(
-                            this@LogInActivity,
-                            "Unknown error!",
-                            Toast.LENGTH_SHORT
+                        this@LogInActivity,
+                        "Unknown error!",
+                        Toast.LENGTH_SHORT
                     ).show()
                 }
 
                 override fun onResponse(
-                        call: Call<ResponseBody>,
-                        response: Response<ResponseBody>
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
                 ) {
                     if (response.code() == 200) {
                         Toast.makeText(this@LogInActivity, "Login success!", Toast.LENGTH_SHORT)
-                                .show()
-
+                            .show()
 
 
                         val editor = getSharedPreferences(PREFS, MODE_PRIVATE).edit()
@@ -101,9 +105,9 @@ class LogInActivity : AppCompatActivity() {
                         btnLogin.isEnabled = true
                         btnLogin.text = "LOGIN"
                         Toast.makeText(
-                                this@LogInActivity,
-                                "Username / Password invalid",
-                                Toast.LENGTH_SHORT
+                            this@LogInActivity,
+                            "Username / Password invalid",
+                            Toast.LENGTH_SHORT
                         ).show()
                     }
                 }

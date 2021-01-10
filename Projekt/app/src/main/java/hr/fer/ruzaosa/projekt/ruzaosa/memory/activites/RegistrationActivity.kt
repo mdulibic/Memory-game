@@ -85,7 +85,6 @@ class RegistrationActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     Toast.makeText(this@RegistrationActivity, "Registration success!", Toast.LENGTH_SHORT)
                             .show()
-
                     startActivity(Intent(this@RegistrationActivity, LogInActivity::class.java))
                 } else {
                     btnRegister.isEnabled = true

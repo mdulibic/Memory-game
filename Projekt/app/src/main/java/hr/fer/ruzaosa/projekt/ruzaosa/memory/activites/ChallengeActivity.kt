@@ -28,8 +28,9 @@ class ChallengeActivity : AppCompatActivity() {
                     finish()
                 }
             }
-        }
 
-
-    }
 }
+
+
+
+

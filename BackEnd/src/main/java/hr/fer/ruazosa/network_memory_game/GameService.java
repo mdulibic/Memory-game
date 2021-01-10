@@ -55,4 +55,7 @@ public class GameService implements  IGameService {
             throw new RuntimeException("No started game with specified id:" + gameId);
         }
     }
+
+
+
 }
