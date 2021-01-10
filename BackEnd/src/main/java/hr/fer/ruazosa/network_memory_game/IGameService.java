@@ -6,4 +6,5 @@ public interface IGameService {
     boolean challengerFinished(long userId);
     // return true if challenged did win, false otherwise
     boolean challengedFinished(long userId);
+
 }

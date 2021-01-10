@@ -1,5 +1,9 @@
 package hr.fer.ruazosa.network_memory_game;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.Message;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -40,6 +44,19 @@ public class UserService implements IUserService {
         }
         User myUser = userRepository.findByUserName(user.getUsername()).get(0);
         myUser.setToken(user.getToken());
+        return true;
+    }
+    @Override
+    public boolean sendNotifToChallenged(User challenged) {
+        Message message= Message.builder().
+                putData("Call for play","Do you wanna play?")
+                .setToken(challenged.getToken())
+                .build();
+        try {
+            FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
         return true;
     }
 
