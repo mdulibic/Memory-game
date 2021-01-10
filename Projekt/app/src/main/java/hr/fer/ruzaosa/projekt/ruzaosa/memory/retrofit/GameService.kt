@@ -12,6 +12,7 @@ interface GameService {
     fun gameAccepted(
             @Body info: User
     ): retrofit2.Call<ResponseBody>
+
     @Headers("Content-Type:application/json")
     @POST("gameRejected")
     fun gameRejected(
@@ -22,5 +23,17 @@ interface GameService {
     @POST("createGame")
     fun createGame(
             @Body info: GameBody
+    ): retrofit2.Call<ResponseBody>
+
+    @Headers("Content-Type:application/json")
+    @POST("challengerFinished")
+    fun challengerFinished(
+            @Body gameId: Long
+    ): retrofit2.Call<ResponseBody>
+
+    @Headers("Content-Type:application/json")
+    @POST("challengedFinished")
+    fun challengedFinished(
+            @Body gameId: Long
     ): retrofit2.Call<ResponseBody>
 }
