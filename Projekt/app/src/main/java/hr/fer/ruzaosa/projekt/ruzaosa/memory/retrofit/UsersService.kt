@@ -27,7 +27,8 @@ interface UsersService {
     fun sendNotifToChallenged(
             @Body info: User
     ): retrofit2.Call<ResponseBody>
-    @Headers("Content-Type:application/json")
+
+    /*@Headers("Content-Type:application/json")
     @POST("gameAccepted")
     fun gameAccepted(
             @Body info: User
@@ -36,7 +37,7 @@ interface UsersService {
     @POST("gameRejected")
     fun gameRejected(
             @Body info: User
-    ): retrofit2.Call<ResponseBody>
+    ): retrofit2.Call<ResponseBody>*/ // dodano u GameService
 
     @Headers("Content-Type:application/json")
     @GET("getUsersList")
