@@ -65,7 +65,7 @@ public class UserService implements IUserService {
 
     @Override
     public List<String> getUsersList() {
-        List<User>users=userRepository.findAll();
+       // List<User>users=userRepository.findAll();
         List<String> usernames = null;
 //        for(int i=0;i<users.size();i++){
 //            usernames.add(users.get(i).getUsername());

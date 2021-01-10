@@ -88,9 +88,11 @@ public class UserController {
     }
 
     @GetMapping("/getUsersList")
-    public ResponseEntity<Object> getUsersList() {
-        if(userService.getUsersList().size() > 0) {
-            return new ResponseEntity<Object>(userService.getUsersList(), HttpStatus.OK);
-        } return new ResponseEntity<>(userService.getUsersList(), HttpStatus.OK);
+    public ResponseEntity<List<String>> getUsersList() {
+        List<String> users=userService.getUsersList();
+        if(users.size() > 0) {
+            users=userService.getUsersList();
+          return new ResponseEntity<>(users, HttpStatus.OK);
+        } return new ResponseEntity<>(users, HttpStatus.NOT_ACCEPTABLE);
     }
 }

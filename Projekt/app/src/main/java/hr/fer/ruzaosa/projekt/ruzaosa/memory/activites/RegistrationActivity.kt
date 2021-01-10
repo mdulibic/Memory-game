@@ -19,6 +19,7 @@ import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
 
+
 class RegistrationActivity : AppCompatActivity() {
 
     var usersSet: MutableSet<String> = TreeSet<String>()
@@ -88,12 +89,6 @@ class RegistrationActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                     Toast.makeText(this@RegistrationActivity, "Registration success! " , Toast.LENGTH_SHORT)
                             .show()
-
-//                    if (!usersSet.contains(username)) {
-//                        usersSet.add(username)
-//                        usersList[usersSet.size - 1] = username
-//                    }
-
                     val intent = Intent(this@RegistrationActivity, LogInActivity::class.java)
                     startActivity(intent)
 
