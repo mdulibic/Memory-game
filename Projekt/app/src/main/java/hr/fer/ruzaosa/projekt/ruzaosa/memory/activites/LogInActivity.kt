@@ -87,30 +87,8 @@ class LogInActivity : AppCompatActivity() {
                         val editor = getSharedPreferences(PREFS, MODE_PRIVATE).edit()
                         editor.putString("username", username)
                         editor.apply()
-                        retIn.getUsersList().enqueue(object : Callback<ResponseBody> {
-
-                            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                                Toast.makeText(
-                                        this@LogInActivity,
-                                        "Cant retrieve users",
-                                        Toast.LENGTH_SHORT
-                                ).show()
-                            }
-                            override fun onResponse(
-                                    call: Call<ResponseBody>,
-                                    response: Response<ResponseBody>
-                            ) {
-                                if (response.code() == 200) {
-                                    usersss = response.body() as List<String>
-                                }
-                            }
-                        })
-                        var intent = Intent(this@LogInActivity, MenuActivity::class.java)
-                        intent.putExtra("myUsername", username)
-                        usersList = usersss.toTypedArray()
-                        intent.putExtra("users", usersList)
+                        val intent = Intent(this@LogInActivity, MenuActivity::class.java)
                         startActivity(intent)
-
                     } else {
                         btnLogin.isEnabled = true
                         btnLogin.text = "LOGIN"

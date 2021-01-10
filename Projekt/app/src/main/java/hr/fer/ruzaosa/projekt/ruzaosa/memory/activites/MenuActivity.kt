@@ -42,11 +42,7 @@ class MenuActivity : AppCompatActivity() {
         menutxt.startAnimation(float)
         playimg.setOnClickListener {
             playimg.startAnimation(pulse)
-            Handler().postDelayed({
-                val myIntent = Intent(this@MenuActivity, ActivePlayersActivity::class.java)
-                myIntent.putExtra("users", extras?.getStringArray("users"))
-                this@MenuActivity.startActivity(myIntent)
-            }, 400)
+                startActivity(Intent(this@MenuActivity, ActivePlayersActivity::class.java))
         }
         leaderboardimg.setOnClickListener { leaderboardimg.startAnimation(pulse) }
         profileimg.setOnClickListener { profileimg.startAnimation(pulse)

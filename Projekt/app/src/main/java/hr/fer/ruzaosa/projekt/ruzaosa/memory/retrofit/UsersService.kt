@@ -38,8 +38,8 @@ interface UsersService {
             @Body info: User
     ): retrofit2.Call<ResponseBody>
 
-
+    @Headers("Content-Type:application/json")
     @GET("getUsersList")
-    fun getUsersList() : retrofit2.Call<ResponseBody>
+    fun getUsersList() : retrofit2.Call<List<String>>
 
 }
