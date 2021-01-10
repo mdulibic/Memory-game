@@ -9,6 +9,9 @@ import android.widget.Button
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.LogInActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
 import kotlinx.android.synthetic.main.activity_challenge.*
 
 class ChallengeActivity : AppCompatActivity() {
@@ -21,16 +24,15 @@ class ChallengeActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_challenge)
 
-        val challengedUser = intent.extras?.getString("challengedUser")
-
-                usernameText.setText("")
-                textView.setText("challenged you!")
-                progressBar2.visibility = View.INVISIBLE
-                buttonAccept.setOnClickListener {
+        val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
+        usernameText.setText("")
+        textView.setText("challenged you!")
+        progressBar2.visibility = View.INVISIBLE
+        buttonAccept.setOnClickListener {
                     startActivity(Intent(this@ChallengeActivity, GameActivity::class.java))
-
+                    //pozivanje rest za kreiranje igre
                 }
-                buttonReject.setOnClickListener {
+        buttonReject.setOnClickListener {
                     startActivity(Intent(this@ChallengeActivity, MenuActivity::class.java))
                 }
             }
