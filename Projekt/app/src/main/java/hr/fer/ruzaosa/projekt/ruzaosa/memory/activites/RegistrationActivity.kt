@@ -1,25 +1,28 @@
 package hr.fer.ruzaosa.lecture4.ruzaosa.k.activites
 
 import android.content.Intent
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.text.TextUtils
 import android.widget.Button
 import android.widget.EditText
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
 import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
-import kotlinx.android.synthetic.main.activity_registration.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
+import java.util.*
 
 class RegistrationActivity : AppCompatActivity() {
+
+    var usersSet: MutableSet<String> = TreeSet<String>()
+    val usersList = arrayOf<String>("luca", "marta" , "martesija")
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -83,10 +86,17 @@ class RegistrationActivity : AppCompatActivity() {
 
             override fun onResponse(call: Call<ResponseBody>, response: Response<ResponseBody>) {
                 if (response.code() == 200) {
-                    Toast.makeText(this@RegistrationActivity, "Registration success!", Toast.LENGTH_SHORT)
+                    Toast.makeText(this@RegistrationActivity, "Registration success! " , Toast.LENGTH_SHORT)
                             .show()
 
-                    startActivity(Intent(this@RegistrationActivity, LogInActivity::class.java))
+//                    if (!usersSet.contains(username)) {
+//                        usersSet.add(username)
+//                        usersList[usersSet.size - 1] = username
+//                    }
+
+                    val intent = Intent(this@RegistrationActivity, LogInActivity::class.java)
+                    startActivity(intent)
+
                 } else {
                     btnRegister.isEnabled = true
                     btnRegister.text = "REGISTER"

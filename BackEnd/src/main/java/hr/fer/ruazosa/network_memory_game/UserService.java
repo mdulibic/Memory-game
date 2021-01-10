@@ -1,7 +1,10 @@
 package hr.fer.ruazosa.network_memory_game;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -43,4 +46,16 @@ public class UserService implements IUserService {
         return true;
     }
 
+    @Override
+    public List<String> getUsersList() {
+        List<User>users=userRepository.findAll();
+        List<String> usernames = null;
+//        for(int i=0;i<users.size();i++){
+//            usernames.add(users.get(i).getUsername());
+//        }
+        usernames.add("marta");
+        usernames.add("je");
+        usernames.add("dosadna");
+        return usernames;
+    }
 }

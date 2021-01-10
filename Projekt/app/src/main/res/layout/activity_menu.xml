@@ -12,35 +12,38 @@
         android:id="@+id/play_btn_img"
         android:layout_width="223dp"
         android:layout_height="60dp"
+        android:layout_marginStart="75dp"
         android:src="@drawable/play_image_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/playimg"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.567" />
+        app:layout_constraintVertical_bias="0.564" />
 
     <ImageView
         android:id="@+id/leaderboard_btn_img"
         android:layout_width="223dp"
         android:layout_height="60dp"
+        android:layout_marginStart="75dp"
         android:src="@drawable/leaderboard_image_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/leaderboardimg"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.718" />
+        app:layout_constraintVertical_bias="0.719" />
 
     <ImageView
         android:id="@+id/profile_img_btn"
         android:layout_width="223dp"
         android:layout_height="60dp"
+        android:layout_marginStart="75dp"
         android:src="@drawable/myprofile_image_btn"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.84"
-        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toStartOf="@+id/profileimg"
         app:layout_constraintTop_toTopOf="parent"
         app:layout_constraintVertical_bias="0.868" />
 

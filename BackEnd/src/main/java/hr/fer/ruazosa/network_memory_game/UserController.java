@@ -3,12 +3,15 @@ package hr.fer.ruazosa.network_memory_game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
+import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
 import java.util.LinkedHashMap;
+import java.util.List;
 import java.util.Map;
 import java.util.Set;
 
@@ -75,7 +78,12 @@ public class UserController {
         if(userService.updateUserToken(user)){
             return new ResponseEntity<Object>(user, HttpStatus.OK);
         }return new ResponseEntity<Object>(user, HttpStatus.NOT_ACCEPTABLE);
-
     }
 
+    @GetMapping("/getUsersList")
+    public ResponseEntity<Object> getUsersList() {
+        if(userService.getUsersList().size() > 0) {
+            return new ResponseEntity<Object>(userService.getUsersList(), HttpStatus.OK);
+        } return new ResponseEntity<>(userService.getUsersList(), HttpStatus.OK);
+    }
 }

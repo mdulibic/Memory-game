@@ -32,7 +32,7 @@ public class User {
     @Column(name = "token")
     private String token;
     @Column(name = "wins")
-    private int wins;
+    private Long wins;
 
     public void setId(Long id) {
         this.id = id;
@@ -62,7 +62,7 @@ public class User {
         this.token = token;
     }
 
-    public void setWins(int wins) {
+    public void setWins(Long wins) {
         this.wins = wins;
     }
 
@@ -94,7 +94,7 @@ public class User {
         return token;
     }
 
-    public int getWins() {
+    public Long getWins() {
         return wins;
     }
 

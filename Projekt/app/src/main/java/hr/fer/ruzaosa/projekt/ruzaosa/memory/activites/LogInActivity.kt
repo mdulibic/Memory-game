@@ -12,13 +12,11 @@ import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.LogInBody
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
-import kotlinx.android.synthetic.main.activity_login.*
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.util.*
-import kotlin.collections.ArrayList
 
 
 class LogInActivity : AppCompatActivity() {
@@ -28,8 +26,9 @@ class LogInActivity : AppCompatActivity() {
     lateinit var btnLogin: Button
     lateinit var register: TextView
     var usersSet: MutableSet<String> = TreeSet()
-    var usersList: ArrayList<String> = arrayListOf()
-
+    var usersList = arrayOf<String>()
+    val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)//UVIK POČETAK ZA REST POZIV
+    var usersss: List<String> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,7 +37,6 @@ class LogInActivity : AppCompatActivity() {
         password = findViewById<EditText>(R.id.passwordEditText)
         btnLogin = findViewById(R.id.buttonLogin)
         register = findViewById(R.id.registerTextView)
-
 
         btnLogin.setOnClickListener {
             btnLogin.isEnabled = false
@@ -52,7 +50,6 @@ class LogInActivity : AppCompatActivity() {
                         Toast.LENGTH_LONG
                 ).show()
             } else {
-
                 val username = username.text.toString()
                 val password = password.text.toString()
                 login(username, password)
@@ -87,14 +84,31 @@ class LogInActivity : AppCompatActivity() {
                     if (response.code() == 200) {
                         Toast.makeText(this@LogInActivity, "Login success!", Toast.LENGTH_SHORT)
                                 .show()
-
-
-
                         val editor = getSharedPreferences(PREFS, MODE_PRIVATE).edit()
                         editor.putString("username", username)
                         editor.apply()
-                        var intent = Intent(this@LogInActivity, MenuActivity::class.java)
+                        retIn.getUsersList().enqueue(object : Callback<ResponseBody> {
 
+                            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                                Toast.makeText(
+                                        this@LogInActivity,
+                                        "Cant retrieve users",
+                                        Toast.LENGTH_SHORT
+                                ).show()
+                            }
+                            override fun onResponse(
+                                    call: Call<ResponseBody>,
+                                    response: Response<ResponseBody>
+                            ) {
+                                if (response.code() == 200) {
+                                    usersss = response.body() as List<String>
+                                }
+                            }
+                        })
+                        var intent = Intent(this@LogInActivity, MenuActivity::class.java)
+                        intent.putExtra("myUsername", username)
+                        usersList = usersss.toTypedArray()
+                        intent.putExtra("users", usersList)
                         startActivity(intent)
 
                     } else {

@@ -3,6 +3,7 @@ package hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameBody
 import okhttp3.ResponseBody
 import retrofit2.http.Body
+import retrofit2.http.GET
 import retrofit2.http.Headers
 import retrofit2.http.POST
 
@@ -27,7 +28,7 @@ interface UsersService {
     @POST("chooseWinner")
     fun chooseWinner(@Body info: GameBody): retrofit2.Call<ResponseBody>
 
-
-
+    @GET("getUsersList")
+    fun getUsersList() : retrofit2.Call<ResponseBody>
 
 }
