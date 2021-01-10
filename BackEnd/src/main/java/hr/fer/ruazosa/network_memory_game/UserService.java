@@ -5,10 +5,7 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestBody;
 
 import java.util.List;
 
@@ -52,7 +49,7 @@ public class UserService implements IUserService {
     @Override
     public boolean sendNotifToChallenged(User challenged) {
         Message message= Message.builder().
-                putData("Call for play","Do you wanna play?")
+                putData("Call for play","Do you want to play?")
                 .setToken(challenged.getToken())
                 .build();
         try {
