@@ -79,6 +79,13 @@ public class UserController {
             return new ResponseEntity<Object>(user, HttpStatus.OK);
         }return new ResponseEntity<Object>(user, HttpStatus.NOT_ACCEPTABLE);
     }
+    @PostMapping("/sendNotifToChallenged")
+    public ResponseEntity<Object> sendNotifToChallenged(@RequestBody User user) {
+       if(userService.sendNotifToChallenged(user)){
+           return new ResponseEntity<Object>(user, HttpStatus.OK);
+       }
+        return new ResponseEntity<Object>(user, HttpStatus.NOT_ACCEPTABLE);
+    }
 
     @GetMapping("/getUsersList")
     public ResponseEntity<Object> getUsersList() {

@@ -172,8 +172,7 @@ class GameActivity : AppCompatActivity() {
                 }, 400)
                 Toast.makeText(this@GameActivity, "You have completed the puzzle in " + timer.text +"s", Toast.LENGTH_LONG)
                     .show()
-                // dodajem:
-                chooseWinner(user1, user2, gameId)
+
 
             }
             return true
@@ -181,40 +180,5 @@ class GameActivity : AppCompatActivity() {
         return false
     }
 
-    private fun chooseWinner(user1: User, user2: User, gameId: Long) {
 
-        val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
-        val gameInfo = GameBody(user1, user2, gameId) // kako pristupiti igračima kad ih nismo tu uopće definirali?
-        retIn.chooseWinner(gameInfo).enqueue(object : Callback<ResponseBody> {
-
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(
-                    this@GameActivity,
-                    t.message, // možemo kasnije promijeniti u "unknown error occurred", ovo je da mi vidimo zbog čega je pogreška
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-
-            override fun onResponse(
-                call: Call<ResponseBody>,
-                response: Response<ResponseBody>
-            ) {
-                if (response.code() == 200) {
-                    Toast.makeText(this@GameActivity, "Congratulations! You have won!", Toast.LENGTH_SHORT)
-                        .show()
-                    // gubitniku se treba poslati PUSH notifikacija!
-                    // tu će doći poziv PUSH notifikacije preko tokena luzera
-
-
-                } else {
-                    Toast.makeText(
-                        this@GameActivity,
-                        "An uknown error occured",
-                        Toast.LENGTH_SHORT
-                    ).show()
-                }
-            }
-        })
-
-    }
 }

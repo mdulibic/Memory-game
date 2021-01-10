@@ -22,11 +22,22 @@ interface UsersService {
     fun updateToken(
             @Body info: User
     ): retrofit2.Call<ResponseBody>
-
-    // dodala ovaj dio
     @Headers("Content-Type:application/json")
-    @POST("chooseWinner")
-    fun chooseWinner(@Body info: GameBody): retrofit2.Call<ResponseBody>
+    @POST("sendNotifToChallenged")
+    fun sendNotifToChallenged(
+            @Body info: User
+    ): retrofit2.Call<ResponseBody>
+    @Headers("Content-Type:application/json")
+    @POST("gameAccepted")
+    fun gameAccepted(
+            @Body info: User
+    ): retrofit2.Call<ResponseBody>
+    @Headers("Content-Type:application/json")
+    @POST("gameRejected")
+    fun gameRejected(
+            @Body info: User
+    ): retrofit2.Call<ResponseBody>
+
 
     @GET("getUsersList")
     fun getUsersList() : retrofit2.Call<ResponseBody>
