@@ -23,9 +23,6 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Math.*
-import java.util.stream.DoubleStream.builder
-import java.util.stream.Stream.builder
-import com.google.firebase.messaging.Message
 
 
 class GameActivity : AppCompatActivity() {
@@ -199,6 +196,7 @@ class GameActivity : AppCompatActivity() {
                     call: Call<ResponseBody>,
                     response: Response<ResponseBody>
             ) {
+                //trebamo izvaditi boolean kako vi stavili toast ili posalli notifikciju
                 Toast.makeText(this@GameActivity, "Congratulations! You won!", Toast.LENGTH_SHORT)
                         .show()
             }
@@ -219,28 +217,7 @@ class GameActivity : AppCompatActivity() {
                 //Toast.makeText(this@GameActivity, "Congratulations! You won!", Toast.LENGTH_SHORT)
                 //.show()
                 //send notification to challanged via token ?
-                // This registration token comes from the client FCM SDKs.
-                // This registration token comes from the client FCM SDKs.
-                val registrationToken = game.challenged.token
 
-// See documentation on defining a message payload.
-
-// See documentation on defining a message payload.
-                val message: Message = Message.builder()
-                        .putData("You")
-                        .putData("lost")
-                        .setToken(registrationToken)
-                        .build()
-
-// Send a message to the device corresponding to the provided
-// registration token.
-
-// Send a message to the device corresponding to the provided
-// registration token.
-                val response: String = FirebaseMessaging.getInstance().send(message)
-// Response is a message ID string.
-// Response is a message ID string.
-                println("Successfully sent message: $response")
             }
         })
     }
