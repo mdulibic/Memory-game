@@ -17,6 +17,7 @@ import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameBody
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameService
 import kotlinx.android.synthetic.main.*
 import kotlinx.android.synthetic.main.activity_game.*
 import okhttp3.ResponseBody
@@ -38,6 +39,7 @@ class GameActivity : AppCompatActivity() {
     val user2 = User("firstName2", "lastName2", "username2", "email2", "password2", "token2")
     val gameId = 1L
 
+    val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -177,6 +179,43 @@ class GameActivity : AppCompatActivity() {
         }
         return false
     }
+    private fun endGAme(game : GameBody) {
+        val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
+        //if challenger won
+        retIn.challengerFinished(game.gameId).enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(this@GameActivity, "Something went wrong", Toast.LENGTH_SHORT)
+                        .show()
+                //or
+                //Toast.makeText(this@GameActivity, "You lost the game :(", Toast.LENGTH_SHORT)
+                        //.show()
+            }
 
+            override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+            ) {
+                Toast.makeText(this@GameActivity, "Congratulations! You won!", Toast.LENGTH_SHORT)
+                            .show()
+            }
+        })
+        retIn.challengedFinished(game.gameId).enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(this@GameActivity, "Something went wrong", Toast.LENGTH_SHORT)
+                        .show()
+                //or
+                //Toast.makeText(this@GameActivity, "You lost the game :(", Toast.LENGTH_SHORT)
+                //.show()
+            }
 
+            override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+            ) {
+                //Toast.makeText(this@GameActivity, "Congratulations! You won!", Toast.LENGTH_SHORT)
+                        //.show()
+                //send notification to challanged via token ?
+            }
+        })
+    }
 }

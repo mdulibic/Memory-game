@@ -25,12 +25,13 @@ interface GameService {
             @Body info: GameBody
     ): retrofit2.Call<ResponseBody>
 
+    // return true if challenger did win, false otherwise
     @Headers("Content-Type:application/json")
     @POST("challengerFinished")
     fun challengerFinished(
             @Body gameId: Long
     ): retrofit2.Call<ResponseBody>
-
+    // return true if challenged did win, false otherwise
     @Headers("Content-Type:application/json")
     @POST("challengedFinished")
     fun challengedFinished(
