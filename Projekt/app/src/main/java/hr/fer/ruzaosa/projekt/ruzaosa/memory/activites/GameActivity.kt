@@ -2,20 +2,18 @@ package hr.fer.ruzaosa.projekt.ruzaosa.memory.activites
 
 import android.content.Intent
 import android.graphics.Color
-import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.os.Handler
-import android.util.Log
 import android.view.animation.Animation
 import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.Toast
+import androidx.appcompat.app.AppCompatActivity
+import com.google.firebase.messaging.FirebaseMessaging
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
-import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.LogInBody
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
-import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameBody
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameService
 import kotlinx.android.synthetic.main.*
@@ -25,6 +23,10 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import java.lang.Math.*
+import java.util.stream.DoubleStream.builder
+import java.util.stream.Stream.builder
+import com.google.firebase.messaging.Message
+
 
 class GameActivity : AppCompatActivity() {
 
@@ -132,7 +134,9 @@ class GameActivity : AppCompatActivity() {
                     buttons[position].setImageResource(R.drawable.nalicje)
                     cards[previous].isOpened = false
                     cards[position].isOpened = false
-                    for (i in 0..29) { buttons[i].isClickable = true}
+                    for (i in 0..29) {
+                        buttons[i].isClickable = true
+                    }
 
                 }, 1000)
             }
@@ -170,16 +174,16 @@ class GameActivity : AppCompatActivity() {
             if(foundPairs==15){
                 timer.stop()
                 Handler().postDelayed({
-                startActivity(Intent(this@GameActivity, MenuActivity::class.java))
+                    startActivity(Intent(this@GameActivity, MenuActivity::class.java))
                 }, 400)
-                Toast.makeText(this@GameActivity, "You have completed the puzzle in " + timer.text +"s", Toast.LENGTH_LONG)
+                Toast.makeText(this@GameActivity, "You have completed the puzzle in " + timer.text + "s", Toast.LENGTH_LONG)
                     .show()
             }
             return true
         }
         return false
     }
-    private fun endGAme(game : GameBody) {
+    private fun endGAme(game: GameBody) {
         val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
         //if challenger won
         retIn.challengerFinished(game.gameId).enqueue(object : Callback<ResponseBody> {
@@ -188,7 +192,7 @@ class GameActivity : AppCompatActivity() {
                         .show()
                 //or
                 //Toast.makeText(this@GameActivity, "You lost the game :(", Toast.LENGTH_SHORT)
-                        //.show()
+                //.show()
             }
 
             override fun onResponse(
@@ -196,7 +200,7 @@ class GameActivity : AppCompatActivity() {
                     response: Response<ResponseBody>
             ) {
                 Toast.makeText(this@GameActivity, "Congratulations! You won!", Toast.LENGTH_SHORT)
-                            .show()
+                        .show()
             }
         })
         retIn.challengedFinished(game.gameId).enqueue(object : Callback<ResponseBody> {
@@ -213,8 +217,30 @@ class GameActivity : AppCompatActivity() {
                     response: Response<ResponseBody>
             ) {
                 //Toast.makeText(this@GameActivity, "Congratulations! You won!", Toast.LENGTH_SHORT)
-                        //.show()
+                //.show()
                 //send notification to challanged via token ?
+                // This registration token comes from the client FCM SDKs.
+                // This registration token comes from the client FCM SDKs.
+                val registrationToken = game.challenged.token
+
+// See documentation on defining a message payload.
+
+// See documentation on defining a message payload.
+                val message: Message = Message.builder()
+                        .putData("You")
+                        .putData("lost")
+                        .setToken(registrationToken)
+                        .build()
+
+// Send a message to the device corresponding to the provided
+// registration token.
+
+// Send a message to the device corresponding to the provided
+// registration token.
+                val response: String = FirebaseMessaging.getInstance().send(message)
+// Response is a message ID string.
+// Response is a message ID string.
+                println("Successfully sent message: $response")
             }
         })
     }
