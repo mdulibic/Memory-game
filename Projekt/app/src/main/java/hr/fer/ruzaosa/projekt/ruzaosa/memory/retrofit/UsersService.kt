@@ -8,7 +8,8 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface UsersService {
-    @Headers("Content-Type:application/json")//UVIK OVAJ HEADER ZA NOVI POST
+
+    @Headers("Content-Type:application/json")
     @POST("loginUser")
     fun login(@Body info: LogInBody): retrofit2.Call<ResponseBody>
 
@@ -17,30 +18,15 @@ interface UsersService {
     fun registerUser(
         @Body info: User
     ): retrofit2.Call<ResponseBody>
+
     @Headers("Content-Type:application/json")
     @POST("updateToken")
     fun updateToken(
             @Body info: User
     ): retrofit2.Call<ResponseBody>
-    @Headers("Content-Type:application/json")
-    @POST("sendNotifToChallenged")
-    fun sendNotifToChallenged(
-            @Body info: User
-    ): retrofit2.Call<ResponseBody>
-
-    /*@Headers("Content-Type:application/json")
-    @POST("gameAccepted")
-    fun gameAccepted(
-            @Body info: User
-    ): retrofit2.Call<ResponseBody>
-    @Headers("Content-Type:application/json")
-    @POST("gameRejected")
-    fun gameRejected(
-            @Body info: User
-    ): retrofit2.Call<ResponseBody>*/ // dodano u GameService
 
     @Headers("Content-Type:application/json")
     @GET("getUsersList")
-    fun getUsersList() : retrofit2.Call<List<String>>
+    fun getUsersList() : retrofit2.Call<ResponseBody>
 
 }

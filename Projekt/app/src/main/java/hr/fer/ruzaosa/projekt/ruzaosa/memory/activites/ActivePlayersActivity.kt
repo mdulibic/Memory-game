@@ -10,6 +10,8 @@ import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameBody
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameService
 import kotlinx.android.synthetic.main.activity_active_players.*
 import okhttp3.ResponseBody
 import retrofit2.Call
@@ -20,7 +22,10 @@ import retrofit2.Response
 
 public class ActivePlayersActivity : AppCompatActivity() {
     val PREFS = "MyPrefsFile"
+    val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
+    val challenger = prefs.getString("username", "No name defined")
     var users:MutableList<String> = mutableListOf()
+
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_active_players)
@@ -30,20 +35,6 @@ public class ActivePlayersActivity : AppCompatActivity() {
         for (i in activePlayers.indices)
            activePlayers[i]=playersList[i]
 
-     //  activePlayers.add("username2")
-//        activePlayers.add("username3")
-//        activePlayers.add("username4")
-//        activePlayers.add("username5")
-//        activePlayers.add("username6")
-//        activePlayers.add("username7")
-//        activePlayers.add("username8")
-//        activePlayers.add("username9")
-//        activePlayers.add("username10")
-//        activePlayers.add("username11")
-//        activePlayers.add("username12")
-//        activePlayers.add("username13")
-//        activePlayers.add("username14")
-//        activePlayers.add("username15")
 
         val itemsAdapter= ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, activePlayers)
         activePlayersList.adapter = itemsAdapter
@@ -51,23 +42,41 @@ public class ActivePlayersActivity : AppCompatActivity() {
         activePlayersList.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, i, l ->
                 val challengedUser: String = adapterView.getItemAtPosition(i) as String
+                val player1=User("","", challenger.toString(),"","","")
+                val player2=User("","",challengedUser,"","","")
+                var players= GameBody(player1,player2)
                 val intent = Intent(this, WaitRoomActivity::class.java)
-                intent.putExtra("challengedUser", challengedUser)//username izazvanog
-                val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
-                val challenger = prefs.getString("name", "No name defined")
-                intent.putExtra("challengerName", challenger)//username izazivaca
-                //sendNotifToChallenged(challengedUser)
-                startActivity(intent)
+                sendNotifToChallenged(players)
             }
 
         exitActivePlayers.setOnClickListener { finish() }
     }
 
+    private fun sendNotifToChallenged(players:GameBody) {
+        val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
+        retIn.sendNotifToChallenged(players).enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(
+                        this@ActivePlayersActivity,
+                        "Unknown error!",
+                        Toast.LENGTH_SHORT
+                ).show()
+            }
+            override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+            ) {
+                if (response.code() == 200) {
+                    startActivity(intent)
+                }
+            }
+        })
+    }
+
     private fun getListOfActivePlayers(): List<String> {
         val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
-        retIn.getUsersList().enqueue(object : Callback<List<String>> {
-
-            override fun onFailure(call: Call<List<String>>, t: Throwable) {
+        retIn.getUsersList().enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Toast.makeText(
                     this@ActivePlayersActivity,
                     "Unknown error!",
@@ -75,8 +84,8 @@ public class ActivePlayersActivity : AppCompatActivity() {
                 ).show()
             }
             override fun onResponse(
-                call: Call<List<String>>,
-                response: Response<List<String>>
+                call: Call<ResponseBody>,
+                response: Response<ResponseBody>
             ) {
                 if (response.code() == 200) {
                  users= response.body() as MutableList<String>

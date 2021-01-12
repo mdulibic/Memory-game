@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;
@@ -80,19 +81,16 @@ public class UserController {
         }return new ResponseEntity<Object>(user, HttpStatus.NOT_ACCEPTABLE);
     }
     @PostMapping("/sendNotifToChallenged")
-    public ResponseEntity<Object> sendNotifToChallenged(@RequestBody User user) {
-       if(userService.sendNotifToChallenged(user)){
-           return new ResponseEntity<Object>(user, HttpStatus.OK);
+    public ResponseEntity<Object> sendNotifToChallenged(@RequestBody Game game) {
+       if(userService.sendNotifToChallenged(game)){
+           return new ResponseEntity<Object>(game, HttpStatus.OK);
        }
-        return new ResponseEntity<Object>(user, HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<Object>(game, HttpStatus.NOT_ACCEPTABLE);
     }
 
     @GetMapping("/getUsersList")
     public ResponseEntity<List<String>> getUsersList() {
         List<String> users=userService.getUsersList();
-        if(users.size() > 0) {
-            users=userService.getUsersList();
-          return new ResponseEntity<>(users, HttpStatus.OK);
-        } return new ResponseEntity<>(users, HttpStatus.NOT_ACCEPTABLE);
+          return new ResponseEntity<List<String>>(users, HttpStatus.OK);
     }
 }

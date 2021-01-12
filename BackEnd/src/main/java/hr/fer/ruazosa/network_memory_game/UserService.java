@@ -47,29 +47,30 @@ public class UserService implements IUserService {
         return true;
     }
     @Override
-    public boolean sendNotifToChallenged(User challenged) {
-        Message message= Message.builder().
-                putData("Call for play","Do you want to play?")
-                .setToken(challenged.getToken())
+    public boolean sendNotifToChallenged(Game players) {
+        String response = null;
+        Message message= Message.builder()
+                .putData("Call for play","Do you want to play?")
+                .putData("From:",players.getChallenger().getUsername())
+                .setToken(players.getChallenged().getToken())
                 .build();
         try {
-            FirebaseMessaging.getInstance().send(message);
+            response= FirebaseMessaging.getInstance().send(message);
         } catch (FirebaseMessagingException e) {
             e.printStackTrace();
         }
+        if(response!=null)
         return true;
+        else return false;
     }
 
     @Override
     public List<String> getUsersList() {
-       // List<User>users=userRepository.findAll();
-        List<String> usernames = null;
-//        for(int i=0;i<users.size();i++){
-//            usernames.add(users.get(i).getUsername());
-//        }
-        usernames.add("marta");
-        usernames.add("je");
-        usernames.add("dosadna");
+      List<User> users= userRepository.findAll();
+      List<String> usernames=null;
+        for (User user : users) {
+            usernames.add(user.getUsername());
+        }
         return usernames;
     }
 }

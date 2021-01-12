@@ -7,6 +7,6 @@ public interface IUserService {
     boolean checkUsernameUnique(User user);
     User loginUser(User user);
     boolean updateUserToken(User user);
-    boolean sendNotifToChallenged(User challenged);
+    boolean sendNotifToChallenged(Game players);
     List<String> getUsersList();
 }

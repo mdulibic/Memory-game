@@ -25,10 +25,6 @@ class LogInActivity : AppCompatActivity() {
     lateinit var password: EditText
     lateinit var btnLogin: Button
     lateinit var register: TextView
-    var usersSet: MutableSet<String> = TreeSet()
-    var usersList = arrayOf<String>()
-    val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)//UVIK POČETAK ZA REST POZIV
-    var usersss: List<String> = listOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)

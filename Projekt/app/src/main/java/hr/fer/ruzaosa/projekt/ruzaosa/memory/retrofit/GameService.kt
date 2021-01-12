@@ -7,10 +7,17 @@ import retrofit2.http.Headers
 import retrofit2.http.POST
 
 interface GameService {
+
+    @Headers("Content-Type:application/json")
+    @POST("sendNotifToChallenged")
+    fun sendNotifToChallenged(
+            @Body info: GameBody
+    ): retrofit2.Call<ResponseBody>
+
     @Headers("Content-Type:application/json")
     @POST("gameAccepted")
     fun gameAccepted(
-            @Body info: User
+            @Body info: GameBody
     ): retrofit2.Call<ResponseBody>
 
     @Headers("Content-Type:application/json")
@@ -18,6 +25,7 @@ interface GameService {
     fun gameRejected(
             @Body info: User
     ): retrofit2.Call<ResponseBody>
+
 
     @Headers("Content-Type:application/json")
     @POST("createGame")
@@ -31,6 +39,7 @@ interface GameService {
     fun challengerFinished(
             @Body gameId: Long
     ): retrofit2.Call<ResponseBody>
+
     // return true if challenged did win, false otherwise
     @Headers("Content-Type:application/json")
     @POST("challengedFinished")
