@@ -24,6 +24,7 @@ public class GameService implements  IGameService {
             Game game = gameOptional.get();
             if (game.getChallengedTime() == null) {
                 gameRepository.updateChallengerTime(gameId, LocalDateTime.now());
+                game.getChallenger().setWins(game.getChallenger().getWins()+1);
                 return true;
             }
             else {
@@ -44,6 +45,7 @@ public class GameService implements  IGameService {
             Game game = gameOptional.get();
             if (game.getChallengerTime() == null) {
                 gameRepository.updateChallengedTime(gameId, LocalDateTime.now());
+                game.getChallenged().setWins(game.getChallenged().getWins()+1);
                 return true;
             }
             else {
