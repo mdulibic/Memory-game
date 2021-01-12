@@ -40,6 +40,7 @@ class ChallengeActivity : AppCompatActivity() {
 
     private fun gameAccepted() {
      //kad stisne accept, šalje se challengeru notif da će igrat i idu u GameActivity+Rest poziv za kreiranje igre
+        //iz rest poziva za kreiranje igre dobije gameId koji intentom šalje u GameActivity
     }
 }
 

@@ -9,12 +9,9 @@ import android.view.animation.AnimationUtils
 import android.widget.ImageButton
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
-import com.google.firebase.messaging.FirebaseMessaging
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
-import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
-import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameBody
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameService
 import kotlinx.android.synthetic.main.*
 import kotlinx.android.synthetic.main.activity_game.*
@@ -26,32 +23,26 @@ import java.lang.Math.*
 
 
 class GameActivity : AppCompatActivity() {
-
+    val PREFS = "MyPrefsFile"
+    val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
     private lateinit var buttons: List<ImageButton>
     private lateinit var cards: List<Card>
     private var indexOfSingleSelectedCard: Int = -1
     private var foundPairs: Int = 0
-    private lateinit var username: String
-
-    // dodano da bi radila fja chooseWinner. treba ih inicijalizirati ispravno!
-    val user1 = User("firstName", "lastName", "username", "email", "password", "token")
-    val user2 = User("firstName2", "lastName2", "username2", "email2", "password2", "token2")
-    val gameId = 1L
-
+    var gameId:Long = 0  //zasad dok ne izvučemo iz intenta
     val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-        //povuci username iz firebase
-
+        var username=prefs.getString("username", "No name defined")
+      //gameId=....
         try {
             this.supportActionBar!!.hide()
         } catch (e: NullPointerException) { }
 
         myplayer.setBackgroundResource(R.drawable.roundbutton)
-            // kristo istuc cu te zbog ovoga >:(A
-        //myPlayerUsername.setText(username)
+        myPlayerUsername.setText(username)
         quitGameBtn.setOnClickListener{ finish() }
         timer.start()
         progressBar.apply {
@@ -170,6 +161,7 @@ class GameActivity : AppCompatActivity() {
             foundPairs=foundPairs+1;
             if(foundPairs==15){
                 timer.stop()
+                endGame(gameId)
                 Handler().postDelayed({
                     startActivity(Intent(this@GameActivity, MenuActivity::class.java))
                 }, 400)
@@ -180,10 +172,10 @@ class GameActivity : AppCompatActivity() {
         }
         return false
     }
-    private fun endGAme(game: GameBody) {
+    private fun endGame(gameId:Long) {
         val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
         //if challenger won
-        retIn.challengerFinished(game.gameId).enqueue(object : Callback<ResponseBody> {
+        retIn.challengerFinished(gameId).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Toast.makeText(this@GameActivity, "Something went wrong", Toast.LENGTH_SHORT)
                         .show()
@@ -201,7 +193,7 @@ class GameActivity : AppCompatActivity() {
                         .show()
             }
         })
-        retIn.challengedFinished(game.gameId).enqueue(object : Callback<ResponseBody> {
+        retIn.challengedFinished(gameId).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Toast.makeText(this@GameActivity, "Something went wrong", Toast.LENGTH_SHORT)
                         .show()
