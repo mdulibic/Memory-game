@@ -1,5 +1,7 @@
 package hr.fer.ruzaosa.projekt.ruzaosa.memory
 
+import android.content.ContentValues.TAG
+import android.content.Intent
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
@@ -10,15 +12,31 @@ import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
 
 class MyFirebaseMessagingService: FirebaseMessagingService() {
     val PREFS = "MyPrefsFile"
+    val broadcastString = "fer.hr.ruazosa.memory"
+    val intent = Intent(broadcastString)
+
     override fun onMessageReceived(remoteMessage: RemoteMessage) {//kad primimo poruku ovdje je handleamo
-        // Check if message contains a data payload.
-        if (remoteMessage.data.isNotEmpty()) {
-            Log.d(TAG, "Message data payload: ${remoteMessage.data}")
-            // TODO broadcast event that message is received
+
+        if(remoteMessage.data.containsKey("Call for play")){
+            intent.putExtra("message", "Call for play")
+            sendBroadcast(intent)
+            // kada napravite push notifikacije njihove keyeve stavljate u ""
+        }else if(remoteMessage.data.containsKey("")){
+            intent.putExtra("", "")
+            sendBroadcast(intent)
+        }else if(remoteMessage.data.containsKey("")){
+            intent.putExtra("", "")
+            sendBroadcast(intent)
+        }else if(remoteMessage.data.containsKey("")){
+            intent.putExtra("", "")
+            sendBroadcast(intent)
+        }else if(remoteMessage.data.containsKey("")){
+            intent.putExtra("", "")
+            sendBroadcast(intent)
         }
     }
 
-    // chosen Message Template: card
+
 
 
     override fun onNewToken(token: String) {
@@ -37,5 +55,10 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
     companion object {
         private const val TAG = "MyFirebaseMsgService"
+        var PLAYER_CHALLENGED = "The second player has been challenged"
+        var GAME_ACCEPTED = "The second player accepted the game"
+        var GAME_REJECTED = "The second player rejected the game"
+        var LOSER = "You have lost the game"
+        var CANCELED_GAME = "The challenger canceled the game"
     }
 }
