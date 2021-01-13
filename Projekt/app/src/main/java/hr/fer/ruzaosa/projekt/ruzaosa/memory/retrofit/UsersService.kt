@@ -27,6 +27,6 @@ interface UsersService {
 
     @Headers("Content-Type:application/json")
     @GET("getUsersList")
-    fun getUsersList() : retrofit2.Call<ResponseBody>
+    fun getUsersList() : retrofit2.Call<List<User>>
 
 }

@@ -1,9 +1,12 @@
 package hr.fer.ruzaosa.projekt.ruzaosa.memory.activites;
 
 import android.content.Intent
+import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import com.fasterxml.jackson.core.type.TypeReference
+import com.fasterxml.jackson.databind.ObjectMapper
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.LogInActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
@@ -21,29 +24,30 @@ import retrofit2.Response
 
 
 public class ActivePlayersActivity : AppCompatActivity() {
-    val PREFS = "MyPrefsFile"
-    val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
-    val challenger = prefs.getString("username", "No name defined")
-    var users:MutableList<String> = mutableListOf()
+    val PREFS="MyPrefsFile"
+    lateinit var prefs:SharedPreferences
+    var users:List<User> = mutableListOf()
+    lateinit var activePlayersList:ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
+        prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
+        val challenger = prefs.getString("username", "No name defined")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_active_players)
-        var activePlayersList =findViewById<ListView>(R.id.activePlayersList)
-        var playersList=getListOfActivePlayers()
-        var activePlayers=arrayOfNulls<String>(playersList.size)
-        for (i in activePlayers.indices)
-           activePlayers[i]=playersList[i]
+        activePlayersList =findViewById<ListView>(R.id.activePlayersList)
+        getListOfActivePlayers()
+        var list= mutableListOf<String>()
+        for (i in users.indices)
+           list[i]=users[i].username
 
-
-        val itemsAdapter= ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, activePlayers)
+        val itemsAdapter= ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list)
         activePlayersList.adapter = itemsAdapter
 
         activePlayersList.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, i, l ->
-                val challengedUser: String = adapterView.getItemAtPosition(i) as String
+                val challengedUser = adapterView.getItemAtPosition(i) as User
                 val player1=User("","", challenger.toString(),"","","")
-                val player2=User("","",challengedUser,"","","")
+                val player2=User("","",challengedUser.username,"","","")
                 var players= GameBody(player1,player2)
                 val intent = Intent(this, WaitRoomActivity::class.java)
                 sendNotifToChallenged(players)
@@ -73,10 +77,11 @@ public class ActivePlayersActivity : AppCompatActivity() {
         })
     }
 
-    private fun getListOfActivePlayers(): List<String> {
+    private fun getListOfActivePlayers() {
+
         val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
-        retIn.getUsersList().enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+        retIn.getUsersList().enqueue(object : Callback<List<User>> {
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
                 Toast.makeText(
                     this@ActivePlayersActivity,
                     "Unknown error!",
@@ -84,15 +89,15 @@ public class ActivePlayersActivity : AppCompatActivity() {
                 ).show()
             }
             override fun onResponse(
-                call: Call<ResponseBody>,
-                response: Response<ResponseBody>
+                call: Call<List<User>>,
+                response: Response<List<User>>
             ) {
                 if (response.code() == 200) {
-                 users= response.body() as MutableList<String>
+                 users= response.body()!!
                 }
             }
         })
-      return users
+
 
     }
 }

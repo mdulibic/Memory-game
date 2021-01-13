@@ -89,8 +89,8 @@ public class UserController {
     }
 
     @GetMapping("/getUsersList")
-    public ResponseEntity<List<String>> getUsersList() {
-        List<String> users=userService.getUsersList();
-          return new ResponseEntity<List<String>>(users, HttpStatus.OK);
+    public ResponseEntity<List<User>> getUsersList() {
+        List<User> users=userService.getUsersList();
+          return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 }

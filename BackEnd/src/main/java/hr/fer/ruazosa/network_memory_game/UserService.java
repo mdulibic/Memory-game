@@ -4,9 +4,11 @@ import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 
+import kotlin.collections.ArrayDeque;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -65,12 +67,9 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public List<String> getUsersList() {
+    public List<User> getUsersList() {
       List<User> users= userRepository.findAll();
-      List<String> usernames=null;
-        for (User user : users) {
-            usernames.add(user.getUsername());
-        }
-        return usernames;
+
+        return users;
     }
 }
