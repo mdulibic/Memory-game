@@ -13,7 +13,8 @@
         android:supportsRtl="true"
         android:theme="@style/Theme.AppCompat.DayNight.NoActionBar"
         android:usesCleartextTraffic="true">
-        <activity android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.MyProfileActivity"></activity>
+        <activity android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.LeaderboardActivity"></activity>
+        <activity android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.MyProfileActivity" />
         <activity
             android:name=".k.activites.SplashActivity"
             android:theme="@style/SplashTheme">
@@ -32,7 +33,7 @@
 
         <receiver android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.MyBroadcastReceiver">
             <intent-filter>
-                <action android:name = "fer.hr.ruazosa.memory"/>
+                <action android:name="fer.hr.ruazosa.memory" />
             </intent-filter>
         </receiver>
 

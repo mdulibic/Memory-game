@@ -48,7 +48,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
         val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
         val username = prefs.getString("username", "No name defined").toString() //"No name defined" is the default value
-        val update= User("","", username,"","",token)
+        val update= User("","", username,"","",token, 0)
         retIn.updateToken(update)
     }
 

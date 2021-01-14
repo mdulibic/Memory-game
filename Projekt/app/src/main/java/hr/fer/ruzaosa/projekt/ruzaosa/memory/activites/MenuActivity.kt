@@ -11,6 +11,8 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.ActivePlayersActivity
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.LeaderboardActivity
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.LeaderboardAdapter
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.MyProfileActivity
 
 
@@ -44,7 +46,7 @@ class MenuActivity : AppCompatActivity() {
             playimg.startAnimation(pulse)
                 startActivity(Intent(this@MenuActivity, ActivePlayersActivity::class.java))
         }
-        leaderboardimg.setOnClickListener { leaderboardimg.startAnimation(pulse) }
+        leaderboardimg.setOnClickListener { leaderboardimg.startAnimation(pulse) ; startActivity(Intent(this@MenuActivity, LeaderboardActivity::class.java))}
         profileimg.setOnClickListener { profileimg.startAnimation(pulse)
             val myIntent = Intent(this@MenuActivity, MyProfileActivity::class.java)
             val myusername: String? = extras?.getString("myUsername")

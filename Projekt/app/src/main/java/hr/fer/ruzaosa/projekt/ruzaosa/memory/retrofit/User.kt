@@ -7,7 +7,9 @@ data class User(val firstName: String,
                                 val username: String,
                                 val email: String,
                                 val password: String,
-                                val token: String):Serializable{
+                                val token: String,
+                                var wins: Int) // dodala
+    :Serializable{
 
 }
 

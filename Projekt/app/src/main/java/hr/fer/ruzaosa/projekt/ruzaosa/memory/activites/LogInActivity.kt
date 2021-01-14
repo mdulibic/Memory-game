@@ -84,6 +84,7 @@ class LogInActivity : AppCompatActivity() {
                         editor.putString("username", username)
                         editor.apply()
                         val intent = Intent(this@LogInActivity, MenuActivity::class.java)
+                        intent.putExtra("myUsername", username)
                         startActivity(intent)
                     } else {
                         btnLogin.isEnabled = true

@@ -22,5 +22,8 @@
     <color name="pink">#CC6286</color>
     <color name="brown">#5C2E20</color>
     <color name="grey">#757575</color>
+    <color name="gold">#CF9D07</color>
+    <color name="silver">#595959</color>
+    <color name="bronze">#974F38</color>
 
 </resources>

@@ -1,0 +1,45 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout
+    xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:orientation="horizontal"
+    android:padding="10dp"
+    android:background="@color/background"
+    android:rowCount="1"
+    android:columnCount="3"
+    >
+<Button
+    android:id="@+id/rankBtn"
+    android:layout_width="60dp"
+    android:layout_height="60dp"
+    android:paddingHorizontal="10dp"
+    android:layout_gravity="center"
+    android:background="@color/dark_grey"
+    android:text="1"
+    android:textColor="@color/white"
+    android:textSize="29dp"
+    android:enabled="false"
+    ></Button>
+    <TextView
+        android:id="@+id/usernameLeaderboard"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:text="username"
+        android:textColor="@color/white"
+        android:textSize="19dp"
+></TextView>
+
+    <TextView
+        android:id="@+id/victoriesLeaderboard"
+        android:layout_width="150dp"
+        android:layout_height="wrap_content"
+        android:paddingHorizontal="50dp"
+        android:layout_gravity="center"
+        android:textAlignment="center"
+        android:text="0"
+        android:textColor="@color/white"
+        android:textSize="19dp"></TextView>
+</LinearLayout>

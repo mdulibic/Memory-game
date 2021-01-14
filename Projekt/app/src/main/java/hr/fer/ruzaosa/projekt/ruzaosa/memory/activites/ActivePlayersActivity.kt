@@ -5,8 +5,6 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
-import com.fasterxml.jackson.core.type.TypeReference
-import com.fasterxml.jackson.databind.ObjectMapper
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.LogInActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
@@ -26,7 +24,7 @@ import retrofit2.Response
 public class ActivePlayersActivity : AppCompatActivity() {
     val PREFS="MyPrefsFile"
     lateinit var prefs:SharedPreferences
-    var users:List<User> = mutableListOf()
+    var users:List<User> = listOf()
     lateinit var activePlayersList:ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -35,7 +33,7 @@ public class ActivePlayersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_active_players)
         activePlayersList =findViewById<ListView>(R.id.activePlayersList)
-        getListOfActivePlayers()
+        users = getListOfActivePlayers()
         var list= mutableListOf<String>()
         for (i in users.indices)
            list[i]=users[i].username
@@ -46,8 +44,8 @@ public class ActivePlayersActivity : AppCompatActivity() {
         activePlayersList.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, i, l ->
                 val challengedUser = adapterView.getItemAtPosition(i) as User
-                val player1=User("","", challenger.toString(),"","","")
-                val player2=User("","",challengedUser.username,"","","")
+                val player1=User("","", challenger.toString(),"","","", 0)
+                val player2=User("","",challengedUser.username,"","","", 0)
                 var players= GameBody(player1,player2)
                 val intent = Intent(this, WaitRoomActivity::class.java)
                 sendNotifToChallenged(players)
@@ -77,8 +75,9 @@ public class ActivePlayersActivity : AppCompatActivity() {
         })
     }
 
-    private fun getListOfActivePlayers() {
+    private fun getListOfActivePlayers(): List<User> {
 
+        var test: MutableList<User> = arrayListOf()
         val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
         retIn.getUsersList().enqueue(object : Callback<List<User>> {
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
@@ -93,11 +92,10 @@ public class ActivePlayersActivity : AppCompatActivity() {
                 response: Response<List<User>>
             ) {
                 if (response.code() == 200) {
-                 users= response.body()!!
+                    test.addAll(response.body()!!)
                 }
             }
         })
-
-
+        return test
     }
 }

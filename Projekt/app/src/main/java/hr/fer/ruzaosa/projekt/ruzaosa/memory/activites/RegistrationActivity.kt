@@ -60,18 +60,18 @@ class RegistrationActivity : AppCompatActivity() {
                         return@OnCompleteListener
                     }
                     val token = task.result.toString()
-                    signup(firstName, lastName, username, email, password, token)
+                    signup(firstName, lastName, username, email, password, token, 0)
                 })
             }
         }
     }
 
     private fun signup(firstName: String, lastName: String, username: String,
-                       email: String, password: String, token: String) {
+                       email: String, password: String, token: String, wins: Int) {
 
         val btnRegister = findViewById<Button>(R.id.registerButton)
         val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)//UVIK POČETAK ZA REST POZIV
-        val registerInfo = User(firstName, lastName, username, email, password, token)
+        val registerInfo = User(firstName, lastName, username, email, password, token, wins)
 
         retIn.registerUser(registerInfo).enqueue(object :
                 Callback<ResponseBody> {
