@@ -51,7 +51,7 @@ public class UserService implements IUserService {
     public boolean sendNotifToChallenged(Game players) {
         String response = null;
         Message message= Message.builder()
-                .putData("Call for play","Do you want to play?")
+                .putData("Call for play", "Do you want to play?")
                 .setNotification(Notification.builder().setTitle("Call for play").setBody("Do you want to play?").build())
                 .setToken(players.getChallenged().getToken())
                 .build();
@@ -60,7 +60,7 @@ public class UserService implements IUserService {
         } catch (FirebaseMessagingException e) {
             e.printStackTrace();
         }
-        if(response!=null)
+        if(response != null)
         return true;
         else return false;
     }
@@ -77,7 +77,7 @@ public class UserService implements IUserService {
             playerId = players.getChallenged().getToken();
         }
         Message message= Message.builder()
-                .putData("Challenged accepted","game accepted")
+                .putData("Challenged accepted", "game accepted")
                 .setNotification(Notification.builder().setTitle("Game status").setBody("Unfortunately, you have lost! :(").build())
                 .setToken(playerId)
                 .build();
@@ -86,7 +86,7 @@ public class UserService implements IUserService {
         } catch (FirebaseMessagingException e) {
             e.printStackTrace();
         }
-        if(response!=null)
+        if(response != null)
             return true;
         else return false;
     }
@@ -94,16 +94,16 @@ public class UserService implements IUserService {
     public boolean sendNotifGameAccepted(Game players) {
         String response = null;
         Message message= Message.builder()
-                .putData("Challenged rejected","game rejected")
-                .putData("From:",players.getChallenger().getUsername())
+                .putData("Challenged rejected", "game rejected")
+                .putData("From:", players.getChallenger().getUsername())
                 .setToken(players.getChallenger().getToken())
                 .build();
         try {
-            response= FirebaseMessaging.getInstance().send(message);
+            response = FirebaseMessaging.getInstance().send(message);
         } catch (FirebaseMessagingException e) {
             e.printStackTrace();
         }
-        if(response!=null)
+        if(response != null)
             return true;
         else return false;
     }
@@ -111,8 +111,8 @@ public class UserService implements IUserService {
     public boolean sendNotifGameRejected(Game players) {
         String response = null;
         Message message= Message.builder()
-                .putData("Challenged player","rejected the game")
-                .putData("From:",players.getChallenger().getUsername())
+                .putData("Challenged player", "rejected the game")
+                .putData("From:", players.getChallenger().getUsername())
                 .setToken(players.getChallenged().getToken())
                 .build();
         try {
@@ -120,7 +120,7 @@ public class UserService implements IUserService {
         } catch (FirebaseMessagingException e) {
             e.printStackTrace();
         }
-        if(response!=null)
+        if(response != null)
             return true;
         else return false;
     }
@@ -128,8 +128,8 @@ public class UserService implements IUserService {
     public boolean sendNotifGameCanceled(Game players) {
         String response = null;
         Message message= Message.builder()
-                .putData("Game canceled","cenceled the game")
-                .putData("From:",players.getChallenger().getUsername())
+                .putData("Game canceled", "canceled the game")
+                .putData("From:", players.getChallenger().getUsername())
                 .setToken(players.getChallenged().getToken())
                 .build();
         try {
@@ -137,14 +137,14 @@ public class UserService implements IUserService {
         } catch (FirebaseMessagingException e) {
             e.printStackTrace();
         }
-        if(response!=null)
+        if(response != null)
             return true;
         else return false;
     }
 
     @Override
     public List<User> getUsersList() {
-      List<User> users= userRepository.findAll();
+      List<User> users = userRepository.findAll();
 
         return users;
     }
