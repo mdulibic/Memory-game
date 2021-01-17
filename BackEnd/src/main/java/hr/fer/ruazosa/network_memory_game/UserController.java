@@ -87,7 +87,7 @@ public class UserController {
        }
         return new ResponseEntity<Object>(game, HttpStatus.NOT_ACCEPTABLE);
     }
-    @PostMapping("/sendNotifToCLoser")
+    @PostMapping("/sendNotifToLoser")
     public ResponseEntity<Object> sendNotifToLoser(@RequestBody Game game) {
         if(userService.sendNotifToLoser(game)){
             return new ResponseEntity<Object>(game, HttpStatus.OK);
