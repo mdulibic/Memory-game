@@ -11,7 +11,7 @@ import hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.GameActivity
 class MyBroadcastReceiver : BroadcastReceiver(){
     override fun onReceive(context: Context?, intent: Intent?) {
         val message = intent?.getStringExtra("message")
-        if(message == "Call for play"){
+        if(message == "Call for play") {
             val i = Intent(context, ChallengeActivity::class.java)
             context?.startActivity(i)
         }
