@@ -23,7 +23,7 @@ interface GameService {
     @Headers("Content-Type:application/json")
     @POST("gameRejected")
     fun gameRejected(
-            @Body info: User
+            @Body info: GameBody
     ): retrofit2.Call<ResponseBody>
 
 
