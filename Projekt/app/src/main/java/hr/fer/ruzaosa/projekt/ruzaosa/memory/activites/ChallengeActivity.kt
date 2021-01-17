@@ -5,6 +5,7 @@ import android.content.Intent
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
 import android.view.View
+import android.widget.Toast
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
@@ -12,6 +13,10 @@ import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameBody
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameService
 import kotlinx.android.synthetic.main.activity_challenge.*
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 class ChallengeActivity : AppCompatActivity() {
     @SuppressLint("ResourceAsColor")
@@ -29,13 +34,14 @@ class ChallengeActivity : AppCompatActivity() {
             this@ChallengeActivity.startActivity(myIntent)
         }
         buttonReject.setOnClickListener {
-            gameRejected()
+      //      gameRejected() // ZBOG KRIVOG PARAMETRA ZAKOMENTIRANO
             finish()
         }
     }
 
-    private fun gameRejected() {
+    private fun gameRejected(players: GameBody) {
       //kad stisne reject, salje se challengeru notif da neće igrat i vrati im se na MenuActivity
+       // sendNotifGameRejected()
     }
 
     private fun gameAccepted() {
