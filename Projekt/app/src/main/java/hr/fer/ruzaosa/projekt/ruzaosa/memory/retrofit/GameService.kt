@@ -52,4 +52,10 @@ interface GameService {
     fun sendNotifToLoser(
             @Body game: GameBody
     ): retrofit2.Call<ResponseBody>
+
+    @Headers("Content-Type:application/json")
+    @POST("sendNotifGameCanceled")
+    fun sendNotifGameCanceled(
+        @Body game: GameBody
+    ): retrofit2.Call<ResponseBody>
 }

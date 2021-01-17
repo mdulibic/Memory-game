@@ -108,6 +108,13 @@ public class UserController {
         }
         return new ResponseEntity<Object>(game, HttpStatus.NOT_ACCEPTABLE);
     }
+    @PostMapping("/gameCanceled")
+    public ResponseEntity<Object> sendNotifGameCanceled(@RequestBody Game game) {
+        if(userService.sendNotifGameCanceled(game)){
+            return new ResponseEntity<Object>(game, HttpStatus.OK);
+        }
+        return new ResponseEntity<Object>(game, HttpStatus.NOT_ACCEPTABLE);
+    }
 
     @GetMapping("/getUsersList")
     public ResponseEntity<List<User>> getUsersList() {

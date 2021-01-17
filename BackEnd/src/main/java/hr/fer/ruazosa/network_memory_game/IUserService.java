@@ -11,5 +11,6 @@ public interface IUserService {
     boolean sendNotifToLoser(Game players);
     boolean sendNotifGameAccepted(Game players);
     boolean sendNotifGameRejected(Game players);
+    boolean sendNotifGameCanceled(Game players);
     List<User> getUsersList();
 }

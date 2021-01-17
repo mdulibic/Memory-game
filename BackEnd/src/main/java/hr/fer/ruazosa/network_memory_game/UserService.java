@@ -67,10 +67,19 @@ public class UserService implements IUserService {
     @Override
     public boolean sendNotifToLoser(Game players) {
         String response = null;
+        String playerId = null;
+        GameService gameService = new GameService();
+        boolean winner = gameService.challengedFinished(players.getId());
+        if (winner) {
+            playerId = players.getChallenger().getToken();
+        }
+        else {
+            playerId = players.getChallenged().getToken();
+        }
         Message message= Message.builder()
                 .putData("Challenged accepted","game accepted")
                 .setNotification(Notification.builder().setTitle("Game status").setBody("Unfortunately, you have lost! :(").build())
-                .setToken(players.getChallenged().getToken())
+                .setToken(playerId)
                 .build();
         try {
             response= FirebaseMessaging.getInstance().send(message);
@@ -87,7 +96,7 @@ public class UserService implements IUserService {
         Message message= Message.builder()
                 .putData("Challenged rejected","game rejected")
                 .putData("From:",players.getChallenger().getUsername())
-                .setToken(players.getChallenged().getToken())
+                .setToken(players.getChallenger().getToken())
                 .build();
         try {
             response= FirebaseMessaging.getInstance().send(message);
@@ -103,6 +112,23 @@ public class UserService implements IUserService {
         String response = null;
         Message message= Message.builder()
                 .putData("Challenged player","rejected the game")
+                .putData("From:",players.getChallenger().getUsername())
+                .setToken(players.getChallenged().getToken())
+                .build();
+        try {
+            response= FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+        if(response!=null)
+            return true;
+        else return false;
+    }
+    @Override
+    public boolean sendNotifGameCanceled(Game players) {
+        String response = null;
+        Message message= Message.builder()
+                .putData("Game canceled","cenceled the game")
                 .putData("From:",players.getChallenger().getUsername())
                 .setToken(players.getChallenged().getToken())
                 .build();
