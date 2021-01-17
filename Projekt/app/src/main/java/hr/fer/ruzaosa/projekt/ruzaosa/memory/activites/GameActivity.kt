@@ -12,6 +12,8 @@ import androidx.appcompat.app.AppCompatActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameBody
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameService
 import kotlinx.android.synthetic.main.*
 import kotlinx.android.synthetic.main.activity_game.*
@@ -29,6 +31,10 @@ class GameActivity : AppCompatActivity() {
     private lateinit var cards: List<Card>
     private var indexOfSingleSelectedCard: Int = -1
     private var foundPairs: Int = 0
+    var game:GameBody = GameBody(
+            User("ana", "pavicic", "amp", "amp@gmail.com", "lozinkica", "nekitoken", 0),
+            User("elena", "wachtler", "zelena", "ew@gmail.com", "elenazelena", "nekidrugitoken", 3),
+            1L) // zasad dok ne dobijemo ispravan game!
     var gameId:Long = 0  //zasad dok ne izvučemo iz intenta
     val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
 
@@ -161,7 +167,7 @@ class GameActivity : AppCompatActivity() {
             foundPairs=foundPairs+1;
             if(foundPairs==15){
                 timer.stop()
-                endGame(gameId)
+                endGame(game)
                 Handler().postDelayed({
                     startActivity(Intent(this@GameActivity, MenuActivity::class.java))
                 }, 400)
@@ -172,43 +178,60 @@ class GameActivity : AppCompatActivity() {
         }
         return false
     }
-    private fun endGame(gameId:Long) {
+    private fun endGame(game:GameBody) {
         val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
         //if challenger won
-        retIn.challengerFinished(gameId).enqueue(object : Callback<ResponseBody> {
+        retIn.challengerFinished(game.gameId).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(this@GameActivity, "Something went wrong", Toast.LENGTH_SHORT)
+                Toast.makeText(this@GameActivity, t.message, Toast.LENGTH_SHORT)
                         .show()
-                //or
-                //Toast.makeText(this@GameActivity, "You lost the game :(", Toast.LENGTH_SHORT)
-                //.show()
+                // t.message možemo promijeniti u "unknown error occurred" (ovako mi lakše nađemo grešku ako do nje dođe)
             }
 
             override fun onResponse(
                     call: Call<ResponseBody>,
                     response: Response<ResponseBody>
             ) {
-                //trebamo izvaditi boolean kako vi stavili toast ili posalli notifikciju
-                Toast.makeText(this@GameActivity, "Congratulations! You won!", Toast.LENGTH_SHORT)
-                        .show()
+
+                if(response.code() == 200) {
+
+                    Toast.makeText(this@GameActivity, "Congratulations! You have won!", Toast.LENGTH_SHORT)
+                            .show()
+
+                    // gubitniku (Challenged) poslati PUSH notification
+                    // trebamo izvaditi boolean kako bismo stavili toast ili poslali notifikaciju (?)
+                    retIn.sendNotifToLoser(game) // je li ovo dobro?
+                }
+                else {
+                    Toast.makeText(this@GameActivity, "An unknown error occured", Toast.LENGTH_SHORT).show()
+                }
+
             }
         })
-        retIn.challengedFinished(gameId).enqueue(object : Callback<ResponseBody> {
+        retIn.challengedFinished(game.gameId).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
-                Toast.makeText(this@GameActivity, "Something went wrong", Toast.LENGTH_SHORT)
+                Toast.makeText(this@GameActivity, t.message, Toast.LENGTH_SHORT)
                         .show()
-                //or
-                //Toast.makeText(this@GameActivity, "You lost the game :(", Toast.LENGTH_SHORT)
-                //.show()
+                // t.message možemo promijeniti u "unknown error occurred" (ovako mi lakše nađemo grešku ako do nje dođe)
             }
 
             override fun onResponse(
                     call: Call<ResponseBody>,
                     response: Response<ResponseBody>
             ) {
-                //Toast.makeText(this@GameActivity, "Congratulations! You won!", Toast.LENGTH_SHORT)
-                //.show()
-                //send notification to challanged via token ?
+
+                if(response.code() == 200) {
+
+                    Toast.makeText(this@GameActivity, "Congratulations! You have won!", Toast.LENGTH_SHORT)
+                            .show()
+
+                    // gubitniku (Challenger) poslati PUSH notification
+                    // trebamo izvaditi boolean kako bismo stavili toast ili poslali notifikaciju (?)
+                    retIn.sendNotifToLoser(game)
+                }
+                else {
+                    Toast.makeText(this@GameActivity, "An unknown error occured", Toast.LENGTH_SHORT).show()
+                }
 
             }
         })

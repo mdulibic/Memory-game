@@ -64,4 +64,11 @@ interface GameService {
     fun challengedFinished(
             @Body gameId: Long
     ): retrofit2.Call<ResponseBody>
+
+
+    @Headers("Content-Type:application/json")
+    @POST("sendNotifToLoser")
+    fun sendNotifToLoser(
+            @Body game: GameBody
+    ): retrofit2.Call<ResponseBody>
 }
