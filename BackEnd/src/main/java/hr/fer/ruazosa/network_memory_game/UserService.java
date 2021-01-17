@@ -5,11 +5,9 @@ import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
 
-import kotlin.collections.ArrayDeque;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
-import java.util.ArrayList;
 import java.util.List;
 
 @Service
@@ -70,7 +68,7 @@ public class UserService implements IUserService {
     public boolean sendNotifToLoser(Game players) {
         String response = null;
         Message message= Message.builder()
-                .putData("Notif to loser","You have lost the game")
+                .putData("Challenged accepted","game accepted")
                 .setNotification(Notification.builder().setTitle("Game status").setBody("Unfortunately, you have lost! :(").build())
                 .setToken(players.getChallenged().getToken())
                 .build();
@@ -87,7 +85,7 @@ public class UserService implements IUserService {
     public boolean sendNotifGameAccepted(Game players) {
         String response = null;
         Message message= Message.builder()
-                .putData("Challenged player","accepted the game")
+                .putData("Challenged rejected","game rejected")
                 .putData("From:",players.getChallenger().getUsername())
                 .setToken(players.getChallenged().getToken())
                 .build();

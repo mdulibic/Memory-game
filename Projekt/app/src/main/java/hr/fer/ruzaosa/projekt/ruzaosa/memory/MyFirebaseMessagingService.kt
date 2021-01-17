@@ -21,17 +21,17 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
             intent.putExtra("message", "Call for play")
             sendBroadcast(intent)
             // kada napravite push notifikacije njihove keyeve stavljate u ""
-        }else if(remoteMessage.data.containsKey("")){
-            intent.putExtra("", "")
+        }else if(remoteMessage.data.containsKey("Challenged accepted")){
+            intent.putExtra("message", "")
+            sendBroadcast(intent)
+        }else if(remoteMessage.data.containsKey("Challenged rejected")){
+            intent.putExtra("message", "")
             sendBroadcast(intent)
         }else if(remoteMessage.data.containsKey("")){
-            intent.putExtra("", "")
+            intent.putExtra("message", "")
             sendBroadcast(intent)
         }else if(remoteMessage.data.containsKey("")){
-            intent.putExtra("", "")
-            sendBroadcast(intent)
-        }else if(remoteMessage.data.containsKey("")){
-            intent.putExtra("", "")
+            intent.putExtra("message", "")
             sendBroadcast(intent)
         }
     }
