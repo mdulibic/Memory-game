@@ -24,7 +24,6 @@ import retrofit2.Response
 public class ActivePlayersActivity : AppCompatActivity() {
     val PREFS="MyPrefsFile"
     lateinit var prefs:SharedPreferences
-    var users:List<User> = listOf()
     lateinit var activePlayersList:ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -33,13 +32,7 @@ public class ActivePlayersActivity : AppCompatActivity() {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_active_players)
         activePlayersList =findViewById<ListView>(R.id.activePlayersList)
-        users = getListOfActivePlayers()
-        var list= mutableListOf<String>()
-        for (i in users.indices)
-           list[i]=users[i].username
-
-        val itemsAdapter= ArrayAdapter<String>(this, android.R.layout.simple_list_item_1, list)
-        activePlayersList.adapter = itemsAdapter
+        getListOfActivePlayers()
 
         activePlayersList.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, i, l ->
@@ -75,9 +68,9 @@ public class ActivePlayersActivity : AppCompatActivity() {
         })
     }
 
-    private fun getListOfActivePlayers(): List<User> {
+    private fun getListOfActivePlayers() {
 
-        var test: MutableList<User> = arrayListOf()
+        var users: List<User> = arrayListOf()
         val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
         retIn.getUsersList().enqueue(object : Callback<List<User>> {
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
@@ -92,10 +85,19 @@ public class ActivePlayersActivity : AppCompatActivity() {
                 response: Response<List<User>>
             ) {
                 if (response.code() == 200) {
-                    test.addAll(response.body()!!)
+                        var list = mutableListOf<String>()
+                        users= response!!.body()!!
+                   for (i in users.indices) {
+                       list.add(users[i].username)
+                   }
+                    val itemsAdapter = ArrayAdapter<String>(this@ActivePlayersActivity, android.R.layout.simple_list_item_1, list)
+                    activePlayersList.adapter = itemsAdapter
+
                 }
             }
-        })
-        return test
-    }
+
+
+}
+
+}
 }

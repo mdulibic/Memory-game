@@ -3,6 +3,7 @@ package hr.fer.ruazosa.network_memory_game;
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
+import com.google.firebase.messaging.Notification;
 
 import kotlin.collections.ArrayDeque;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -53,7 +54,7 @@ public class UserService implements IUserService {
         String response = null;
         Message message= Message.builder()
                 .putData("Call for play","Do you want to play?")
-                .putData("From:",players.getChallenger().getUsername())
+                .setNotification(Notification.builder().setTitle("Call for play").setBody("Do you want to play?").build())
                 .setToken(players.getChallenged().getToken())
                 .build();
         try {
@@ -69,8 +70,8 @@ public class UserService implements IUserService {
     public boolean sendNotifToLoser(Game players) {
         String response = null;
         Message message= Message.builder()
-                .putData("Unfortunately","You lost :(")
-                .putData("From:",players.getChallenger().getUsername())
+                .putData("Notif to loser","You have lost the game")
+                .setNotification(Notification.builder().setTitle("Game status").setBody("Unfortunately, you have lost! :(").build())
                 .setToken(players.getChallenged().getToken())
                 .build();
         try {

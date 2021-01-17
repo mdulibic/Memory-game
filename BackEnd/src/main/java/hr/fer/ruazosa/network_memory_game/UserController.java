@@ -94,14 +94,14 @@ public class UserController {
         }
         return new ResponseEntity<Object>(game, HttpStatus.NOT_ACCEPTABLE);
     }
-    @PostMapping("/sendNotifGameAccepted")
+    @PostMapping("/gameAccepted")
     public ResponseEntity<Object> sendNotifGameAccepted(@RequestBody Game game) {
         if(userService.sendNotifGameAccepted(game)){
             return new ResponseEntity<Object>(game, HttpStatus.OK);
         }
         return new ResponseEntity<Object>(game, HttpStatus.NOT_ACCEPTABLE);
     }
-    @PostMapping("/sendNotifGameRejected")
+    @PostMapping("/gameRejected")
     public ResponseEntity<Object> sendNotifGameRejected(@RequestBody Game game) {
         if(userService.sendNotifGameRejected(game)){
             return new ResponseEntity<Object>(game, HttpStatus.OK);

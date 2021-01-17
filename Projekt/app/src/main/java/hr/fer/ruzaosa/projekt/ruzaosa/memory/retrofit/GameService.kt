@@ -40,24 +40,6 @@ interface GameService {
             @Body gameId: Long
     ): retrofit2.Call<ResponseBody>
 
-    @Headers("Content-Type:application/json")
-    @POST("sendNotifToLoser")
-    fun sendNotifToLoser(
-        @Body game: GameBody
-    ): retrofit2.Call<ResponseBody>
-
-    @Headers("Content-Type:application/json")
-    @POST("sendNotifGameAccepted")
-    fun sendNotifGameAccepted(
-        @Body game: GameBody
-    ): retrofit2.Call<ResponseBody>
-
-    @Headers("Content-Type:application/json")
-    @POST("sendNotifGameRejected")
-    fun sendNotifGameRejected(
-        @Body game: GameBody
-    ): retrofit2.Call<ResponseBody>
-
     // return true if challenged did win, false otherwise
     @Headers("Content-Type:application/json")
     @POST("challengedFinished")
@@ -65,4 +47,9 @@ interface GameService {
             @Body gameId: Long
     ): retrofit2.Call<ResponseBody>
 
+    @Headers("Content-Type:application/json")
+    @POST("sendNotifToLoser")
+    fun sendNotifToLoser(
+            @Body game: GameBody
+    ): retrofit2.Call<ResponseBody>
 }

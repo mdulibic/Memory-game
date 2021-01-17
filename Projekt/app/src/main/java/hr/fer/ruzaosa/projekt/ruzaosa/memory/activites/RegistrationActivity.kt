@@ -22,9 +22,6 @@ import java.util.*
 
 class RegistrationActivity : AppCompatActivity() {
 
-    var usersSet: MutableSet<String> = TreeSet<String>()
-    val usersList = arrayOf<String>("luca", "marta" , "martesija")
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_registration)
