@@ -9,5 +9,7 @@ public interface IUserService {
     boolean updateUserToken(User user);
     boolean sendNotifToChallenged(Game players);
     boolean sendNotifToLoser(Game players);
+    boolean sendNotifGameAccepted(Game players);
+    boolean sendNotifGameRejected(Game players);
     List<User> getUsersList();
 }

@@ -82,6 +82,40 @@ public class UserService implements IUserService {
             return true;
         else return false;
     }
+    @Override
+    public boolean sendNotifGameAccepted(Game players) {
+        String response = null;
+        Message message= Message.builder()
+                .putData("Challenged player","accepted the game")
+                .putData("From:",players.getChallenger().getUsername())
+                .setToken(players.getChallenged().getToken())
+                .build();
+        try {
+            response= FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+        if(response!=null)
+            return true;
+        else return false;
+    }
+    @Override
+    public boolean sendNotifGameRejected(Game players) {
+        String response = null;
+        Message message= Message.builder()
+                .putData("Challenged player","rejected the game")
+                .putData("From:",players.getChallenger().getUsername())
+                .setToken(players.getChallenged().getToken())
+                .build();
+        try {
+            response= FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+        if(response!=null)
+            return true;
+        else return false;
+    }
 
     @Override
     public List<User> getUsersList() {

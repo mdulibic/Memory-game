@@ -94,6 +94,20 @@ public class UserController {
         }
         return new ResponseEntity<Object>(game, HttpStatus.NOT_ACCEPTABLE);
     }
+    @PostMapping("/sendNotifGameAccepted")
+    public ResponseEntity<Object> sendNotifGameAccepted(@RequestBody Game game) {
+        if(userService.sendNotifGameAccepted(game)){
+            return new ResponseEntity<Object>(game, HttpStatus.OK);
+        }
+        return new ResponseEntity<Object>(game, HttpStatus.NOT_ACCEPTABLE);
+    }
+    @PostMapping("/sendNotifGameRejected")
+    public ResponseEntity<Object> sendNotifGameRejected(@RequestBody Game game) {
+        if(userService.sendNotifGameRejected(game)){
+            return new ResponseEntity<Object>(game, HttpStatus.OK);
+        }
+        return new ResponseEntity<Object>(game, HttpStatus.NOT_ACCEPTABLE);
+    }
 
     @GetMapping("/getUsersList")
     public ResponseEntity<List<User>> getUsersList() {
