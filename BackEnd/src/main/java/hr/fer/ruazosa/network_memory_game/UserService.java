@@ -69,7 +69,7 @@ public class UserService implements IUserService {
     public boolean sendNotifToLoser(Game players) {
         String response = null;
         Message message= Message.builder()
-                .putData("You lost :(")
+                .putData("Unfortunately","You lost :(")
                 .putData("From:",players.getChallenger().getUsername())
                 .setToken(players.getChallenged().getToken())
                 .build();
