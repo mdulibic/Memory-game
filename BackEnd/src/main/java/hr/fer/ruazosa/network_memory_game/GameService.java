@@ -1,5 +1,9 @@
 package hr.fer.ruazosa.network_memory_game;
 
+import com.google.firebase.messaging.FirebaseMessaging;
+import com.google.firebase.messaging.FirebaseMessagingException;
+import com.google.firebase.messaging.Message;
+import com.google.firebase.messaging.Notification;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
@@ -25,6 +29,15 @@ public class GameService implements  IGameService {
             if (game.getChallengedTime() == null) {
                 gameRepository.updateChallengerTime(gameId, LocalDateTime.now());
                 game.getChallenger().setWins(game.getChallenger().getWins()+1);
+                Message message= Message.builder()
+                        .putData("Notif for loser", "Game status")
+                        .setToken(game.getChallenged().getToken())
+                        .build();
+                try {
+                    String response = FirebaseMessaging.getInstance().send(message);
+                } catch (FirebaseMessagingException e) {
+                    e.printStackTrace();
+                }
                 return true;
             }
             else {
@@ -46,6 +59,15 @@ public class GameService implements  IGameService {
             if (game.getChallengerTime() == null) {
                 gameRepository.updateChallengedTime(gameId, LocalDateTime.now());
                 game.getChallenged().setWins(game.getChallenged().getWins()+1);
+                Message message= Message.builder()
+                        .putData("Notif for loser", "Game status")
+                        .setToken(game.getChallenger().getToken())
+                        .build();
+                try {
+                    String response = FirebaseMessaging.getInstance().send(message);
+                } catch (FirebaseMessagingException e) {
+                    e.printStackTrace();
+                }
                 return true;
             }
             else {
@@ -58,6 +80,72 @@ public class GameService implements  IGameService {
         }
     }
 
+    @Override
+    public boolean sendNotifToChallenged(Game players) {
+        String response = null;
+        Message message= Message.builder()
+                .putData("Call for play", "Do you want to play?")
+                .putData("challenger",players.getChallenger().getFirstName()+players.getChallenger().getLastName())
+                .setNotification(Notification.builder().setTitle("Call for play").setBody("Do you want to play?").build())
+                .setToken(players.getChallenged().getToken())
+                .build();
+        try {
+            response= FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+        if(response != null)
+            return true;
+        else return false;
+    }
 
+    @Override
+    public boolean sendNotifGameAccepted(Game players) {
+        String response = null;
+        Message message= Message.builder()
+                .putData("Challenged accepted", "Game accepted")
+                .setToken(players.getChallenger().getToken())
+                .build();
+        try {
+            response = FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+        if(response != null)
+            return true;
+        else return false;
+    }
+    @Override
+    public boolean sendNotifGameRejected(Game players) {
+        String response = null;
+        Message message= Message.builder()
+                .putData("Challenged rejected", "Game rejected")
+                .setToken(players.getChallenger().getToken())
+                .build();
+        try {
+            response= FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+        if(response != null)
+            return true;
+        else return false;
+    }
+    @Override
+    public boolean sendNotifGameCancelled(String token) {
+        String response = null;
+        Message message= Message.builder()
+                .putData("Game cancelled", "Challenger cancelled the game")
+                .setToken(token)
+                .build();
+        try {
+            response= FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+        if(response != null)
+            return true;
+        else return false;
+    }
 
 }

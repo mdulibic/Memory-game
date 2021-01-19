@@ -31,25 +31,22 @@ class GameActivity : AppCompatActivity() {
     private lateinit var cards: List<Card>
     private var indexOfSingleSelectedCard: Int = -1
     private var foundPairs: Int = 0
-    var game:GameBody = GameBody(
-            User("ana", "pavicic", "amp", "amp@gmail.com", "lozinkica", "nekitoken", 0),
-            User("elena", "wachtler", "zelena", "ew@gmail.com", "elenazelena", "nekidrugitoken", 3),
-            1L) // zasad dok ne dobijemo ispravan game!
-    var gameId:Long = 0  //zasad dok ne izvučemo iz intenta
     val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
+    var gameId: Long = 0
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
-        var username=prefs.getString("username", "No name defined")
-      //gameId=....
+        var username = prefs.getString("username", "No name defined")
+        gameId = prefs.getLong("gameId", 0L)
         try {
             this.supportActionBar!!.hide()
-        } catch (e: NullPointerException) { }
+        } catch (e: NullPointerException) {
+        }
 
         myplayer.setBackgroundResource(R.drawable.roundbutton)
         myPlayerUsername.setText(username)
-        quitGameBtn.setOnClickListener{ finish() }
+        quitGameBtn.setOnClickListener { finish() }
         timer.start()
         progressBar.apply {
             progressBarColor = Color.WHITE
@@ -118,7 +115,9 @@ class GameActivity : AppCompatActivity() {
             val flipAndFadeOut: Animation? = AnimationUtils.loadAnimation(this, R.anim.flip_fade_out)
             var previous: Int = indexOfSingleSelectedCard // indeks prethodno otvorene
 
-            for (i in 0..29) { buttons[i].isClickable = false }
+            for (i in 0..29) {
+                buttons[i].isClickable = false
+            }
 
             if (!checkForMatch(indexOfSingleSelectedCard, position)) {
                 Handler().postDelayed({
@@ -133,8 +132,7 @@ class GameActivity : AppCompatActivity() {
                     }
 
                 }, 1000)
-            }
-            else {
+            } else {
                 Handler().postDelayed({
                     for (i in 0..29) {
                         buttons[i].isClickable = true
@@ -164,70 +162,66 @@ class GameActivity : AppCompatActivity() {
                 setProgressWithAnimation(progress + 6.66666f, 400)
             }
 
-            foundPairs=foundPairs+1;
-            if(foundPairs==15){
+            foundPairs = foundPairs + 1;
+            if (foundPairs == 15) {
                 timer.stop()
-                endGame(game)
+                gameFinished(gameId)
                 Handler().postDelayed({
                     startActivity(Intent(this@GameActivity, MenuActivity::class.java))
                 }, 400)
                 Toast.makeText(this@GameActivity, "You have completed the puzzle in " + timer.text + "s", Toast.LENGTH_LONG)
-                    .show()
+                        .show()
             }
             return true
         }
         return false
     }
-    private fun endGame(game:GameBody) {
-        val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
-        //if challenger won
-        retIn.challengerFinished(game.gameId).enqueue(object : Callback<ResponseBody> {
+
+    private fun gameFinished(gameId: Long) {
+        if (!challengerFinished(gameId)) {
+            challengedFinished(gameId)
+        }else{
+            val myIntent = Intent(this@GameActivity, MenuActivity::class.java)
+            this@GameActivity.startActivity(myIntent)
+        }
+    }
+
+    private fun challengerFinished(gameId: Long): Boolean {
+        var hasChallengerWon: Boolean=false
+        retIn.challengerFinished(gameId).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Toast.makeText(this@GameActivity, t.message, Toast.LENGTH_SHORT)
                         .show()
-                // t.message možemo promijeniti u "unknown error occurred" (ovako mi lakše nađemo grešku ako do nje dođe)
             }
-
             override fun onResponse(
                     call: Call<ResponseBody>,
                     response: Response<ResponseBody>
             ) {
-
-                if(response.code() == 200) {
-
-                    Toast.makeText(this@GameActivity, "Congratulations! You have won!", Toast.LENGTH_SHORT)
-                            .show()
-
-                    // gubitniku (Challenged) poslati PUSH notification
-                    // trebamo izvaditi boolean kako bismo stavili toast ili poslali notifikaciju (?)
-                    retIn.sendNotifToLoser(game) // je li ovo dobro?
-                }
-                else {
+                if (response.code() == 200) {
+                    hasChallengerWon = response.body() as Boolean
+                } else {
                     Toast.makeText(this@GameActivity, "An unknown error occured", Toast.LENGTH_SHORT).show()
                 }
-
             }
         })
-        retIn.challengedFinished(game.gameId).enqueue(object : Callback<ResponseBody> {
+        return hasChallengerWon
+    }
+
+
+
+    private fun challengedFinished(gameId:Long) {
+        retIn.challengedFinished(gameId).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Toast.makeText(this@GameActivity, t.message, Toast.LENGTH_SHORT)
                         .show()
-                // t.message možemo promijeniti u "unknown error occurred" (ovako mi lakše nađemo grešku ako do nje dođe)
             }
-
             override fun onResponse(
                     call: Call<ResponseBody>,
                     response: Response<ResponseBody>
             ) {
-
                 if(response.code() == 200) {
-
-                    Toast.makeText(this@GameActivity, "Congratulations! You have won!", Toast.LENGTH_SHORT)
-                            .show()
-
-                    // gubitniku (Challenger) poslati PUSH notification
-                    // trebamo izvaditi boolean kako bismo stavili toast ili poslali notifikaciju (?)
-                    retIn.sendNotifToLoser(game)
+                    val myIntent = Intent(this@GameActivity, MenuActivity::class.java)
+                    this@GameActivity.startActivity(myIntent)
                 }
                 else {
                     Toast.makeText(this@GameActivity, "An unknown error occured", Toast.LENGTH_SHORT).show()
@@ -236,4 +230,6 @@ class GameActivity : AppCompatActivity() {
             }
         })
     }
+
+
 }

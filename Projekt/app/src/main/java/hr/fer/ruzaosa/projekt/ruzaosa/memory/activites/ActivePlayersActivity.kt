@@ -6,8 +6,6 @@ import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
-import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.LogInActivity
-import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
@@ -37,14 +35,40 @@ public class ActivePlayersActivity : AppCompatActivity() {
         activePlayersList.onItemClickListener =
             AdapterView.OnItemClickListener { adapterView, view, i, l ->
                 val challengedUser = adapterView.getItemAtPosition(i) as User
-                val player1=User("","", challenger.toString(),"","","", 0)
-                val player2=User("","",challengedUser.username,"","","", 0)
-                var players= GameBody(player1,player2, 0L) // treba promijeniti u pravi gameId!!!
+                val challenger=User("","", challenger.toString(),"","","", 0)
+                val challenged=User("","",challengedUser.username,"","","", 0)
+                var players= GameBody(challenger,challenged, 0L) // treba promijeniti u pravi gameId!!!
                 val intent = Intent(this, WaitRoomActivity::class.java)
+                intent.putExtra("challenged",challenged.token)
+                initalizeGame(players)
                 sendNotifToChallenged(players)
             }
 
         exitActivePlayers.setOnClickListener { finish() }
+    }
+
+    private fun initalizeGame(players:GameBody) {
+        val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
+        retIn.createGame(players).enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(
+                        this@ActivePlayersActivity,
+                        "Unknown error!",
+                        Toast.LENGTH_SHORT
+                ).show()
+            }
+            override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+            ) {
+                if (response.code() == 200) {
+                    var game=response.body() as GameBody
+                    val editor = getSharedPreferences(PREFS, MODE_PRIVATE).edit()
+                    editor.putLong("gameId", game.gameId)
+                    editor.apply()
+                }
+            }
+        })
     }
 
     private fun sendNotifToChallenged(players:GameBody) {

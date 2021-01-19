@@ -17,16 +17,20 @@ import hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.MyProfileActivity
 
 
 class MenuActivity : AppCompatActivity() {
-
-
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
-
         try {
             this.supportActionBar!!.hide()
         } catch (e: NullPointerException) {
         }
-
+        val match=intent?.getStringExtra("match")
+        if(match!=null){
+            Toast.makeText(
+                    this@MenuActivity,
+                    "You have lost the game! Better luck next time! ;)",
+                    Toast.LENGTH_LONG
+            ).show()
+        }
         val float = AnimationUtils.loadAnimation(this, R.anim.floating)
         val pulse = AnimationUtils.loadAnimation(this, R.anim.pulse)
 

@@ -23,7 +23,7 @@ interface GameService {
     @Headers("Content-Type:application/json")
     @POST("gameRejected")
     fun gameRejected(
-            @Body info: User
+            @Body info: GameBody
     ): retrofit2.Call<ResponseBody>
 
 
@@ -48,14 +48,8 @@ interface GameService {
     ): retrofit2.Call<ResponseBody>
 
     @Headers("Content-Type:application/json")
-    @POST("sendNotifToLoser")
-    fun sendNotifToLoser(
-            @Body game: GameBody
-    ): retrofit2.Call<ResponseBody>
-
-    @Headers("Content-Type:application/json")
-    @POST("sendNotifGameCanceled")
-    fun sendNotifGameCanceled(
-        @Body game: GameBody
+    @POST("gameCancelled")
+    fun gameCancelled(
+        @Body token:String
     ): retrofit2.Call<ResponseBody>
 }
