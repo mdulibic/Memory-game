@@ -5,6 +5,7 @@ import android.content.SharedPreferences
 import android.os.Bundle
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
+import androidx.recyclerview.widget.LinearLayoutManager
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
@@ -22,27 +23,24 @@ import retrofit2.Response
 public class ActivePlayersActivity : AppCompatActivity() {
     val PREFS="MyPrefsFile"
     lateinit var prefs:SharedPreferences
-    lateinit var activePlayersList:ListView
 
     override fun onCreate(savedInstanceState: Bundle?) {
         prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
         val challenger = prefs.getString("username", "No name defined")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_active_players)
-        activePlayersList =findViewById<ListView>(R.id.activePlayersList)
         getListOfActivePlayers()
 
-        activePlayersList.onItemClickListener =
-            AdapterView.OnItemClickListener { adapterView, view, i, l ->
-                val challengedUser = adapterView.getItemAtPosition(i) as User
-                val challenger=User("","", challenger.toString(),"","","", 0)
-                val challenged=User("","",challengedUser.username,"","","", 0)
-                var players= GameBody(challenger,challenged, 0L) // treba promijeniti u pravi gameId!!!
-                val intent = Intent(this, WaitRoomActivity::class.java)
-                intent.putExtra("challenged",challenged.token)
-                initalizeGame(players)
-                sendNotifToChallenged(players)
-            }
+
+                //val challengedUser = adapterView.getItemAtPosition(i) as User
+                //val challenger=User("","", challenger.toString(),"","","", 0)
+                //val challenged=User("","",challengedUser.username,"","","", 0)
+                //var players= GameBody(challenger,challenged, 0L) // treba promijeniti u pravi gameId!!!
+                //val intent = Intent(this, WaitRoomActivity::class.java)
+                //intent.putExtra("challenged",challenged.token)
+                //initalizeGame(players)
+                //sendNotifToChallenged(players)
+
 
         exitActivePlayers.setOnClickListener { finish() }
     }
@@ -109,13 +107,10 @@ public class ActivePlayersActivity : AppCompatActivity() {
                 response: Response<List<User>>
             ) {
                 if (response.code() == 200) {
-                        var list = mutableListOf<String>()
                         users= response!!.body()!!
-                   for (i in users.indices) {
-                       list.add(users[i].username)
-                   }
-                    val itemsAdapter = ArrayAdapter<String>(this@ActivePlayersActivity, android.R.layout.simple_list_item_1, list)
-                    activePlayersList.adapter = itemsAdapter
+
+                    recyclerViewMovies.layoutManager = LinearLayoutManager(this@ActivePlayersActivity)
+                    recyclerViewMovies.adapter = PlayersAdapter(users)
 
                 }
             }
