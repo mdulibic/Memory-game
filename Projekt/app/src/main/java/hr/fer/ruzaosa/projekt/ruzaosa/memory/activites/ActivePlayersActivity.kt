@@ -3,9 +3,11 @@ package hr.fer.ruzaosa.projekt.ruzaosa.memory.activites;
 import android.content.Intent
 import android.content.SharedPreferences
 import android.os.Bundle
+import android.view.View
 import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
+import androidx.recyclerview.widget.RecyclerView
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
@@ -23,23 +25,41 @@ import retrofit2.Response
 public class ActivePlayersActivity : AppCompatActivity() {
     val PREFS="MyPrefsFile"
     lateinit var prefs:SharedPreferences
+    lateinit var recyclerView : RecyclerView
+    var users: List<User> = arrayListOf()
 
     override fun onCreate(savedInstanceState: Bundle?) {
         prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
-        val challenger = prefs.getString("username", "No name defined")
+        val challengerUsername = prefs.getString("username", "No name defined")
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_active_players)
+        recyclerView = findViewById(R.id.recyclerViewPlayers)
         getListOfActivePlayers()
 
+        recyclerView.addOnItemTouchListener(RecyclerItemClickListener(this, recyclerView, object : RecyclerItemClickListener.OnItemClickListener {
 
-                //val challengedUser = adapterView.getItemAtPosition(i) as User
-                //val challenger=User("","", challenger.toString(),"","","", 0)
-                //val challenged=User("","",challengedUser.username,"","","", 0)
-                //var players= GameBody(challenger,challenged, 0L) // treba promijeniti u pravi gameId!!!
-                //val intent = Intent(this, WaitRoomActivity::class.java)
-                //intent.putExtra("challenged",challenged.token)
-                //initalizeGame(players)
-                //sendNotifToChallenged(players)
+            override fun onItemClick(view: View, position: Int) {
+                var challenged = PlayersAdapter(users).players.get(position)
+                var challenger:User
+                var players:GameBody
+                for(i in users.indices){
+                    if(users[i].username==challengerUsername){
+                        challenger=users[i]
+                        players=GameBody(challenger, challenged, 0L)
+                        val intent = Intent(this@ActivePlayersActivity, WaitRoomActivity::class.java)
+                        intent.putExtra("challenged",challenged.token)
+                        initalizeGame(players)
+                        sendNotifToChallenged(players)
+
+
+                    }
+
+                }
+
+
+            }
+        }))
+
 
 
         exitActivePlayers.setOnClickListener { finish() }
@@ -91,8 +111,6 @@ public class ActivePlayersActivity : AppCompatActivity() {
     }
 
     private fun getListOfActivePlayers() {
-
-        var users: List<User> = arrayListOf()
         val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
         retIn.getUsersList().enqueue(object : Callback<List<User>> {
             override fun onFailure(call: Call<List<User>>, t: Throwable) {
@@ -109,8 +127,8 @@ public class ActivePlayersActivity : AppCompatActivity() {
                 if (response.code() == 200) {
                         users= response!!.body()!!
 
-                    recyclerViewMovies.layoutManager = LinearLayoutManager(this@ActivePlayersActivity)
-                    recyclerViewMovies.adapter = PlayersAdapter(users)
+                    recyclerViewPlayers.layoutManager = LinearLayoutManager(this@ActivePlayersActivity)
+                    recyclerViewPlayers.adapter = PlayersAdapter(users)
 
                 }
             }
@@ -118,4 +136,4 @@ public class ActivePlayersActivity : AppCompatActivity() {
 
         })
     }
-}
+    }
