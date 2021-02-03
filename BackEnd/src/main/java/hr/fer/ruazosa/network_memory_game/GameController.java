@@ -68,4 +68,33 @@ public class GameController {
             return new ResponseEntity<Object>(new Boolean(didChallengedWin), HttpStatus.OK);
         }
     }
+
+    @PostMapping("/sendNotifToChallenged")
+    public ResponseEntity<Object> sendNotifToChallenged(@RequestBody Game game) {
+        if(gameService.sendNotifToChallenged(game)){
+            return new ResponseEntity<Object>(game, HttpStatus.OK);
+        }
+        return new ResponseEntity<Object>(game, HttpStatus.NOT_ACCEPTABLE);
+    }
+    @PostMapping("/sendNotifGameAccepted")
+    public ResponseEntity<Object> sendNotifGameAccepted(@RequestBody Game game) {
+        if(gameService.sendNotifGameAccepted(game)){
+            return new ResponseEntity<Object>(game, HttpStatus.OK);
+        }
+        return new ResponseEntity<Object>(game, HttpStatus.NOT_ACCEPTABLE);
+    }
+    @PostMapping("/sendNotifGameRejected")
+    public ResponseEntity<Object> sendNotifGameRejected(@RequestBody Game game) {
+        if(gameService.sendNotifGameRejected(game)){
+            return new ResponseEntity<Object>(game, HttpStatus.OK);
+        }
+        return new ResponseEntity<Object>(game, HttpStatus.NOT_ACCEPTABLE);
+    }
+    @PostMapping("/gameCancelled")
+    public ResponseEntity<Object> sendNotifGameCanceled(@RequestBody String token) {
+        if(gameService.sendNotifGameCancelled(token)){
+            return new ResponseEntity<Object>(token, HttpStatus.OK);
+        }
+        return new ResponseEntity<Object>(token, HttpStatus.NOT_ACCEPTABLE);
+    }
 }

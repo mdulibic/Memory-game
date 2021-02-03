@@ -19,20 +19,26 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
         if(remoteMessage.data.containsKey("Call for play")){
             intent.putExtra("message", "Call for play")
+            intent.putExtra("challenger",remoteMessage.data.get("challenger"))
             sendBroadcast(intent)
-            // kada se naprave push notifikacije njihovi keyevi stavljaju se u ""
-        } else if(remoteMessage.data.containsKey("Challenged accepted")){
+        }
+        else if(remoteMessage.data.containsKey("Challenged accepted")){
             intent.putExtra("message", "Challenged accepted")
             sendBroadcast(intent)
-        } else if(remoteMessage.data.containsKey("Challenged rejected")){
-            // vrati se na MenuActivity
-            // pošalji Challengeru notification da je Challenged odbio?
+        }
+        else if(remoteMessage.data.containsKey("Challenged rejected")){
             intent.putExtra("message", "Challenged rejected")
             sendBroadcast(intent)
-        } else if(remoteMessage.data.containsKey("Game canceled")){
-            intent.putExtra("message", "Game canceled")
+        }
+        else if(remoteMessage.data.containsKey("Game cancelled")){
+            intent.putExtra("message", "Game cancelled")
             sendBroadcast(intent)
-        } else if(remoteMessage.data.containsKey("")){
+        }
+        else if(remoteMessage.data.containsKey("Game lost")){
+            intent.putExtra("message", "")
+            sendBroadcast(intent)
+        }
+        else if(remoteMessage.data.containsKey("Notif for loser")){
             intent.putExtra("message", "")
             sendBroadcast(intent)
         }
