@@ -20,9 +20,10 @@ class PlayersAdapter (val players : List<User>) : RecyclerView.Adapter<PlayersAd
 
     override fun onBindViewHolder(holder: PlayerViewHolder, position: Int) {
         val player = players[position]
-        holder.view.FirstAndLastName.text = player.firstName + player.lastName
+        holder.view.FirstAndLastName.text = player.firstName +" "+ player.lastName
         holder.view.usernamePlayer.text = player.username
-
+        var active= R.drawable.active_player
+        holder.view.player_icon.setImageResource(active)
 
     }
 
@@ -31,3 +32,5 @@ class PlayersAdapter (val players : List<User>) : RecyclerView.Adapter<PlayersAd
     class PlayerViewHolder (val view: View) : RecyclerView.ViewHolder(view)
 
 }
+
+
