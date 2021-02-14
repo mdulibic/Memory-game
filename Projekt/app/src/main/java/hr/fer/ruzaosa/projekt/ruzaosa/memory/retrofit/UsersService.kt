@@ -1,6 +1,7 @@
 package hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit
 
-import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameBody
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.LogInBody
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.User
 import okhttp3.ResponseBody
 import retrofit2.http.Body
 import retrofit2.http.GET

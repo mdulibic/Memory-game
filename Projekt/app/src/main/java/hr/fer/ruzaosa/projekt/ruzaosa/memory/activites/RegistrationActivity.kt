@@ -11,7 +11,7 @@ import com.google.android.gms.tasks.OnCompleteListener
 import com.google.firebase.messaging.FirebaseMessaging
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
-import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.User
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
 import okhttp3.ResponseBody
 import retrofit2.Call

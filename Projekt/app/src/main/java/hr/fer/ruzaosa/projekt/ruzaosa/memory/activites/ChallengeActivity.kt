@@ -10,7 +10,7 @@ import android.widget.Toast
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
-import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameBody
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.GameBody
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameService
 import kotlinx.android.synthetic.main.activity_challenge.*
 import okhttp3.ResponseBody
@@ -43,7 +43,7 @@ class ChallengeActivity : AppCompatActivity() {
     private fun gameRejected() {
         prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
         val gameId = prefs.getLong("gameId", 0L)
-        val game=GameBody(null,null,gameId)
+        val game= GameBody(null,null,gameId)
         val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
         retIn.gameRejected(game).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
@@ -69,7 +69,7 @@ class ChallengeActivity : AppCompatActivity() {
     private fun gameAccepted() {
         prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
         val gameId = prefs.getLong("gameId", 0L)
-        val game=GameBody(null,null,gameId)
+        val game= GameBody(null,null,gameId)
         val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
         retIn.gameAccepted(game).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {

@@ -5,8 +5,10 @@ import android.os.Bundle
 import android.widget.Toast
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
-import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.User
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.adapters.LeaderboardAdapter
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.ScoreData
 import kotlinx.android.synthetic.main.activity_leaderboard.*
 import retrofit2.Call
 import retrofit2.Callback

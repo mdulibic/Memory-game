@@ -1,4 +1,4 @@
-package hr.fer.ruzaosa.projekt.ruzaosa.memory.activites
+package hr.fer.ruzaosa.projekt.ruzaosa.memory.adapters
 
 import android.content.Context
 import android.view.GestureDetector

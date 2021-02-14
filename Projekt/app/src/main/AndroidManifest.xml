@@ -27,6 +27,7 @@
         <activity android:name=".k.activites.LogInActivity" />
         <activity android:name=".k.activites.MenuActivity" />
         <activity android:name=".k.activites.RegistrationActivity" />
+        <activity android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.WaitRoomActivity"/>
         <activity android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.GameActivity" />
         <activity android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.ActivePlayersActivity" />
         <activity android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.ChallengeActivity" />

@@ -12,8 +12,7 @@ import androidx.appcompat.app.AppCompatActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
-import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
-import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameBody
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.Card
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.retrofit.GameService
 import kotlinx.android.synthetic.main.*
 import kotlinx.android.synthetic.main.activity_game.*

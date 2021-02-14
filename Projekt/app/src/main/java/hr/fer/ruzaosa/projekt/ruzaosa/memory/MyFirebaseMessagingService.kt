@@ -1,12 +1,11 @@
 package hr.fer.ruzaosa.projekt.ruzaosa.memory
 
-import android.content.ContentValues.TAG
 import android.content.Intent
 import android.util.Log
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
-import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.User
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.User
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
 
 
@@ -48,7 +47,7 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
 
     override fun onNewToken(token: String) {
-        Log.d(TAG, "Refreshed token: $token")
+        Log.d("tag", "Refreshed token: $token")
         updateToken(token)
     }
 
@@ -60,13 +59,4 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         retIn.updateToken(update)
     }
 
-
-    companion object {
-        private const val TAG = "MyFirebaseMsgService"
-        var PLAYER_CHALLENGED = "The second player has been challenged"
-        var GAME_ACCEPTED = "The second player accepted the game"
-        var GAME_REJECTED = "The second player rejected the game"
-        var LOSER = "You have lost the game"
-        var CANCELED_GAME = "The challenger canceled the game"
-    }
 }

@@ -1,4 +1,4 @@
-package hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit
+package hr.fer.ruzaosa.projekt.ruzaosa.memory.data
 
 import java.io.Serializable
 

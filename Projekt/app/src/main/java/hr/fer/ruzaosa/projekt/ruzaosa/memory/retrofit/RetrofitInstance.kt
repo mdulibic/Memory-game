@@ -7,7 +7,7 @@ import retrofit2.converter.gson.GsonConverterFactory
 
 class RetrofitInstance {
     companion object {
-        val BASE_URL: String = "http://" + "10.0.2.2" + ":8080/"
+        val BASE_URL: String = "http://" + "192.168.43.42" + ":8080/"
 
         val interceptor: HttpLoggingInterceptor = HttpLoggingInterceptor().apply {
             this.level = HttpLoggingInterceptor.Level.BODY

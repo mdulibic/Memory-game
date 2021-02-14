@@ -9,9 +9,10 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
-import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.LogInBody
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.LogInBody
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.MyFirebaseMessagingService
 import okhttp3.ResponseBody
 import retrofit2.Call
 import retrofit2.Callback

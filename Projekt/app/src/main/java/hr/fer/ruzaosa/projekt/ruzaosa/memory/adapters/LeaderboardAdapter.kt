@@ -1,4 +1,4 @@
-package hr.fer.ruzaosa.projekt.ruzaosa.memory.activites
+package hr.fer.ruzaosa.projekt.ruzaosa.memory.adapters
 
 import android.annotation.SuppressLint
 import android.content.Context
@@ -8,6 +8,7 @@ import android.view.ViewGroup
 import android.widget.*
 import androidx.core.content.ContextCompat
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.ScoreData
 
 public class LeaderboardAdapter(private val context: Context,
                                 private val dataSource: Array<ScoreData>
