@@ -54,4 +54,62 @@ public class UserService implements IUserService {
 
         return users;
     }
+
+    @Override
+    public boolean sendNotifGameAccepted(String challenger_username) {
+        if (userRepository.findByUserName(challenger_username).get(0) == null) {
+            return false;
+        }
+        User myUser = userRepository.findByUserName(challenger_username).get(0);
+        String response = null;
+        Message message= Message.builder()
+                .putData("Challenged accepted", "Game accepted")
+                .setToken(myUser.getToken())
+                .build();
+        try {
+            response = FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+        if(response != null)
+            return true;
+        else return false;
+    }
+    @Override
+    public boolean sendNotifGameRejected(String challenger_username) {
+        if (userRepository.findByUserName(challenger_username).get(0) == null) {
+            return false;
+        }
+        User myUser = userRepository.findByUserName(challenger_username).get(0);
+        String response = null;
+        Message message= Message.builder()
+                .putData("Challenged rejected", "Game rejected")
+                .setToken(myUser.getToken())
+                .build();
+        try {
+            response= FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+        if(response != null)
+            return true;
+        else return false;
+    }
+
+    @Override
+    public boolean sendNotifGameCanceled(String challenged_token) {
+        String response = null;
+        Message message= Message.builder()
+                .putData("Challenger canceled the game", "Game canceled")
+                .setToken(challenged_token)
+                .build();
+        try {
+            response= FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+        if(response != null)
+            return true;
+        else return false;
+    }
 }

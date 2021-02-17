@@ -8,4 +8,10 @@ public interface IUserService {
     User loginUser(User user);
     boolean updateUserToken(User user);
     List<User> getUsersList();
+    // player accepted the game request
+    boolean sendNotifGameAccepted(String challenger_username);
+    // player declined the game request
+    boolean sendNotifGameRejected(String challenger_username);
+    //challeneger decided to cancel the game request
+    boolean sendNotifGameCanceled(String challenged_token);
 }

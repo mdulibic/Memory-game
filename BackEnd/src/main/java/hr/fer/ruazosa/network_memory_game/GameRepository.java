@@ -6,6 +6,7 @@ import org.springframework.stereotype.Repository;
 import org.springframework.transaction.annotation.Transactional;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 
 @Repository
@@ -21,5 +22,6 @@ public interface GameRepository extends CrudRepository<Game, Long> {
     @Transactional
     @Query("UPDATE Game g SET g.challengedTime = ?2 WHERE g.id = ?1")
     void updateChallengedTime(Long gameId, LocalDateTime challengedTime);
+
 
 }

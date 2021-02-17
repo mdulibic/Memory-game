@@ -20,6 +20,43 @@ public class GameService implements  IGameService {
         return gameRepository.save(game);
     }
 
+    @Override
+    public boolean sendNotifToChallenged(Game players) {
+        String response = null;
+
+        Message message= Message.builder()
+                .putData("Call for play", "Do you want to play?")
+                .putData("challenger",players.getChallenger().getFirstName()+players.getChallenger().getLastName())
+                .setNotification(Notification.builder().setTitle("Call for play").setBody("Do you want to play?").build())
+                .setToken(players.getChallenged().getToken())
+                .build();
+        try {
+            response= FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+        if(response != null)
+            return true;
+        else return false;
+    }
+
+    @Override
+    public boolean sendNotifGameCancelled(String token) {
+        String response = null;
+        Message message= Message.builder()
+                .putData("Game cancelled", "Challenger cancelled the game")
+                .setToken(token)
+                .build();
+        try {
+            response= FirebaseMessaging.getInstance().send(message);
+        } catch (FirebaseMessagingException e) {
+            e.printStackTrace();
+        }
+        if(response != null)
+            return true;
+        else return false;
+    }
+
     // return true if challenger won, false otherwise
     @Override
     public boolean challengerFinished(long gameId) {
@@ -80,72 +117,5 @@ public class GameService implements  IGameService {
         }
     }
 
-    @Override
-    public boolean sendNotifToChallenged(Game players) {
-        String response = null;
-        Message message= Message.builder()
-                .putData("Call for play", "Do you want to play?")
-                .putData("challenger",players.getChallenger().getFirstName()+players.getChallenger().getLastName())
-                .setNotification(Notification.builder().setTitle("Call for play").setBody("Do you want to play?").build())
-                .setToken(players.getChallenged().getToken())
-                .build();
-        try {
-            response= FirebaseMessaging.getInstance().send(message);
-        } catch (FirebaseMessagingException e) {
-            e.printStackTrace();
-        }
-        if(response != null)
-            return true;
-        else return false;
-    }
-
-    @Override
-    public boolean sendNotifGameAccepted(Game players) {
-        String response = null;
-        Message message= Message.builder()
-                .putData("Challenged accepted", "Game accepted")
-                .setToken(players.getChallenger().getToken())
-                .build();
-        try {
-            response = FirebaseMessaging.getInstance().send(message);
-        } catch (FirebaseMessagingException e) {
-            e.printStackTrace();
-        }
-        if(response != null)
-            return true;
-        else return false;
-    }
-    @Override
-    public boolean sendNotifGameRejected(Game players) {
-        String response = null;
-        Message message= Message.builder()
-                .putData("Challenged rejected", "Game rejected")
-                .setToken(players.getChallenger().getToken())
-                .build();
-        try {
-            response= FirebaseMessaging.getInstance().send(message);
-        } catch (FirebaseMessagingException e) {
-            e.printStackTrace();
-        }
-        if(response != null)
-            return true;
-        else return false;
-    }
-    @Override
-    public boolean sendNotifGameCancelled(String token) {
-        String response = null;
-        Message message= Message.builder()
-                .putData("Game cancelled", "Challenger cancelled the game")
-                .setToken(token)
-                .build();
-        try {
-            response= FirebaseMessaging.getInstance().send(message);
-        } catch (FirebaseMessagingException e) {
-            e.printStackTrace();
-        }
-        if(response != null)
-            return true;
-        else return false;
-    }
 
 }
