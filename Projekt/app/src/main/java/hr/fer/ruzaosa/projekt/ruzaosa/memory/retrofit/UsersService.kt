@@ -48,4 +48,10 @@ interface UsersService {
             @Body info: String
     ): retrofit2.Call<ResponseBody>
 
+    @Headers("Content-Type:application/json")
+    @POST("getWins")
+    fun getWins(
+            @Body info: User
+    ): retrofit2.Call<Long>
+
 }
