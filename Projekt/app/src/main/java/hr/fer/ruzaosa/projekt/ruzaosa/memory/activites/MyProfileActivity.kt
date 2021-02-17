@@ -29,15 +29,15 @@ class MyProfileActivity : AppCompatActivity() {
         myProfileTxt.startAnimation(float)
         usernameDisplayTxt.text = username.toString()
         profileimg.setBackgroundResource(R.drawable.roundbutton)
-        setWins(username)
+        getWins(username)
         backBtn.setOnClickListener {
             finish()
         }
     }
 
-    private fun setWins(username: String) {
+    private fun getWins(username: String) {
         val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
-        val user= User("","", username,"","","", 0)
+        val user= User(0,"","", username,"","","", 0)
         retIn.getWins(user).enqueue(object : Callback<Long> {
             override fun onFailure(call: Call<Long>, t: Throwable) {
                 Toast.makeText(

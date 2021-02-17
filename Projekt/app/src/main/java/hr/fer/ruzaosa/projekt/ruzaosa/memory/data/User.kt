@@ -2,7 +2,7 @@ package hr.fer.ruzaosa.projekt.ruzaosa.memory.data
 
 import java.io.Serializable
 
-data class User(val firstName: String,
+data class User(val id: Long,val firstName: String,
                                 val lastName: String,
                                 val username: String,
                                 val email: String,
