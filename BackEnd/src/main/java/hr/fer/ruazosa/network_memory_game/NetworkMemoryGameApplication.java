@@ -17,7 +17,7 @@ public class NetworkMemoryGameApplication {
 
 
 		FileInputStream serviceAccount =
-				new FileInputStream("C:/memorygame-ce778-firebase-adminsdk-ecm7b-9399fb81a8.json");
+				new FileInputStream("C:\\projekt_ruazosa_memory_game\\memorygame-ce778-firebase-adminsdk-ecm7b-9399fb81a8.json");
 
 		FirebaseOptions options = new FirebaseOptions.Builder()
 				.setCredentials(GoogleCredentials.fromStream(serviceAccount))

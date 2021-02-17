@@ -1,0 +1,39 @@
+{
+  "project_info": {
+    "project_number": "414490235271",
+    "project_id": "memorygame-ce778",
+    "storage_bucket": "memorygame-ce778.appspot.com"
+  },
+  "client": [
+    {
+      "client_info": {
+        "mobilesdk_app_id": "1:414490235271:android:ef86acb0112a846cc14322",
+        "android_client_info": {
+          "package_name": "hr.fer.ruzaosa.lecture4.loginactivity"
+        }
+      },
+      "oauth_client": [
+        {
+          "client_id": "414490235271-b7ft27i3g78bqh8tcqq6uqbdono6fbf3.apps.googleusercontent.com",
+          "client_type": 3
+        }
+      ],
+      "api_key": [
+        {
+          "current_key": "AIzaSyD10g18u6uYOMAnYq8arh-jc4AWIPKZhk4"
+        }
+      ],
+      "services": {
+        "appinvite_service": {
+          "other_platform_oauth_client": [
+            {
+              "client_id": "414490235271-b7ft27i3g78bqh8tcqq6uqbdono6fbf3.apps.googleusercontent.com",
+              "client_type": 3
+            }
+          ]
+        }
+      }
+    }
+  ],
+  "configuration_version": "1"
+}
