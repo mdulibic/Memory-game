@@ -22,16 +22,16 @@ class MyBroadcastReceiver : BroadcastReceiver(){
             val i = Intent(context, GameActivity::class.java)
             context?.startActivity(i)
         }
+        if(message == "Challenged rejected") {
+            val i = Intent(context, MenuActivity::class.java)
+            context?.startActivity(i)
+        }
         if(message == "Notif for loser") {
             val i = Intent(context, MenuActivity::class.java)
             i.putExtra("match","You have lost!")
             context?.startActivity(i)
         }
-        if(message == "Challenged rejected") {
-            val i = Intent(context, MenuActivity::class.java)
-            context?.startActivity(i)
-        }
-        if(message == "Game cancelled") {
+        if(message == "Game canceled") {
             val i = Intent(context, MenuActivity::class.java)
             context?.startActivity(i)
         }

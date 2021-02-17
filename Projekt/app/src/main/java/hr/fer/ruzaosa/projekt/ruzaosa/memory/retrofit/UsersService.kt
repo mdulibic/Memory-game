@@ -30,4 +30,22 @@ interface UsersService {
     @GET("getUsersList")
     fun getUsersList() : retrofit2.Call<List<User>>
 
+    @Headers("Content-Type:application/json")
+    @POST("gameAccepted")
+    fun gameAccepted(
+            @Body info: String
+    ): retrofit2.Call<ResponseBody>
+
+    @Headers("Content-Type:application/json")
+    @POST("gameRejected")
+    fun gameRejected(
+            @Body info: String
+    ): retrofit2.Call<ResponseBody>
+
+    @Headers("Content-Type:application/json")
+    @POST("gameCanceled")
+    fun gameCanceled(
+            @Body info: String
+    ): retrofit2.Call<ResponseBody>
+
 }

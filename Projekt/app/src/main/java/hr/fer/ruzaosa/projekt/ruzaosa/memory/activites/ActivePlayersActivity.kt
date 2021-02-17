@@ -20,9 +20,8 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 
-
-
 public class ActivePlayersActivity : AppCompatActivity(), PlayersAdapter.OnPlayerClickListener {
+
     val PREFS="MyPrefsFile"
     lateinit var prefs:SharedPreferences
     var users: List<User> = arrayListOf()
@@ -45,7 +44,7 @@ public class ActivePlayersActivity : AppCompatActivity(), PlayersAdapter.OnPlaye
         for (i in users.indices) {
             if (users[i].username == challengerUsername) {
                 challenger = users[i]
-                players = GameBody(challenger, challenged, 0L)
+                players = GameBody(challenger, challenged)
                 val intent = Intent(this@ActivePlayersActivity, WaitRoomActivity::class.java)
                 intent.putExtra("challenged", challenged.token)
                 initalizeGame(players)
@@ -55,6 +54,35 @@ public class ActivePlayersActivity : AppCompatActivity(), PlayersAdapter.OnPlaye
         }
     }
 
+//dohvat liste igrača od kojih biramo igrača kojeg želimo izazvati na igru
+    private fun getListOfActivePlayers() {
+        val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
+        retIn.getUsersList().enqueue(object : Callback<List<User>> {
+            override fun onFailure(call: Call<List<User>>, t: Throwable) {
+                Toast.makeText(
+                        this@ActivePlayersActivity,
+                        "Unknown error!",
+                        Toast.LENGTH_SHORT
+                ).show()
+            }
+            override fun onResponse(
+                    call: Call<List<User>>,
+                    response: Response<List<User>>
+            ) {
+                if (response.code() == 200) {
+                    users= response.body()!!
+                    Log.d("tag","List successfully reached!")
+                    recyclerViewPlayers.layoutManager = LinearLayoutManager(this@ActivePlayersActivity)
+                    recyclerViewPlayers.adapter = PlayersAdapter(users,this@ActivePlayersActivity)
+
+                }
+            }
+
+
+        })
+    }
+
+ //inicijalizacija igre se odvija odma pri slanja zahtjeva za igru bez obzira održi li se igra ili ne
     private fun initalizeGame(players: GameBody) {
         val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
         retIn.createGame(players).enqueue(object : Callback<ResponseBody> {
@@ -70,15 +98,17 @@ public class ActivePlayersActivity : AppCompatActivity(), PlayersAdapter.OnPlaye
                     response: Response<ResponseBody>
             ) {
                 if (response.code() == 200) {
-                    var game=response.body() as GameBody
+                    Log.d("tag","Game initialized")
+                    var gameId=response.body() as Long
                     val editor = getSharedPreferences(PREFS, MODE_PRIVATE).edit()
-                    editor.putLong("gameId", game.gameId)
+                    editor.putLong("gameId", gameId)
                     editor.apply()
                 }
             }
         })
     }
 
+//slanje zahtjeva za igru odabranom igraču
     private fun sendNotifToChallenged(players: GameBody) {
         val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
         retIn.sendNotifToChallenged(players).enqueue(object : Callback<ResponseBody> {
@@ -100,32 +130,7 @@ public class ActivePlayersActivity : AppCompatActivity(), PlayersAdapter.OnPlaye
         })
     }
 
-    private fun getListOfActivePlayers() {
-        val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
-        retIn.getUsersList().enqueue(object : Callback<List<User>> {
-            override fun onFailure(call: Call<List<User>>, t: Throwable) {
-                Toast.makeText(
-                    this@ActivePlayersActivity,
-                    "Unknown error!",
-                    Toast.LENGTH_SHORT
-                ).show()
-            }
-            override fun onResponse(
-                call: Call<List<User>>,
-                response: Response<List<User>>
-            ) {
-                if (response.code() == 200) {
-                        users= response.body()!!
-                        Log.d("tag","List successfully reached!")
-                    recyclerViewPlayers.layoutManager = LinearLayoutManager(this@ActivePlayersActivity)
-                    recyclerViewPlayers.adapter = PlayersAdapter(users,this@ActivePlayersActivity)
 
-                }
-            }
-
-
-        })
-    }
 
 
 }

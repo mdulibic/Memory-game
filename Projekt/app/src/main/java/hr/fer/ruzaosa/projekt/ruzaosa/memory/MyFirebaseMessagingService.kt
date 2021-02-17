@@ -2,11 +2,19 @@ package hr.fer.ruzaosa.projekt.ruzaosa.memory
 
 import android.content.Intent
 import android.util.Log
+import android.widget.Toast
+import androidx.recyclerview.widget.LinearLayoutManager
 import com.google.firebase.messaging.FirebaseMessagingService
 import com.google.firebase.messaging.RemoteMessage
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.User
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.adapters.PlayersAdapter
+import kotlinx.android.synthetic.main.activity_active_players.*
+import okhttp3.ResponseBody
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 
 
 class MyFirebaseMessagingService: FirebaseMessagingService() {
@@ -47,7 +55,6 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
 
 
     override fun onNewToken(token: String) {
-        Log.d("tag", "Refreshed token: $token")
         updateToken(token)
     }
 
@@ -56,7 +63,25 @@ class MyFirebaseMessagingService: FirebaseMessagingService() {
         val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
         val username = prefs.getString("username", "No name defined").toString() //"No name defined" is the default value
         val update= User("","", username,"","",token, 0)
-        retIn.updateToken(update)
+        retIn.updateToken(update).enqueue(object : Callback<ResponseBody> {
+            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+                Toast.makeText(
+                        this@MyFirebaseMessagingService,
+                        "Unknown error!",
+                        Toast.LENGTH_SHORT
+                ).show()
+            }
+            override fun onResponse(
+                    call: Call<ResponseBody>,
+                    response: Response<ResponseBody>
+            ) {
+                if (response.code() == 200) {
+                    Log.d("tag", "Refreshed token: $token")
+                }
+            }
+
+
+        })
     }
 
 }
