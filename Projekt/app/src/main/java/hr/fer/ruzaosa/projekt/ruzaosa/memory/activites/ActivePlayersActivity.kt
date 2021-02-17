@@ -47,7 +47,7 @@ public class ActivePlayersActivity : AppCompatActivity(), PlayersAdapter.OnPlaye
                 players = GameBody(challenger, challenged)
                 val intent = Intent(this@ActivePlayersActivity, WaitRoomActivity::class.java)
                 intent.putExtra("challenged", challenged.token)
-                initalizeGame(players)
+                initializeGame(players)
                 sendNotifToChallenged(players)
                 startActivity(intent)
             }
@@ -83,7 +83,7 @@ public class ActivePlayersActivity : AppCompatActivity(), PlayersAdapter.OnPlaye
     }
 
  //inicijalizacija igre se odvija odma pri slanja zahtjeva za igru bez obzira održi li se igra ili ne
-    private fun initalizeGame(players: GameBody) {
+    private fun initializeGame(players: GameBody) {
         val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
         retIn.createGame(players).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
