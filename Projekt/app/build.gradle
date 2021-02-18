@@ -10,7 +10,7 @@ android {
     buildToolsVersion "30.0.2"
 
     defaultConfig {
-        applicationId "hr.fer.ruzaosa.projekt.memorygame"
+        applicationId "hr.fer.ruzaosa.lecture4.loginactivity"
         minSdkVersion 23
         targetSdkVersion 30
         versionCode 1

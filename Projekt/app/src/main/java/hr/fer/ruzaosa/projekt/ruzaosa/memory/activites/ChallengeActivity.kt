@@ -33,7 +33,7 @@ class ChallengeActivity : AppCompatActivity() {
         buttonAccept.setOnClickListener {
             gameAccepted()
             val myIntent = Intent(this@ChallengeActivity, GameActivity::class.java)
-            this@ChallengeActivity.startActivity(myIntent)
+            startActivity(myIntent)
         }
         buttonReject.setOnClickListener {
             gameRejected()

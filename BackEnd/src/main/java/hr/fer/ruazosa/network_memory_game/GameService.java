@@ -26,7 +26,7 @@ public class GameService implements  IGameService {
 
         Message message= Message.builder()
                 .putData("Call for play", "Do you want to play?")
-                .putData("challenger",players.getChallenger().getFirstName()+players.getChallenger().getLastName())
+                .putData("challenger",players.getChallenger().getUsername())
                 .setNotification(Notification.builder().setTitle("Call for play").setBody("Do you want to play?").build())
                 .setToken(players.getChallenged().getToken())
                 .build();

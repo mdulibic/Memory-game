@@ -97,11 +97,15 @@ public class UserService implements IUserService {
     }
 
     @Override
-    public boolean sendNotifGameCanceled(String challenged_token) {
+    public boolean sendNotifGameCanceled(String challenged_username) {
+        if (userRepository.findByUserName(challenged_username).get(0) == null) {
+            return false;
+        }
+        User myUser = userRepository.findByUserName(challenged_username).get(0);
         String response = null;
         Message message= Message.builder()
                 .putData("Challenger canceled the game", "Game canceled")
-                .setToken(challenged_token)
+                .setToken(myUser.getToken())
                 .build();
         try {
             response= FirebaseMessaging.getInstance().send(message);

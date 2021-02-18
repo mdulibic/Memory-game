@@ -13,5 +13,5 @@ public interface IUserService {
     // player declined the game request
     boolean sendNotifGameRejected(String challenger_username);
     //challeneger decided to cancel the game request
-    boolean sendNotifGameCanceled(String challenged_token);
+    boolean sendNotifGameCanceled(String challenged_username);
 }

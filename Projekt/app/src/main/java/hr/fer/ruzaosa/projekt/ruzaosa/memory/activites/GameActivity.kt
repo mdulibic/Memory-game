@@ -25,7 +25,6 @@ import java.lang.Math.*
 
 class GameActivity : AppCompatActivity() {
     val PREFS = "MyPrefsFile"
-    val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
     private lateinit var buttons: List<ImageButton>
     private lateinit var cards: List<Card>
     private var indexOfSingleSelectedCard: Int = -1
@@ -36,6 +35,7 @@ class GameActivity : AppCompatActivity() {
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
         setContentView(R.layout.activity_game)
+        val prefs = getSharedPreferences(PREFS, MODE_PRIVATE)
         var username = prefs.getString("username", "No name defined")
         gameId = prefs.getLong("gameId", 0L)
         try {

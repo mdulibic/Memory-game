@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.core.content.ContextCompat
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.ScoreData
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.User
 
 public class LeaderboardAdapter(private val context: Context,
                                 private val dataSource: Array<ScoreData>

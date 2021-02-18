@@ -8,6 +8,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import androidx.recyclerview.widget.LinearLayoutManager
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
+import hr.fer.ruzaosa.lecture4.ruzaosa.k.activites.MenuActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.RetrofitInstance
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.User
 import hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit.UsersService
@@ -45,11 +46,21 @@ public class ActivePlayersActivity : AppCompatActivity(), PlayersAdapter.OnPlaye
             if (users[i].username == challengerUsername) {
                 challenger = users[i]
                 players = GameBody(challenger, challenged)
-                val intent = Intent(this@ActivePlayersActivity, WaitRoomActivity::class.java)
-                intent.putExtra("challenged", challenged.token)
-                initalizeGame(players)
-                sendNotifToChallenged(players)
-                startActivity(intent)
+                if(challenger.username == challenged.username){
+                    Toast.makeText(
+                            this@ActivePlayersActivity,
+                            "You have entered practice mode! Good luck! :)",
+                            Toast.LENGTH_LONG
+                    ).show()
+                    val myIntent = Intent(this, GameActivity::class.java)
+                    startActivity(myIntent)
+                }else {
+                    val intent = Intent(this@ActivePlayersActivity, WaitRoomActivity::class.java)
+                    intent.putExtra("challenged", challenged.username)
+                    startActivity(intent)
+                    initalizeGame(players)
+                    sendNotifToChallenged(players)
+                }
             }
         }
     }

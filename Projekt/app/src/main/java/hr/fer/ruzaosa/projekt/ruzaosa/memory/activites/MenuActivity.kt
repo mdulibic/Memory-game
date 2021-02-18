@@ -9,6 +9,7 @@ import android.widget.*
 import androidx.appcompat.app.AppCompatActivity
 import hr.fer.ruzaosa.lecture4.ruzaosa.R
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.ActivePlayersActivity
+import hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.GameActivity
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.LeaderboardActivity
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.MyProfileActivity
 

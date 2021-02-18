@@ -29,9 +29,9 @@ class WaitRoomActivity: AppCompatActivity() {
     }
 
     private fun cancelGameRequest() {
-        val challenged_token=intent?.getStringExtra("challenged")
+        val challenged_username=intent?.getStringExtra("challenged")
         val retIn = RetrofitInstance.getRetrofit().create(UsersService::class.java)
-        retIn.gameCanceled(challenged_token!!).enqueue(object : Callback<ResponseBody> {
+        retIn.gameCanceled(challenged_username!!).enqueue(object : Callback<ResponseBody> {
             override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
                 Toast.makeText(
                         this@WaitRoomActivity,

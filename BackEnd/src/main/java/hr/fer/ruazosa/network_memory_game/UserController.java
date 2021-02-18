@@ -87,25 +87,25 @@ public class UserController {
           return new ResponseEntity<List<User>>(users, HttpStatus.OK);
     }
 
-    @PostMapping("/gameAccepted")
-    public ResponseEntity<Object> sendNotifGameAccepted(@RequestBody String challenger_username) {
+    @GetMapping("/gameAccepted/{username}")
+    public ResponseEntity<Object> sendNotifGameAccepted(@PathVariable("username") String challenger_username) {
         if(userService.sendNotifGameAccepted(challenger_username)){
             return new ResponseEntity<Object>(challenger_username, HttpStatus.OK);
         }
         return new ResponseEntity<Object>(challenger_username, HttpStatus.NOT_ACCEPTABLE);
     }
-    @PostMapping("/gameRejected")
-    public ResponseEntity<Object> sendNotifGameRejected(@RequestBody String challenger_username) {
+    @GetMapping("/gameRejected/{username}")
+    public ResponseEntity<Object> sendNotifGameRejected(@PathVariable("username") String challenger_username) {
         if(userService.sendNotifGameRejected(challenger_username)){
             return new ResponseEntity<Object>(challenger_username, HttpStatus.OK);
         }
         return new ResponseEntity<Object>(challenger_username, HttpStatus.NOT_ACCEPTABLE);
     }
-    @PostMapping("/gameCanceled")
-    public ResponseEntity<Object> sendNotifGameCanceled(@RequestBody String challenged_token) {
-        if(userService.sendNotifGameCanceled(challenged_token)){
-            return new ResponseEntity<Object>(challenged_token, HttpStatus.OK);
+    @GetMapping("/gameCanceled/{username}")
+    public ResponseEntity<Object> sendNotifGameCanceled(@PathVariable("username") String challenged_username) {
+        if(userService.sendNotifGameCanceled(challenged_username)){
+            return new ResponseEntity<Object>(challenged_username, HttpStatus.OK);
         }
-        return new ResponseEntity<Object>(challenged_token, HttpStatus.NOT_ACCEPTABLE);
+        return new ResponseEntity<Object>(challenged_username, HttpStatus.NOT_ACCEPTABLE);
     }
 }

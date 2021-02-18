@@ -3,10 +3,7 @@ package hr.fer.ruzaosa.lecture4.ruzaosa.k.retrofit
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.LogInBody
 import hr.fer.ruzaosa.projekt.ruzaosa.memory.data.User
 import okhttp3.ResponseBody
-import retrofit2.http.Body
-import retrofit2.http.GET
-import retrofit2.http.Headers
-import retrofit2.http.POST
+import retrofit2.http.*
 
 interface UsersService {
 
@@ -31,21 +28,21 @@ interface UsersService {
     fun getUsersList() : retrofit2.Call<List<User>>
 
     @Headers("Content-Type:application/json")
-    @POST("gameAccepted")
+    @GET("gameAccepted/{username}")
     fun gameAccepted(
-            @Body info: String
+         @Path("username") username: String
     ): retrofit2.Call<ResponseBody>
 
     @Headers("Content-Type:application/json")
-    @POST("gameRejected")
+    @GET("gameRejected/{username}")
     fun gameRejected(
-            @Body info: String
+        @Path("username") username: String
     ): retrofit2.Call<ResponseBody>
 
     @Headers("Content-Type:application/json")
-    @POST("gameCanceled")
+    @GET("gameCanceled/{username}")
     fun gameCanceled(
-            @Body info: String
+        @Path("username") username: String
     ): retrofit2.Call<ResponseBody>
 
     @Headers("Content-Type:application/json")

@@ -32,11 +32,11 @@
         <activity android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.ActivePlayersActivity" />
         <activity android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.activites.ChallengeActivity" />
 
-        <receiver android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.MyBroadcastReceiver">
-            <intent-filter>
-                <action android:name="fer.hr.ruazosa.memory" />
+        <!--<receiver android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.MyBroadcastReceiver">
+       <intent-filter>
+               <action android:name="fer.hr.ruazosa.memory" />
             </intent-filter>
-        </receiver>
+        </receiver>-->
 
         <service android:name="hr.fer.ruzaosa.projekt.ruzaosa.memory.MyFirebaseMessagingService">
             <intent-filter>
