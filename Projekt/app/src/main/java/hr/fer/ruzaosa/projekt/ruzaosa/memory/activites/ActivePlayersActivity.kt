@@ -96,8 +96,8 @@ public class ActivePlayersActivity : AppCompatActivity(), PlayersAdapter.OnPlaye
  //inicijalizacija igre se odvija odma pri slanja zahtjeva za igru bez obzira održi li se igra ili ne
     private fun initalizeGame(players: GameBody) {
         val retIn = RetrofitInstance.getRetrofit().create(GameService::class.java)
-        retIn.createGame(players).enqueue(object : Callback<ResponseBody> {
-            override fun onFailure(call: Call<ResponseBody>, t: Throwable) {
+        retIn.createGame(players).enqueue(object : Callback<Long> {
+            override fun onFailure(call: Call<Long>, t: Throwable) {
                 Toast.makeText(
                         this@ActivePlayersActivity,
                         "Unknown error!",
@@ -105,14 +105,14 @@ public class ActivePlayersActivity : AppCompatActivity(), PlayersAdapter.OnPlaye
                 ).show()
             }
             override fun onResponse(
-                    call: Call<ResponseBody>,
-                    response: Response<ResponseBody>
+                    call: Call<Long>,
+                    response: Response<Long>
             ) {
                 if (response.code() == 200) {
                     Log.d("tag","Game initialized")
-                    var gameId=response.body() as Long
+                    var gameId = response.body()
                     val editor = getSharedPreferences(PREFS, MODE_PRIVATE).edit()
-                    editor.putLong("gameId", gameId)
+                    editor.putLong("gameId", gameId!!)
                     editor.apply()
                 }
             }

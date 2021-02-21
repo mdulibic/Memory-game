@@ -12,7 +12,7 @@ interface GameService {
     @POST("createGame")
     fun createGame(
             @Body info: GameBody
-    ): retrofit2.Call<ResponseBody>
+    ): retrofit2.Call<Long>
 
     @Headers("Content-Type:application/json")
     @POST("sendNotifToChallenged")
