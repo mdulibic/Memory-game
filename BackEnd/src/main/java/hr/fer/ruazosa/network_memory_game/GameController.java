@@ -18,26 +18,15 @@ public class GameController {
     private IGameService gameService;
 
     @PostMapping("/createGame")
-    public ResponseEntity<Object> createGame(@RequestBody Game game) {
+    public ResponseEntity<Long> createGame(@RequestBody Game game) {
         // validation
-        if (game == null) {
-            Map<String, Object> body = new LinkedHashMap<>();
-            body.put("error", "no user JSON object in body");
-            return new ResponseEntity<Object>(body, HttpStatus.NOT_ACCEPTABLE);
-        }
-        else if (game.getChallenger() == null || game.getChallenged() == null) {
-            Map<String, Object> body = new LinkedHashMap<>();
-            body.put("error", "no challenger or challenged in JSON");
-            return new ResponseEntity<Object>(body, HttpStatus.NOT_ACCEPTABLE);
-        }
-        else if (game.getChallenger().getId() == null || game.getChallenged().getId() == null) {
-            Map<String, Object> body = new LinkedHashMap<>();
-            body.put("error", "no challenger or challenged in JSON");
-            return new ResponseEntity<Object>(body, HttpStatus.NOT_ACCEPTABLE);
+        if (game == null || game.getChallenger() == null || game.getChallenged() == null
+             || game.getChallenger().getId() == null || game.getChallenged().getId() == null) {
+            return new ResponseEntity<Long>(0L, HttpStatus.NOT_ACCEPTABLE);
         }
         else {
             Game createdGame = gameService.createGame(game);
-            return new ResponseEntity<Object>(createdGame.getId(), HttpStatus.OK);
+            return new ResponseEntity<Long>(createdGame.getId(), HttpStatus.OK);
         }
     }
 
