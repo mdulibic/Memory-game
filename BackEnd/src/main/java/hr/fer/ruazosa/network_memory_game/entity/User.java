@@ -1,4 +1,4 @@
-package hr.fer.ruazosa.network_memory_game;
+package hr.fer.ruazosa.network_memory_game.entity;
 
 import javax.persistence.Column;
 import javax.persistence.Entity;

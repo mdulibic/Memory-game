@@ -1,4 +1,6 @@
-package hr.fer.ruazosa.network_memory_game;
+package hr.fer.ruazosa.network_memory_game.service;
+
+import hr.fer.ruazosa.network_memory_game.entity.User;
 
 import java.util.List;
 

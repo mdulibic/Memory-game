@@ -1,5 +1,7 @@
-package hr.fer.ruazosa.network_memory_game;
+package hr.fer.ruazosa.network_memory_game.controller;
 
+import hr.fer.ruazosa.network_memory_game.service.IUserService;
+import hr.fer.ruazosa.network_memory_game.entity.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -9,8 +11,6 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
-import java.time.LocalDateTime;
-import java.util.ArrayList;
 import java.util.LinkedHashMap;
 import java.util.List;
 import java.util.Map;

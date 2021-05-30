@@ -1,4 +1,6 @@
-package hr.fer.ruazosa.network_memory_game;
+package hr.fer.ruazosa.network_memory_game.service;
+
+import hr.fer.ruazosa.network_memory_game.entity.Game;
 
 public interface IGameService {
     // initialize game

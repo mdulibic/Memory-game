@@ -1,9 +1,11 @@
-package hr.fer.ruazosa.network_memory_game;
+package hr.fer.ruazosa.network_memory_game.service;
 
 import com.google.firebase.messaging.FirebaseMessaging;
 import com.google.firebase.messaging.FirebaseMessagingException;
 import com.google.firebase.messaging.Message;
 import com.google.firebase.messaging.Notification;
+import hr.fer.ruazosa.network_memory_game.entity.Game;
+import hr.fer.ruazosa.network_memory_game.repository.GameRepository;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 

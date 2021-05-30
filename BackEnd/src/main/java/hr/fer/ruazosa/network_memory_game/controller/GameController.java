@@ -1,5 +1,7 @@
-package hr.fer.ruazosa.network_memory_game;
+package hr.fer.ruazosa.network_memory_game.controller;
 
+import hr.fer.ruazosa.network_memory_game.service.IGameService;
+import hr.fer.ruazosa.network_memory_game.entity.Game;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
