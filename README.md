@@ -1,24 +1,24 @@
 # Memory-game
 
-## Općenito o aplikaciji
+## General about the application
 
-Aplikacija je mrežna Memory igra.
-Cilj igre je pobijediti protivnika u Memory igri. Aplikacija prikazuje 8x8 polja sa različitim
-slikama i cilj je otvarati polja te pogoditi poziciju dva identična polja nakon čega se polja
-zatvaraju. Pobjednik je igrač koji prije pogodi sva polja.
+The application is an online Memory game.
+The goal of the game is to beat your opponent in the Memory game. The application displays 8x8 fields with different
+pictures and the goal is to open fields and guess the position of two identical fields, after which the fields
+they close. The winner is the player who hits all the squares first.
 
-## Funkcionalnosti
-- registracija na sustav, unos imena, prezimena, korisničkog imena, e-mail adrese te
-lozinke, slanje linka za potvrdu registracije na e-mail adresu
-- prijava na sustav: unos korisničkog imena i lozinke
-- nakon uspješne prijave aplikacije prikazati listu prijavljenih igrača (protivnika)
-- odabirom protivnika i njegovim prihvatom sudjelovanja u igri, pokrenuti igru i nakon
-završetka igre, evidentira se pobjednik
-- aplikacija ima mogućnost prikaza lista neuspješnijih igrača
+## Functionalities
+- registration on the system, entry of name, surname, username, e-mail address and
+passwords, sending a link to confirm registration to an e-mail address
+- logging in to the system: entering a username and password
+- after successful registration of the application, display the list of registered players (opponents)
+- by selecting an opponent and accepting his participation in the game, start the game and after
+after the end of the game, the winner is recorded
+- the application has the ability to display a list of unsuccessful players
 
 ## Backend
 
-Aplikacija ima serversku komponentu koja se sastoji od REST usluga za registraciju, prijavu,
-dohvat prijavljenih igrača, spajanje igrača i pokretanje igre, evidenciju pobjednika te dohvat
-liste najuspješnijih igrača. 
-Korišten je Spring Boot i lokalna h2 baza podataka.
+The application has a server component consisting of REST services for registration, login,
+retrieving registered players, joining players and starting the game, record of winners and retrieving
+lists of the most successful players.
+Spring Boot and local h2 database were used.
